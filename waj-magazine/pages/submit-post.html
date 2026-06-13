@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Submit a Post — WAJ Magazine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --crimson:#7A0000;--crimson-light:#9B0000;
+      --text:#1A1A1A;--text-muted:#555;--text-light:#888;
+      --bg:#FFFFFF;--bg-alt:#F6F6F6;--border:#E0E0E0;
+      --black:#0A0A0A;--white:#FFFFFF;
+      --font-display:'Bebas Neue',sans-serif;
+      --font-body:'Montserrat',sans-serif;
+      --font-editorial:'Playfair Display',serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
+    a{text-decoration:none;color:inherit;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:2px solid var(--crimson);}
+    .nav-logo img{height:44px;}
+    .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+    .nav-links a{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--crimson);}
+    .nav-links .nav-ent{padding:8px 18px;background:var(--crimson);color:var(--white);border-radius:2px;font-size:10px;}
+    .nav-links .nav-ent:hover{background:var(--crimson-light);color:var(--white);}
+
+    /* PAGE LAYOUT */
+    .submit-layout{display:grid;grid-template-columns:1fr 340px;gap:0;min-height:100vh;}
+
+    /* LEFT — FORM */
+    .submit-form-side{padding:110px 60px 80px;}
+    .submit-form-side .eyebrow{font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--crimson);margin-bottom:14px;display:block;}
+    .submit-form-side h1{font-family:var(--font-display);font-size:clamp(52px,6vw,80px);letter-spacing:.04em;line-height:.95;color:var(--text);margin-bottom:16px;}
+    .submit-form-side .intro{font-size:14px;color:var(--text-muted);line-height:1.8;max-width:520px;margin-bottom:44px;border-left:3px solid var(--crimson);padding-left:16px;}
+
+    .form-section-title{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin:32px 0 18px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+    .form-group{margin-bottom:18px;}
+    .form-group label{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-light);margin-bottom:7px;}
+    .form-group input,
+    .form-group select,
+    .form-group textarea{width:100%;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:14px;padding:13px 15px;outline:none;transition:border-color .2s,background .2s;}
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{border-color:var(--crimson);background:#fff;}
+    .form-group textarea{resize:vertical;min-height:200px;line-height:1.7;}
+    .form-group textarea.short{min-height:100px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .form-group select option{background:#fff;}
+
+    /* Character count */
+    .char-hint{font-size:10px;color:var(--text-light);margin-top:5px;text-align:right;}
+
+    /* File upload */
+    .file-upload{border:2px dashed var(--border);padding:28px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--bg-alt);}
+    .file-upload:hover{border-color:var(--crimson);}
+    .file-upload p{font-size:13px;color:var(--text-muted);margin-bottom:6px;}
+    .file-upload span{font-size:10px;color:var(--text-light);}
+    .file-upload input{display:none;}
+    .file-name{font-size:11px;color:var(--crimson);margin-top:8px;font-weight:700;}
+
+    /* Guidelines checklist */
+    .guidelines{background:var(--bg-alt);border:1px solid var(--border);padding:24px;margin-bottom:28px;}
+    .guidelines h4{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text);margin-bottom:14px;}
+    .guidelines ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+    .guidelines li{font-size:12px;color:var(--text-muted);padding-left:18px;position:relative;line-height:1.5;}
+    .guidelines li::before{content:'✓';position:absolute;left:0;color:var(--crimson);font-weight:700;font-size:11px;}
+
+    /* Agreement checkbox */
+    .agree-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:28px;}
+    .agree-row input[type=checkbox]{width:16px;height:16px;margin-top:2px;accent-color:var(--crimson);flex-shrink:0;cursor:pointer;}
+    .agree-row label{font-size:12px;color:var(--text-muted);line-height:1.6;cursor:pointer;}
+    .agree-row label a{color:var(--crimson);text-decoration:underline;}
+
+    /* Submit button */
+    .btn-submit{display:block;width:100%;padding:16px;background:var(--crimson);color:#fff;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s;font-family:var(--font-body);}
+    .btn-submit:hover{background:var(--crimson-light);}
+    .btn-submit:disabled{background:#ccc;cursor:not-allowed;}
+
+    /* SUCCESS STATE */
+    .success-state{display:none;text-align:center;padding:80px 40px;}
+    .success-state .check{width:64px;height:64px;background:var(--crimson);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px;color:#fff;}
+    .success-state h2{font-family:var(--font-display);font-size:48px;color:var(--text);margin-bottom:12px;}
+    .success-state p{font-size:14px;color:var(--text-muted);line-height:1.8;max-width:420px;margin:0 auto 28px;}
+    .success-state a{display:inline-block;padding:12px 28px;border:1px solid var(--crimson);color:var(--crimson);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:all .2s;}
+    .success-state a:hover{background:var(--crimson);color:#fff;}
+
+    /* RIGHT — INFO PANEL */
+    .submit-info-side{background:var(--text);padding:110px 40px 60px;display:flex;flex-direction:column;gap:36px;}
+    .info-block h3{font-family:var(--font-display);font-size:26px;letter-spacing:.04em;color:#fff;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #2a2a2a;}
+    .info-block p{font-size:12px;color:#999;line-height:1.8;}
+    .info-block ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:10px;}
+    .info-block li{font-size:12px;color:#999;padding-left:16px;position:relative;line-height:1.5;}
+    .info-block li::before{content:'◆';position:absolute;left:0;color:var(--crimson);font-size:8px;top:4px;}
+    .info-badge{display:inline-block;background:rgba(122,0,0,.25);border:1px solid rgba(122,0,0,.4);color:#ff8888;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;margin-bottom:14px;}
+    .cat-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+    .cat-tag{padding:4px 12px;border:1px solid #2a2a2a;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#888;transition:all .2s;cursor:default;}
+    .cat-tag:hover{border-color:var(--crimson);color:#fff;}
+
+    footer{background:var(--black);border-top:3px solid var(--crimson);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+    footer p{font-size:11px;color:#666;}
+    footer a.ent-link{font-size:11px;font-weight:700;letter-spacing:.1em;color:#ff6666;text-transform:uppercase;border:1px solid rgba(122,0,0,.4);padding:6px 14px;transition:background .2s;}
+    footer a.ent-link:hover{background:var(--crimson);color:#fff;}
+
+    @media(max-width:900px){
+      nav{padding:0 20px;} .nav-links{display:none;}
+      .submit-layout{grid-template-columns:1fr;}
+      .submit-info-side{padding:60px 24px;}
+      .submit-form-side{padding:100px 24px 60px;}
+      footer{padding:32px 24px;}
+      .form-row{grid-template-columns:1fr;}
+    }
+  </style>
+<style id="focal-fix">
+  img[src*="Cover_2_.png"] { object-position: 25% 45% !important; }
+  img[src*="Magazine_Cover.png"] { object-position: 50% 22% !important; }
+  img[src*="spring2025.png"] { object-position: 55% 18% !important; }
+  img[src*="Spring20252.png"] { object-position: 50% 12% !important; }
+  img[src*="Spring2023.png"] { object-position: 50% 22% !important; }
+  img[src*="Spring2024.png"] { object-position: 50% 18% !important; }
+  img[src*="spring20242.png"] { object-position: 50% 14% !important; }
+  img[src*="sept2022.png"] { object-position: 50% 18% !important; }
+  img[src*="summer20222.png"] { object-position: 50% 20% !important; }
+  img[src*="winterSpring2023.png"] { object-position: 50% 18% !important; }
+  img[src*="waj-red-logo.png"] { object-position: center center !important; }
+
+  .blog-card-img img   { aspect-ratio: 3/4 !important; }
+  .blog-card-img       { aspect-ratio: 3/4 !important; }
+  .popular-post img    { aspect-ratio: 1/1; object-fit: cover; }
+  .ent-post-card img   { aspect-ratio: 3/4 !important; object-fit: cover; }
+  .feature-hero-card img { aspect-ratio: 3/4; object-fit: cover; }
+  .sidebar-feature img { aspect-ratio: 3/4; object-fit: cover; }
+  .feature-card img    { aspect-ratio: 3/4; object-fit: cover; }
+  .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
+  .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+  .hero-bg             { background-position: 30% 40% !important; }
+</style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="issues.html">Issues</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="advertise.html">Advertise</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </nav>
+
+  <div class="submit-layout">
+
+    <!-- FORM SIDE -->
+    <div class="submit-form-side">
+
+      <!-- Form -->
+      <div id="formState">
+        <span class="eyebrow">Contribute to WAJ Magazine</span>
+        <h1>SUBMIT<br>A POST</h1>
+        <p class="intro">Have a story, interview, opinion, or cultural piece you'd like to share? Submit it here and our editorial team will review it for publication on WAJ Magazine. All submissions are reviewed within 5–7 business days.</p>
+
+        <!-- AUTHOR INFO -->
+        <p class="form-section-title">Your Information</p>
+        <div class="form-row">
+          <div class="form-group"><label>First Name *</label><input type="text" id="firstName" placeholder="First name" required/></div>
+          <div class="form-group"><label>Last Name *</label><input type="text" id="lastName" placeholder="Last name" required/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="your@email.com" required/></div>
+          <div class="form-group"><label>Instagram Handle</label><input type="text" id="instagram" placeholder="@yourhandle"/></div>
+        </div>
+        <div class="form-group"><label>Website / Portfolio (optional)</label><input type="url" id="website" placeholder="https://yourwebsite.com"/></div>
+
+        <!-- POST DETAILS -->
+        <p class="form-section-title">Post Details</p>
+        <div class="form-group"><label>Post Title *</label><input type="text" id="postTitle" placeholder="Your article headline" maxlength="100" oninput="updateCount('titleCount',this.value,100)" required/><p class="char-hint"><span id="titleCount">0</span>/100</p></div>
+        <div class="form-row">
+          <div class="form-group"><label>Category *</label>
+            <select id="category" required>
+              <option value="">Select a category...</option>
+              <option>Beauty</option>
+              <option>Business</option>
+              <option>Community</option>
+              <option>Culture</option>
+              <option>Fashion</option>
+              <option>Food</option>
+              <option>Health</option>
+              <option>Music</option>
+              <option>Sports</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Post Type</label>
+            <select id="postType">
+              <option>Article / Opinion</option>
+              <option>Interview</option>
+              <option>Event Recap</option>
+              <option>Product / Brand Feature</option>
+              <option>Music Review</option>
+              <option>Community Spotlight</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Short Summary *<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">1–2 sentences describing your post (shown as preview)</span></label><textarea class="short" id="summary" placeholder="Brief description of your article..." maxlength="280" oninput="updateCount('sumCount',this.value,280)" required></textarea><p class="char-hint"><span id="sumCount">0</span>/280</p></div>
+        <div class="form-group"><label>Full Article Content *</label><textarea id="content" placeholder="Paste or write your full article here. Minimum 300 words." oninput="updateCount('wordCount',this.value,0)" required></textarea><p class="char-hint" id="wordCountDisplay">0 words</p></div>
+
+        <!-- MEDIA -->
+        <p class="form-section-title">Media (Optional)</p>
+        <div class="form-group">
+          <label>Cover / Feature Image</label>
+          <div class="file-upload" onclick="document.getElementById('imageUpload').click()">
+            <p>Click to upload a cover image</p>
+            <span>JPG or PNG · Max 5MB · Recommended 1200×800px</span>
+            <input type="file" id="imageUpload" accept="image/jpeg,image/png" onchange="showFileName(this,'imageFileName')"/>
+            <p class="file-name" id="imageFileName"></p>
+          </div>
+        </div>
+        <div class="form-group"><label>Image Credits / Caption (if applicable)</label><input type="text" id="imageCredit" placeholder="Photo by: Name or @handle"/></div>
+
+        <!-- GUIDELINES -->
+        <div class="guidelines">
+          <h4>Submission Guidelines</h4>
+          <ul>
+            <li>Minimum 300 words. Long-form pieces (800–1500 words) are preferred.</li>
+            <li>Content must be original and not published elsewhere.</li>
+            <li>No hate speech, explicit content, or defamatory claims.</li>
+            <li>WAJ Magazine reserves the right to edit for length, clarity, and style.</li>
+            <li>Approval typically takes 5–7 business days. We'll email you either way.</li>
+            <li>Approved posts will be credited to you and link to your social/website.</li>
+          </ul>
+        </div>
+
+        <div class="agree-row">
+          <input type="checkbox" id="agreeCheck"/>
+          <label for="agreeCheck">I confirm this content is original, that I have rights to any included media, and I agree to WAJ Magazine's <a href="contact.html">submission terms</a>. I understand the editorial team may edit my submission before publishing.</label>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
+        <p style="font-size:11px;color:var(--text-light);margin-top:12px;text-align:center;">Your submission will be sent to the WAJ editorial team for review. We'll be in touch within 5–7 business days.</p>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-state" id="successState">
+        <div class="check">✓</div>
+        <h2>SUBMITTED!</h2>
+        <p>Thank you for your submission. Our editorial team will review your post and get back to you within 5–7 business days. Keep creating!</p>
+        <a href="blog.html">← Back to the Blog</a>
+      </div>
+    </div>
+
+    <!-- INFO SIDE -->
+    <aside class="submit-info-side">
+      <div class="info-block">
+        <span class="info-badge">Open Submissions</span>
+        <h3>WE WANT YOUR STORY</h3>
+        <p>WAJ Magazine is built on community voices. We publish original content from creatives, entrepreneurs, athletes, artists, and culture-shapers everywhere.</p>
+      </div>
+      <div class="info-block">
+        <h3>CATEGORIES</h3>
+        <p>We're currently accepting posts in:</p>
+        <div class="cat-tags">
+          <span class="cat-tag">Beauty</span>
+          <span class="cat-tag">Business</span>
+          <span class="cat-tag">Community</span>
+          <span class="cat-tag">Culture</span>
+          <span class="cat-tag">Fashion</span>
+          <span class="cat-tag">Food</span>
+          <span class="cat-tag">Health</span>
+          <span class="cat-tag">Music</span>
+          <span class="cat-tag">Sports</span>
+        </div>
+      </div>
+      <div class="info-block">
+        <h3>WHAT WE LOOK FOR</h3>
+        <ul>
+          <li>Authentic, first-person perspectives</li>
+          <li>Interviews with creatives or community figures</li>
+          <li>Cultural commentary and opinion pieces</li>
+          <li>Event recaps with original photography</li>
+          <li>Brand or business spotlights</li>
+          <li>Music, fashion, or art reviews</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h3>AFTER SUBMISSION</h3>
+        <ul>
+          <li>Editorial review within 5–7 business days</li>
+          <li>You'll receive an email with our decision</li>
+          <li>Minor edits may be made for style consistency</li>
+          <li>Approved posts are published with full credit to you</li>
+          <li>You keep ownership of your original content</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h3>QUESTIONS?</h3>
+        <p>Reach out via our <a href="contact.html" style="color:#ff8888;text-decoration:underline;">contact page</a> or visit <a href="https://www.wearejerseyent.com" target="_blank" style="color:#ff8888;text-decoration:underline;">wearejerseyent.com</a> for more information.</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="privacy.html" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+    <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
+  </footer>
+
+  <script>
+    function updateCount(id, val, max) {
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(id === 'wordCountDisplay') {
+        const words = val.trim().split(/\s+/).filter(w=>w).length;
+        document.getElementById('wordCountDisplay').textContent = words + ' words';
+        document.getElementById('wordCountDisplay').style.color = words < 300 ? '#888' : '#2a7a2a';
+      } else {
+        el.textContent = val.length;
+      }
+    }
+
+    function showFileName(input, targetId) {
+      const el = document.getElementById(targetId);
+      if(input.files && input.files[0]) {
+        el.textContent = '✓ ' + input.files[0].name;
+      }
+    }
+
+    function handleSubmit() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const title     = document.getElementById('postTitle').value.trim();
+      const category  = document.getElementById('category').value;
+      const summary   = document.getElementById('summary').value.trim();
+      const content   = document.getElementById('content').value.trim();
+      const agreed    = document.getElementById('agreeCheck').checked;
+
+      if(!firstName||!lastName){alert('Please enter your name.');return;}
+      if(!email||!email.includes('@')){alert('Please enter a valid email address.');return;}
+      if(!title){alert('Please enter a post title.');return;}
+      if(!category){alert('Please select a category.');return;}
+      if(!summary){alert('Please add a short summary.');return;}
+      const wordCount = content.trim().split(/\s+/).filter(w=>w).length;
+      if(wordCount < 300){alert('Your article needs at least 300 words. Currently: ' + wordCount + ' words.');return;}
+      if(!agreed){alert('Please agree to the submission terms before submitting.');return;}
+
+      // In production: send to a form service (Netlify Forms, Formspree, EmailJS)
+      // Netlify Forms: just add name="submit-post" and data-netlify="true" to the form tag
+      // For now, show success state
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('submitBtn').textContent = 'Submitting...';
+
+      setTimeout(() => {
+        document.getElementById('formState').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
