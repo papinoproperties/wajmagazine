@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
+  <title>Order Confirmed — WAJ Magazine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--crimson:#7A0000;--text:#1A1A1A;--bg:#FFFFFF;--black:#0A0A0A;--white:#FFFFFF;--font-display:'Bebas Neue',sans-serif;--font-body:'Montserrat',sans-serif;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;display:flex;flex-direction:column;}
+    a{text-decoration:none;color:inherit;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px;background:var(--white);border-bottom:2px solid var(--crimson);}
+    .nav-logo img{height:44px;}
+    main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 24px;}
+    .success-box{text-align:center;max-width:560px;}
+    .check{width:80px;height:80px;background:var(--crimson);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;}
+    .check svg{width:40px;height:40px;fill:#fff;}
+    h1{font-family:var(--font-display);font-size:clamp(48px,8vw,80px);letter-spacing:.04em;color:var(--text);line-height:1;margin-bottom:16px;}
+    p{font-size:14px;line-height:1.8;color:#555;margin-bottom:12px;}
+    .info-box{background:#F6F6F6;border:1px solid #E0E0E0;padding:24px;margin:28px 0;text-align:left;}
+    .info-box h3{font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--crimson);margin-bottom:14px;}
+    .info-box li{font-size:13px;color:#555;line-height:1.7;margin-left:16px;margin-bottom:6px;}
+    .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
+    .btn-primary{display:inline-block;padding:13px 32px;background:var(--crimson);color:#fff;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:background .2s;}
+    .btn-primary:hover{background:#9B0000;}
+    .btn-outline{display:inline-block;padding:13px 32px;border:1px solid #E0E0E0;color:#555;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:all .2s;}
+    .btn-outline:hover{border-color:var(--crimson);color:var(--crimson);}
+    footer{background:var(--black);border-top:3px solid var(--crimson);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    footer p{font-size:11px;color:#666;}
+    footer a{font-size:11px;font-weight:700;color:#ff6666;text-transform:uppercase;letter-spacing:.1em;border:1px solid rgba(122,0,0,.4);padding:5px 12px;}
+  </style>
+<style id="focal-fix">
+  img[src*="Cover_2_.png"] { object-position: 25% 45% !important; }
+  img[src*="Magazine_Cover.png"] { object-position: 50% 22% !important; }
+  img[src*="spring2025.png"] { object-position: 55% 18% !important; }
+  img[src*="Spring20252.png"] { object-position: 50% 12% !important; }
+  img[src*="Spring2023.png"] { object-position: 50% 22% !important; }
+  img[src*="Spring2024.png"] { object-position: 50% 18% !important; }
+  img[src*="spring20242.png"] { object-position: 50% 14% !important; }
+  img[src*="sept2022.png"] { object-position: 50% 18% !important; }
+  img[src*="summer20222.png"] { object-position: 50% 20% !important; }
+  img[src*="winterSpring2023.png"] { object-position: 50% 18% !important; }
+  img[src*="waj-red-logo.png"] { object-position: center center !important; }
+
+  .blog-card-img img   { aspect-ratio: 3/4 !important; }
+  .blog-card-img       { aspect-ratio: 3/4 !important; }
+  .popular-post img    { aspect-ratio: 1/1; object-fit: cover; }
+  .ent-post-card img   { aspect-ratio: 3/4 !important; object-fit: cover; }
+  .feature-hero-card img { aspect-ratio: 3/4; object-fit: cover; }
+  .sidebar-feature img { aspect-ratio: 3/4; object-fit: cover; }
+  .feature-card img    { aspect-ratio: 3/4; object-fit: cover; }
+  .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
+  .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+  .hero-bg             { background-position: 30% 40% !important; }
+</style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+  </nav>
+  <main>
+    <div class="success-box">
+      <div class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+      <h1>ORDER CONFIRMED!</h1>
+      <p>Thank you for your purchase. You'll receive a confirmation email shortly with your order details.</p>
+      <div class="info-box">
+        <h3>What Happens Next</h3>
+        <ul>
+          <li><strong>Digital issues</strong> — your download link will arrive in your email within minutes. Check your spam folder if you don't see it.</li>
+          <li><strong>Print copies</strong> — your order will be processed and shipped within 5–7 business days. You'll receive a tracking number by email.</li>
+          <li>Questions? Email us at <a href="mailto:magazine@wearejerseyent.com" style="color:#7A0000;">magazine@wearejerseyent.com</a></li>
+        </ul>
+      </div>
+      <div class="actions">
+        <a href="../index.html" class="btn-primary">Back to Homepage</a>
+        <a href="shop.html" class="btn-outline">Continue Shopping</a>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC.</p>
+    <a href="https://www.wearejerseyent.com" target="_blank">We Are Jersey ENT ↗</a>
+  </footer>
+</body>
+</html>
