@@ -1,8 +1,0 @@
-{
-  "name": "waj-magazine",
-  "version": "1.0.0",
-  "description": "WAJ Magazine website",
-  "dependencies": {
-    "stripe": "^14.0.0"
-  }
-}
