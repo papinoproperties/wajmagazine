@@ -217,6 +217,25 @@
   img[src*="SEPT2018.png"] { object-position: 50% 18% !important; }
 </style>
 <style id="focal-fix">
+    /* ── GLOBAL MOBILE TEXT LEGIBILITY ── */
+    @media(max-width:900px) {
+      .section-header h2, .section-label { color: #000000 !important; }
+      .blog-card-body h3 { color: #1A1A1A !important; }
+      .blog-card-body p { color: #444444 !important; }
+      .blog-card-meta .author, .blog-card-meta .date { color: #666 !important; }
+      .issue-card-info h3 { color: #000000 !important; }
+      .issue-card-info .cat { color: #555 !important; }
+      .sidebar-feature-info h3 { color: #000 !important; }
+      .sidebar-feature-info p { color: #555 !important; }
+      .latest-info h2 { color: #000 !important; }
+      .latest-info p { color: #444 !important; }
+      .hero-title { color: #FFFFFF !important; }
+      .pillar h3, .pillar p { color: #1A1A1A !important; }
+      .rate-card h3 { color: #1A1A1A !important; }
+      .rate-card .desc { color: #555 !important; }
+      .rate-card li { color: #444 !important; }
+    }
+
   img[src*="Cover_2_.png"] { object-position: 25% 45% !important; }
   img[src*="Magazine_Cover.png"] { object-position: 50% 22% !important; }
   img[src*="spring2025.png"] { object-position: 55% 18% !important; }
@@ -310,6 +329,9 @@
       <li><a href="/contact">Contact</a></li>
       <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
     </ul>
+    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <section class="hero">
