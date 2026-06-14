@@ -10,6 +10,62 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# Clean URL redirects — /shop → /pages/shop.html
+[[redirects]]
+  from = "/shop"
+  to = "/pages/shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/issues"
+  to = "/pages/issues.html"
+  status = 200
+
+[[redirects]]
+  from = "/features"
+  to = "/pages/features.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/pages/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/advertise"
+  to = "/pages/advertise.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/pages/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/events"
+  to = "/pages/events.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/pages/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/press"
+  to = "/pages/press.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/pages/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/order-success"
+  to = "/pages/order-success.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
