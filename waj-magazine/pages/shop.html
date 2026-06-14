@@ -336,14 +336,26 @@
 
     /* ── TOAST ── */
     .toast {
-      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: #FFFFFF; border: 1px solid rgba(122,0,0,0.5);
-      color: var(--white); padding: 14px 24px; font-size: 13px; font-weight: 600;
-      z-index: 400; transition: transform 0.3s; white-space: nowrap;
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #1A1A1A !important;
+      border: 2px solid #7A0000 !important;
+      color: #FFFFFF !important;
+      padding: 14px 24px; font-size: 13px; font-weight: 600;
+      z-index: 9999; transition: transform 0.3s ease;
+      white-space: nowrap; max-width: 90vw;
       display: flex; align-items: center; gap: 10px;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
-    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--crimson); flex-shrink: 0; }
+    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: #7A0000 !important; flex-shrink: 0; }
+    .toast span { color: #FFFFFF !important; font-size: 13px !important; font-weight: 600 !important; }
+    .toast.error { border-color: #cc0000 !important; }
+    .toast.error .toast-dot { background: #cc0000 !important; }
+    @media(max-width:600px){
+      .toast { white-space: normal; text-align: center; width: 85vw; justify-content: center; bottom: 20px; }
+    }
 
     /* ── RESPONSIVE ── */
     @media(max-width:900px){
@@ -1172,9 +1184,19 @@
   </footer>
 
   <!-- TOAST -->
-  <div class="toast" id="toast">
-    <div class="toast-dot"></div>
-    <span id="toastMsg">Added to cart</span>
+  <div id="toast" style="
+    position:fixed; bottom:32px; left:50%;
+    transform:translateX(-50%) translateY(120px);
+    background:#1A1A1A; border:2px solid #7A0000; color:#FFFFFF;
+    padding:14px 24px; font-size:13px; font-weight:600;
+    z-index:9999; transition:transform 0.3s ease;
+    white-space:nowrap; max-width:90vw; border-radius:4px;
+    display:flex; align-items:center; gap:10px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    pointer-events:none;
+  ">
+    <div style="width:8px;height:8px;border-radius:50%;background:#7A0000;flex-shrink:0;" id="toastDot"></div>
+    <span style="color:#FFFFFF !important;font-size:13px;font-weight:600;" id="toastMsg">Added to cart</span>
   </div>
 
   <script>
@@ -1292,16 +1314,26 @@
         console.error('Checkout error:', err);
         btn.disabled = false;
         btn.textContent = 'Proceed to Checkout';
-        showToast('Checkout error — please try again or contact us.');
+        showToast('Checkout error. Check your Stripe setup or contact magazine@wearejerseyent.com', true);
       }
     });
 
     // ── TOAST ──
-    function showToast(msg) {
+    function showToast(msg, isError) {
       const t = document.getElementById('toast');
+      const dot = document.getElementById('toastDot');
       document.getElementById('toastMsg').textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
+      // Force styles regardless of CSS
+      t.style.background = isError ? '#2a0000' : '#1A1A1A';
+      t.style.borderColor = isError ? '#cc0000' : '#7A0000';
+      t.style.color = '#FFFFFF';
+      if (dot) dot.style.background = isError ? '#cc0000' : '#7A0000';
+      // Animate in
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => {
+        t.style.transform = 'translateX(-50%) translateY(120px)';
+      }, isError ? 5000 : 3000);
     }
 
     // ── FILTER ──
