@@ -206,7 +206,16 @@
       .footer-grid { grid-template-columns: 1fr; }
       .covers-grid { grid-template-columns: repeat(2, 1fr); }
     }
-  </style>
+    img[src*="fall2022.png"] { object-position: 50% 18% !important; }
+  img[src*="fall2023.png"] { object-position: 50% 18% !important; }
+  img[src*="summer_2022.png"] { object-position: 50% 15% !important; }
+  img[src*="jan2022.png"] { object-position: 50% 22% !important; }
+  img[src*="jan2021.png"] { object-position: 50% 22% !important; }
+  img[src*="Nov2020.png"] { object-position: 50% 18% !important; }
+  img[src*="sept2020.png"] { object-position: 50% 20% !important; }
+  img[src*="march2019.png"] { object-position: 50% 18% !important; }
+  img[src*="SEPT2018.png"] { object-position: 50% 18% !important; }
+</style>
 <style id="focal-fix">
   img[src*="Cover_2_.png"] { object-position: 25% 45% !important; }
   img[src*="Magazine_Cover.png"] { object-position: 50% 22% !important; }
@@ -230,23 +239,75 @@
   .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
   .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
   .hero-bg             { background-position: 25% 45% !important; }
-</style>
+
+    /* ── MOBILE MENU ── */
+    .mobile-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      z-index: 150; opacity: 0; transition: opacity .25s;
+    }
+    .mobile-backdrop.open { display: block; opacity: 1; }
+    .mobile-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+      background: #FFFFFF; z-index: 151; border-left: 3px solid #7A0000;
+      transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; padding: 0;
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid #E0E0E0;
+    }
+    .mobile-drawer-header img { height: 38px; }
+    .mobile-close {
+      background: none; border: none; font-size: 22px; color: #888;
+      cursor: pointer; padding: 4px; line-height: 1;
+    }
+    .mobile-close:hover { color: #7A0000; }
+    .mobile-nav-links {
+      list-style: none; padding: 16px 0; flex: 1; overflow-y: auto;
+    }
+    .mobile-nav-links li a {
+      display: block; padding: 14px 24px;
+      font-size: 12px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #555; text-decoration: none;
+      border-bottom: 1px solid #F0F0F0; transition: color .15s, background .15s;
+    }
+    .mobile-nav-links li a:hover { color: #7A0000; background: #FBF5F5; }
+    .mobile-nav-links li a.mobile-ent {
+      margin: 16px 20px 0; display: block; text-align: center;
+      padding: 13px; background: #7A0000; color: #fff;
+      border-bottom: none; border-radius: 2px;
+    }
+    .mobile-nav-links li a.mobile-ent:hover { background: #9B0000; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 6px; z-index: 10;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px; background: #1A1A1A;
+      transition: all .25s; border-radius: 2px;
+    }
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } }
+  </style>
 </head>
 <body>
 
   <nav>
-    <a href="index.html" class="nav-logo"><img src="assets/images/waj-red-logo.png" alt="WAJ Magazine" /></a>
+    <a href="/" class="nav-logo"><img src="assets/images/waj-red-logo.png" alt="WAJ Magazine" /></a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="pages/issues.html">Issues</a></li>
-      <li><a href="pages/features.html">Features</a></li>
-      <li><a href="pages/blog.html">Blog</a></li>
-      <li><a href="pages/shop.html">Shop</a></li>
-      <li><a href="pages/events.html">Events</a></li>
-      <li><a href="pages/advertise.html">Advertise</a></li>
-      <li><a href="pages/about.html">About</a></li>
-      <li><a href="pages/press.html">Press</a></li>
-      <li><a href="pages/contact.html">Contact</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
       <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
     </ul>
   </nav>
@@ -258,8 +319,8 @@
       <h1 class="hero-title">HONEY<br>BXBY</h1>
       <p class="hero-subtitle">New Jersey's Own</p>
       <div class="hero-ctas">
-        <a href="pages/shop.html" class="btn-primary">Get Issue 042</a>
-        <a href="pages/issues.html" class="btn-outline">Browse All Issues</a>
+        <a href="/shop" class="btn-primary">Get Issue 042</a>
+        <a href="/issues" class="btn-outline">Browse All Issues</a>
       </div>
     </div>
   </section>
@@ -275,7 +336,7 @@
     <div class="section-header">
       <h2>Latest Issue</h2>
       <div class="line"></div>
-      <a href="pages/issues.html">All Issues →</a>
+      <a href="/issues">All Issues →</a>
     </div>
     <div class="latest-grid">
       <div class="latest-cover">
@@ -291,7 +352,7 @@
           <span class="pill">Fashion</span>
           <span class="pill">Lifestyle</span>
         </div>
-        <a href="pages/shop.html" class="btn-primary">Get This Issue</a>
+        <a href="/shop" class="btn-primary">Get This Issue</a>
       </div>
     </div>
   </section>
@@ -300,7 +361,7 @@
     <div class="section-header">
       <h2>Past Issues</h2>
       <div class="line"></div>
-      <a href="pages/issues.html">View Archive →</a>
+      <a href="/issues">View Archive →</a>
     </div>
     <div class="covers-grid">
       <div class="cover-card"><img src="assets/images/Cover_2_.png" alt="Issue 042 Honey Bxby" /><div class="cover-card-overlay"></div></div>
@@ -311,7 +372,11 @@
       <div class="cover-card"><img src="assets/images/Spring2023.png" alt="Spring 2023" /><div class="cover-card-overlay"></div></div>
       <div class="cover-card"><img src="assets/images/winterSpring2023.png" alt="Winter/Spring 2023" /><div class="cover-card-overlay"></div></div>
       <div class="cover-card"><img src="assets/images/summer20222.png" alt="Summer 2022" /><div class="cover-card-overlay"></div></div>
-      <div class="cover-card"><img src="assets/images/sept2022.png" alt="Sept 2022" /><div class="cover-card-overlay"></div></div>
+      <div class="cover-card"><img src="assets/images/sept2022.png" alt="Kia" /><div class="cover-card-overlay"></div></div>
+      <div class="cover-card"><img src="assets/images/fall2023.png" alt="Malcolm Jenkins Foundation" /><div class="cover-card-overlay"><span class="cover-card-label">Malcolm Jenkins Foundation</span></div></div>
+      <div class="cover-card"><img src="assets/images/fall2022.png" alt="Frankie Edgar x Tobias Eats" /><div class="cover-card-overlay"><span class="cover-card-label">Frankie Edgar x Tobias Eats</span></div></div>
+      <div class="cover-card"><img src="assets/images/summer_2022.png" alt="Pilar Scratch & River Mason" /><div class="cover-card-overlay"><span class="cover-card-label">Pilar Scratch &amp; River Mason</span></div></div>
+      <div class="cover-card"><img src="assets/images/jan2022.png" alt="Uniiqu3" /><div class="cover-card-overlay"><span class="cover-card-label">Uniiqu3</span></div></div>
     </div>
   </section>
 
@@ -482,26 +547,37 @@
     </div>
     <p style="font-size:13px;color:#888;margin-bottom:36px;letter-spacing:.04em;">Our latest interviews and features — updated automatically when we post.</p>
 
-    <!-- Loading state -->
-    <div id="yt-loading" style="text-align:center;padding:48px;color:#888;">
-      <div style="display:inline-block;width:36px;height:36px;border:3px solid #E0E0E0;border-top-color:#7A0000;border-radius:50%;animation:ytSpin .8s linear infinite;margin-bottom:14px;"></div>
-      <p style="font-size:13px;">Loading latest videos...</p>
-    </div>
-
-    <!-- Video grid -->
-    <div id="yt-grid" style="display:none;">
-      <!-- Featured large video -->
-      <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:24px;margin-bottom:24px;" id="yt-main-row">
+    <!-- Featured video embed -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:start;margin-bottom:28px;">
+      <!-- Primary video -->
+      <div>
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;">
+          <iframe
+            src="https://www.youtube.com/embed/fYSImjDrK4E?rel=0&modestbranding=1"
+            title="We Are Jersey — Latest Interview"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+        <div style="padding:16px 0 0;">
+          <span style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#7A0000;">Latest Video</span>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#1A1A1A;margin:6px 0 6px;line-height:1.35;">We Are Jersey — Sweet Sixteen</h3>
+          <p style="font-size:12px;color:#888;">Celebrating 16 years of community, culture, and creativity with We Are Jersey ENT.</p>
+        </div>
       </div>
-      <!-- Remaining small videos -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" id="yt-small-row">
+      <!-- Subscribe CTA panel -->
+      <div style="background:#1A1A1A;padding:36px 28px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:300px;">
+        <img src="assets/images/waj-red-logo.png" alt="WAJ Magazine" style="height:56px;margin-bottom:24px;"/>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.06em;color:#fff;line-height:1;margin-bottom:12px;">SUBSCRIBE ON YOUTUBE</h3>
+        <p style="font-size:13px;color:#aaa;line-height:1.65;margin-bottom:28px;">Never miss an interview, event recap, or feature. Join the WAJ community on YouTube and be the first to see new content.</p>
+        <a href="https://www.youtube.com/wearejersey?sub_confirmation=1" target="_blank"
+           style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:background .2s;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+          Subscribe Free
+        </a>
+        <p style="font-size:10px;color:#555;margin-top:16px;">youtube.com/wearejersey</p>
       </div>
-    </div>
-
-    <!-- Error / fallback -->
-    <div id="yt-error" style="display:none;text-align:center;padding:40px;">
-      <p style="font-size:14px;color:#888;margin-bottom:20px;">Videos are loading — visit our channel directly.</p>
-      <a href="https://www.youtube.com/wearejersey" target="_blank" style="display:inline-block;padding:13px 36px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Watch on YouTube ↗</a>
     </div>
 
     <div style="text-align:center;margin-top:40px;">
@@ -539,63 +615,7 @@
   </style>
 
   <script>
-  (function(){
-    const playIcon = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
 
-    function formatDate(str) {
-      if (!str) return '';
-      return new Date(str).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    }
-
-    function videoCard(v, large) {
-      const fallback = v.videoId ? 'https://img.youtube.com/vi/' + v.videoId + '/hqdefault.jpg' : '';
-      const thumb = v.thumb || fallback;
-      if (large) {
-        return '<a href="' + v.link + '" target="_blank" class="yt-card">' +
-          '<div class="yt-thumb">' +
-            '<img src="' + thumb + '" onerror="this.src=\'' + fallback + '\'" alt="' + v.title + '"/>' +
-            '<div class="yt-play">' + playIcon + '</div>' +
-          '</div>' +
-          '<div class="yt-info"><h3>' + v.title + '</h3>' +
-          '<div class="meta"><span>' + formatDate(v.published) + '</span></div></div></a>';
-      }
-      return '<a href="' + v.link + '" target="_blank" class="yt-card">' +
-        '<div class="yt-thumb">' +
-          '<img src="' + thumb + '" onerror="this.src=\'' + fallback + '\'" alt="' + v.title + '"/>' +
-          '<div class="yt-play" style="width:38px;height:38px;">' + playIcon + '</div>' +
-        '</div>' +
-        '<div class="yt-info yt-info-sm" style="padding:12px 14px;"><h3>' + v.title + '</h3>' +
-        '<div class="meta" style="margin-top:6px;"><span>' + formatDate(v.published) + '</span></div></div></a>';
-    }
-
-    function showError() {
-      document.getElementById('yt-loading').style.display = 'none';
-      document.getElementById('yt-error').style.display = 'block';
-    }
-
-    function renderVideos(videos) {
-      if (!videos || !videos.length) { showError(); return; }
-      document.getElementById('yt-loading').style.display = 'none';
-      document.getElementById('yt-grid').style.display = 'block';
-      document.getElementById('yt-main-row').innerHTML =
-        videoCard(videos[0], true) + (videos[1] ? videoCard(videos[1], false) : '');
-      const smalls = videos.slice(2, 5);
-      document.getElementById('yt-small-row').innerHTML = smalls.map(v => videoCard(v, false)).join('');
-      if (!smalls.length) document.getElementById('yt-small-row').style.display = 'none';
-    }
-
-    // Call Netlify function (avoids CORS — runs server-side)
-    fetch('/.netlify/functions/youtube-feed')
-      .then(r => r.json())
-      .then(data => {
-        if (data.videos && data.videos.length) {
-          renderVideos(data.videos);
-        } else {
-          showError();
-        }
-      })
-      .catch(showError);
-  })();
   </script>
 
     <!-- FEATURED BLOG POSTS -->
@@ -603,27 +623,27 @@
     <div class="section-header">
       <h2>From the Blog</h2>
       <div class="line"></div>
-      <a href="pages/blog.html" style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--crimson);white-space:nowrap;">All Posts →</a>
+      <a href="/blog" style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--crimson);white-space:nowrap;">All Posts →</a>
     </div>
 
     <!-- Category pills -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;">
-      <a href="pages/blog.html" class="pill">Beauty</a>
-      <a href="pages/blog.html" class="pill">Business</a>
-      <a href="pages/blog.html" class="pill">Community</a>
-      <a href="pages/blog.html" class="pill">Culture</a>
-      <a href="pages/blog.html" class="pill">Fashion</a>
-      <a href="pages/blog.html" class="pill">Food</a>
-      <a href="pages/blog.html" class="pill">Health</a>
-      <a href="pages/blog.html" class="pill">Music</a>
-      <a href="pages/blog.html" class="pill">Sports</a>
+      <a href="/blog" class="pill">Beauty</a>
+      <a href="/blog" class="pill">Business</a>
+      <a href="/blog" class="pill">Community</a>
+      <a href="/blog" class="pill">Culture</a>
+      <a href="/blog" class="pill">Fashion</a>
+      <a href="/blog" class="pill">Food</a>
+      <a href="/blog" class="pill">Health</a>
+      <a href="/blog" class="pill">Music</a>
+      <a href="/blog" class="pill">Sports</a>
     </div>
 
     <!-- Featured post + 3 smaller posts -->
     <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start;">
 
       <!-- Big featured post -->
-      <a href="pages/blog.html" style="display:block;overflow:hidden;border:1px solid var(--border);">
+      <a href="/blog" style="display:block;overflow:hidden;border:1px solid var(--border);">
         <div style="position:relative;overflow:hidden;">
           <img src="assets/images/Cover_2_.png" alt="Featured" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:25% 45%;"/>
           <span style="position:absolute;top:14px;left:14px;background:#7A0000;color:#fff;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;">Music</span>
@@ -638,7 +658,7 @@
       <!-- 3 smaller posts stacked -->
       <div style="display:flex;flex-direction:column;border:1px solid var(--border);overflow:hidden;">
 
-        <a href="pages/blog.html" style="display:grid;grid-template-columns:90px 1fr;background:#fff;border-bottom:1px solid var(--border);overflow:hidden;">
+        <a href="/blog" style="display:grid;grid-template-columns:90px 1fr;background:#fff;border-bottom:1px solid var(--border);overflow:hidden;">
           <img src="assets/images/spring2025.png" alt="DJ Smallz" style="width:90px;height:110px;object-fit:cover;object-position:top;"/>
           <div style="padding:14px 16px;">
             <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">Music</span>
@@ -647,7 +667,7 @@
           </div>
         </a>
 
-        <a href="pages/blog.html" style="display:grid;grid-template-columns:90px 1fr;background:#fff;border-bottom:1px solid var(--border);overflow:hidden;">
+        <a href="/blog" style="display:grid;grid-template-columns:90px 1fr;background:#fff;border-bottom:1px solid var(--border);overflow:hidden;">
           <img src="assets/images/Spring20252.png" alt="Qaysean" style="width:90px;height:110px;object-fit:cover;object-position:top;"/>
           <div style="padding:14px 16px;">
             <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">Community</span>
@@ -656,7 +676,7 @@
           </div>
         </a>
 
-        <a href="pages/blog.html" style="display:grid;grid-template-columns:90px 1fr;background:#fff;overflow:hidden;">
+        <a href="/blog" style="display:grid;grid-template-columns:90px 1fr;background:#fff;overflow:hidden;">
           <img src="assets/images/winterSpring2023.png" alt="Shakur" style="width:90px;height:110px;object-fit:cover;object-position:top;"/>
           <div style="padding:14px 16px;">
             <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">Sports</span>
@@ -673,7 +693,7 @@
     <p class="waj-big">WAJ</p>
     <blockquote>"Uniting creatives, community, and culture — from New Jersey to everywhere."</blockquote>
     <cite>— We Are Jersey Magazine</cite>
-    <div><a href="pages/features.html" class="btn-light">See Our Features</a></div>
+    <div><a href="/features" class="btn-light">See Our Features</a></div>
   </section>
 
   <section class="advertise-strip">
@@ -681,7 +701,7 @@
       <h2>Reach Our Audience</h2>
       <p>Partner with WAJ Magazine to connect your brand with creatives, entrepreneurs, and community leaders across New Jersey and beyond.</p>
     </div>
-    <a href="pages/advertise.html" class="btn-white">Advertise With Us</a>
+    <a href="/advertise" class="btn-white">Advertise With Us</a>
   </section>
 
   <footer>
@@ -695,22 +715,66 @@
       </div>
       <div class="footer-col">
         <h4>Magazine</h4>
-        <ul><li><a href="pages/issues.html">All Issues</a></li><li><a href="pages/features.html">Features</a></li><li><a href="pages/blog.html">Blog</a></li><li><a href="pages/shop.html">Shop</a></li></ul>
+        <ul><li><a href="/issues">All Issues</a></li><li><a href="/features">Features</a></li><li><a href="/blog">Blog</a></li><li><a href="/shop">Shop</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Work With Us</h4>
-        <ul><li><a href="pages/advertise.html">Advertise</a></li><li><a href="pages/advertise.html">Submit a Feature</a></li><li><a href="pages/contact.html">Partnerships</a></li><li><a href="pages/events.html">Events</a></li></ul>
+        <ul><li><a href="/advertise">Advertise</a></li><li><a href="/advertise">Submit a Feature</a></li><li><a href="/contact">Partnerships</a></li><li><a href="/events">Events</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <ul><li><a href="pages/contact.html">Contact</a></li><li><a href="https://www.wearejerseyent.com" target="_blank">We Are Jersey ENT</a></li></ul>
+        <ul><li><a href="/contact">Contact</a></li><li><a href="https://www.wearejerseyent.com" target="_blank">We Are Jersey ENT</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="pages/privacy.html" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+      <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
       <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ WE ARE JERSEY ENT</a>
     </div>
   </footer>
 
+
+  <!-- MOBILE BACKDROP -->
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="mobile-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function openMobileMenu() {
+      document.getElementById('mobileDrawer').classList.add('open');
+      document.getElementById('mobileBackdrop').classList.add('open');
+      document.querySelector('.nav-hamburger').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('mobileBackdrop').classList.remove('open');
+      document.querySelector('.nav-hamburger').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    // Wire hamburger button
+    const hamburger = document.querySelector('.nav-hamburger');
+    if (hamburger) hamburger.addEventListener('click', openMobileMenu);
+    // Close on escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
 </body>
 </html>
