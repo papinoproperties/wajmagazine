@@ -1,0 +1,75 @@
+WAJ MAGAZINE — STRIPE PRODUCT ID CATALOG
+=========================================
+Every purchase in your Stripe dashboard shows a "Client Reference ID"
+in this exact format. Use this sheet to identify any order instantly.
+
+FORMAT: [PRODUCT-ID]_[TYPE]-USD[PRICE]
+
+CURRENT ISSUES
+--------------
+WAJ-042-HONEY-BXBY_DIGITAL-USD5.99       Honey Bxby Issue 042 — Digital PDF
+WAJ-042-HONEY-BXBY_PRINT-USD30.99        Honey Bxby Issue 042 — Print Copy
+
+WAJ-042-DJ-TAJ_DIGITAL-USD5.99           DJ Taj Issue 042 — Digital PDF
+WAJ-042-DJ-TAJ_PRINT-USD30.99            DJ Taj Issue 042 — Print Copy
+
+ARCHIVE ISSUES
+--------------
+WAJ-041-DJ-SMALLZ-732_DIGITAL-USD5.99    DJ Smallz 732 Issue 041 — Digital PDF
+WAJ-041-DJ-SMALLZ-732_PRINT-USD30.99     DJ Smallz 732 Issue 041 — Print Copy
+
+WAJ-041-QAYSEAN-WILLIAMS_DIGITAL-USD5.99  Qaysean Williams Issue 041 — Digital PDF
+WAJ-041-QAYSEAN-WILLIAMS_PRINT-USD30.99   Qaysean Williams Issue 041 — Print Copy
+
+WAJ-040-THE-ARTIST_DIGITAL-USD5.99       The Artist Issue 040 — Digital PDF
+WAJ-040-THE-ARTIST_PRINT-USD30.99        The Artist Issue 040 — Print Copy
+
+WAJ-040-LADY-LUCK_DIGITAL-USD5.99        Lady Luck Issue 040 — Digital PDF
+WAJ-040-LADY-LUCK_PRINT-USD30.99         Lady Luck Issue 040 — Print Copy
+
+WAJ-039-SHAKUR-STEVENSON_DIGITAL-USD5.99 Shakur Stevenson Issue 039 — Digital PDF
+WAJ-039-SHAKUR-STEVENSON_PRINT-USD30.99  Shakur Stevenson Issue 039 — Print Copy
+
+WAJ-038-MAPY_DIGITAL-USD5.99             Mapy Issue 038 — Digital PDF
+WAJ-038-MAPY_PRINT-USD30.99              Mapy Issue 038 — Print Copy
+
+WAJ-037-MALCOLM-JENKINS-FOUNDATION_DIGITAL-USD5.99   Malcolm Jenkins Foundation Issue 037 — Digital
+WAJ-037-MALCOLM-JENKINS-FOUNDATION_PRINT-USD30.99    Malcolm Jenkins Foundation Issue 037 — Print
+
+WAJ-036-FRANKIE-EDGAR-TOBIAS-EATS_DIGITAL-USD5.99   Frankie Edgar x Tobias Eats Issue 036 — Digital
+WAJ-036-FRANKIE-EDGAR-TOBIAS-EATS_PRINT-USD30.99    Frankie Edgar x Tobias Eats Issue 036 — Print
+
+WAJ-036-KIA_DIGITAL-USD5.99              Kia — Digital PDF
+WAJ-036-KIA_PRINT-USD30.99               Kia — Print Copy
+
+WAJ-035-PILAR-SCRATCH-RIVER-MASON_DIGITAL-USD5.99   Pilar Scratch & River Mason Issue 035 — Digital
+WAJ-035-PILAR-SCRATCH-RIVER-MASON_PRINT-USD30.99    Pilar Scratch & River Mason Issue 035 — Print
+
+WAJ-035-TREY-BUDDEN_DIGITAL-USD5.99      Trey Budden Issue 035 — Digital PDF
+WAJ-035-TREY-BUDDEN_PRINT-USD30.99       Trey Budden Issue 035 — Print Copy
+
+WAJ-033-UNIIQU3_DIGITAL-USD5.99          Uniiqu3 Issue 033 — Digital PDF
+WAJ-033-UNIIQU3_PRINT-USD30.99           Uniiqu3 Issue 033 — Print Copy
+
+PAST BEST SELLERS
+-----------------
+WAJ-2021-JAN-KERTASY_DIGITAL-USD5.99     Kertasy Jan 2021 — Digital PDF
+WAJ-2021-JAN-KERTASY_PRINT-USD30.99      Kertasy Jan 2021 — Print Copy
+
+WAJ-2020-NOV-REGGIE-COUZ_DIGITAL-USD5.99  Reggie Couz Nov 2020 — Digital PDF
+WAJ-2020-NOV-REGGIE-COUZ_PRINT-USD30.99   Reggie Couz Nov 2020 — Print Copy
+
+WAJ-2020-SEPT-FELICIA-TEMPLE_DIGITAL-USD5.99  Felicia Temple Sept 2020 — Digital PDF
+WAJ-2020-SEPT-FELICIA-TEMPLE_PRINT-USD30.99   Felicia Temple Sept 2020 — Print Copy
+
+WAJ-2019-MAR-CHAD-PIFF_DIGITAL-USD5.99   Chad Piff Mar 2019 — Digital PDF
+WAJ-2019-MAR-CHAD-PIFF_PRINT-USD30.99    Chad Piff Mar 2019 — Print Copy
+
+WAJ-2018-SEPT-KHERK-COBAIN_DIGITAL-USD5.99  Kherk Cobain Sept 2018 — Digital PDF
+WAJ-2018-SEPT-KHERK-COBAIN_PRINT-USD30.99   Kherk Cobain Sept 2018 — Print Copy
+
+=========================================
+HOW TO FIND IN STRIPE:
+Stripe Dashboard → Payments → click any payment → 
+scroll down to "Client reference ID" field
+=========================================
