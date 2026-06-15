@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — WAJ Magazine</title>
+  <meta name="description" content="Buy WAJ Magazine digital issues for 5.99 or print copies for 30.99 plus shipping. Every issue featuring creatives, culture, and community."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="Shop WAJ Magazine — Digital and Print Issues"/>
+  <meta property="og:description" content="Buy WAJ Magazine digital issues for 5.99 or print copies for 30.99 plus shipping. Every issue featuring creatives, culture, and community."/>
+  <meta property="og:image" content="../assets/images/Magazine_Cover.png"/>
+  <meta property="og:url" content="https://wajmagazine.com/pages/shop.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="WAJ Magazine"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Shop WAJ Magazine — Digital and Print Issues"/>
+  <meta name="twitter:description" content="Buy WAJ Magazine digital issues for 5.99 or print copies for 30.99 plus shipping. Every issue featuring creatives, culture, and community."/>
+  <meta name="twitter:image" content="../assets/images/Magazine_Cover.png"/>
+  <meta name="twitter:site" content="@wajmagazine"/>
+  <link rel="canonical" href="https://wajmagazine.com/pages/shop.html"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --crimson: #7A0000; --crimson-light: #9B0000;
+      --black: #0A0A0A; --dark: #111111; --dark-2: #1C1C1C; --dark-3: #252525;
+      --gray: #888888; --light-gray: #CCCCCC; --off-white: #F2F2F2; --white: #FFFFFF;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-editorial: 'Playfair Display', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #FFFFFF; color: #1A1A1A; font-family: var(--font-body); }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 70px;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--crimson);
+    }
+    .nav-logo img { height: 44px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #555; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--crimson); }
+    .nav-links .nav-ent { padding: 8px 18px; background: var(--crimson); color: var(--white); border-radius: 2px; font-size: 10px; transition: background 0.2s; }
+    .nav-links .nav-ent:hover { background: var(--crimson-light); }
+    .nav-cart-btn {
+      position: relative; background: none; border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white); padding: 8px 16px; cursor: pointer;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; transition: border-color 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-cart-btn:hover { border-color: var(--crimson); }
+    .cart-count {
+      background: var(--crimson); color: var(--white);
+      width: 18px; height: 18px; border-radius: 50%;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── CART DRAWER ── */
+    .cart-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .cart-backdrop.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 100vw;
+      background: #F6F6F6; z-index: 301;
+      transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-header {
+      padding: 24px 28px; border-bottom: 1px solid #E0E0E0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-header h3 {
+      font-family: var(--font-display); font-size: 28px; letter-spacing: 0.04em; color: #1A1A1A;
+    }
+    .cart-close {
+      background: none; border: none; color: #888; font-size: 20px;
+      cursor: pointer; padding: 4px; transition: color 0.2s; line-height: 1;
+    }
+    .cart-close:hover { color: #1A1A1A; }
+
+    .cart-items {
+      flex: 1; overflow-y: auto; padding: 20px 28px;
+    }
+    .cart-empty {
+      text-align: center; padding: 60px 20px;
+      color: var(--gray); font-size: 13px; line-height: 1.7;
+    }
+    .cart-empty .empty-icon { font-size: 40px; margin-bottom: 12px; display: block; opacity: 0.3; }
+
+    .cart-item {
+      display: grid; grid-template-columns: 64px 1fr auto;
+      gap: 14px; align-items: start;
+      padding: 16px 0; border-bottom: 1px solid #EEEEEE;
+    }
+    .cart-item img { width: 64px; aspect-ratio: 3/4; object-fit: cover; }
+    .cart-item-info .item-name { font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 3px; }
+    .cart-item-info .item-type {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .cart-item-info .item-type.digital { color: var(--crimson-light); }
+    .cart-item-info .item-type.print { color: #888; }
+    .cart-item-info .item-note { font-size: 10px; color: #888; }
+    .cart-item-price { font-size: 14px; font-weight: 700; color: #1A1A1A; white-space: nowrap; }
+    .cart-item-remove {
+      background: none; border: none; color: var(--gray); cursor: pointer;
+      font-size: 16px; padding: 0; display: block; margin-top: 4px; transition: color 0.2s;
+    }
+    .cart-item-remove:hover { color: var(--crimson-light); }
+
+    .cart-footer {
+      padding: 20px 28px; border-top: 1px solid #E0E0E0;
+    }
+    .cart-subtotal {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .cart-subtotal span { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+    .cart-subtotal .amount { font-size: 22px; font-family: var(--font-display); color: #1A1A1A; letter-spacing: 0.04em; }
+    .shipping-note {
+      font-size: 11px; color: #888; margin-bottom: 20px; line-height: 1.5;
+    }
+    .shipping-note span { color: var(--crimson-light); font-weight: 700; }
+    .btn-checkout {
+      display: block; width: 100%; padding: 16px;
+      background: var(--crimson); color: var(--white); border: none;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s; text-align: center;
+    }
+    .btn-checkout:hover { background: var(--crimson-light); }
+    .btn-checkout:disabled { background: var(--dark-3); color: var(--gray); cursor: not-allowed; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 140px 60px 60px;
+      background: #F6F6F6;
+      border-bottom: 1px solid rgba(122,0,0,0.2);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display); font-size: clamp(60px, 8vw, 100px);
+      letter-spacing: 0.04em; color: var(--white); line-height: 1;
+    }
+    .page-hero p { font-size: 13px; color: var(--gray); margin-top: 10px; }
+    .pricing-legend {
+      display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 20px; background: #FFFFFF;
+      border: 1px solid #E8E8E8;
+    }
+    .legend-icon {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .legend-icon.digital { background: var(--crimson-light); }
+    .legend-icon.print { background: var(--light-gray); }
+    .legend-item span { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light-gray); }
+    .legend-item strong { font-size: 14px; color: var(--white); }
+
+    /* ── FILTER ── */
+    .filter-bar {
+      padding: 24px 60px; background: #F6F6F6;
+      display: flex; gap: 10px; flex-wrap: wrap;
+      border-bottom: 1px solid #E0E0E0;
+    }
+    .filter-btn {
+      padding: 7px 18px; background: transparent;
+      border: 1px solid #DDD; color: #888;
+      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--crimson); border-color: var(--crimson); color: var(--white);
+    }
+
+    /* ── ISSUES SHOP GRID ── */
+    .shop-section { padding: 60px; background: #F6F6F6; }
+
+    .section-label {
+      font-family: var(--font-display); font-size: 36px; letter-spacing: 0.06em;
+      color: #1A1A1A; margin-bottom: 32px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(122,0,0,0.6), transparent);
+    }
+
+    .shop-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px; margin-bottom: 80px;
+    }
+
+    .shop-card {
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .shop-card:hover { border-color: rgba(122,0,0,0.4); transform: translateY(-3px); }
+
+    .shop-card-img {
+      position: relative; overflow: hidden;
+    }
+    .shop-card-img img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top;
+      display: block; transition: transform 0.4s;
+    }
+    .shop-card:hover .shop-card-img img { transform: scale(1.03); }
+
+    .issue-tag {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(10,10,10,0.85); color: var(--white);
+      font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 4px 10px; backdrop-filter: blur(4px);
+    }
+    .latest-tag {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--crimson); color: var(--white);
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px;
+    }
+
+    .shop-card-body { padding: 20px; }
+    .shop-card-body h3 {
+      font-family: var(--font-display); font-size: 26px; letter-spacing: 0.04em;
+      color: #000000; margin-bottom: 4px; line-height: 1.1;
+    }
+    .shop-card-body .subtitle {
+      font-size: 11px; color: #888; margin-bottom: 18px; letter-spacing: 0.05em;
+    }
+
+    .purchase-options {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .purchase-option {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px;
+      background: #F6F6F6; border: 1px solid #E8E8E8;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    }
+    .purchase-option:hover { border-color: rgba(122,0,0,0.5); }
+
+    .option-info { display: flex; align-items: center; gap: 10px; }
+    .option-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .option-dot.digital { background: var(--crimson-light); }
+    .option-dot.print { background: var(--light-gray); }
+
+    .option-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .option-label.digital { color: #7A0000; font-weight: 700; }
+    .option-label.print { color: #1A1A1A; font-weight: 700; }
+    .option-sub { font-size: 10px; color: #555; margin-top: 1px; }
+
+    .option-right { display: flex; align-items: center; gap: 10px; }
+    .option-price { font-size: 15px; font-weight: 700; color: #000000; }
+
+    .add-btn {
+      background: var(--crimson); border: none; color: var(--white);
+      width: 28px; height: 28px; cursor: pointer; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .add-btn:hover { background: var(--crimson-light); }
+    .add-btn.added { background: #1a5c1a; }
+    .add-btn.added::after { content: '✓'; font-size: 13px; }
+
+    /* ── APPAREL TEASER ── */
+    .apparel-teaser {
+      margin: 0 60px 80px;
+      background: #FFFFFF;
+      border: 1px solid rgba(122,0,0,0.3);
+      padding: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .apparel-teaser h2 {
+      font-family: var(--font-display); font-size: clamp(40px, 4vw, 60px);
+      color: #1A1A1A; line-height: 0.95; margin-bottom: 12px;
+    }
+    .apparel-teaser p { font-size: 14px; color: var(--gray); line-height: 1.7; max-width: 440px; }
+    .coming-soon-badge {
+      display: inline-block; border: 1px solid rgba(122,0,0,0.5);
+      color: var(--crimson-light); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; padding: 5px 14px; margin-bottom: 16px;
+    }
+    .notify-form { display: flex; gap: 0; margin-top: 24px; }
+    .notify-form input {
+      background: #F6F6F6; border: 1px solid rgba(255,255,255,0.1);
+      color: #1A1A1A; font-family: var(--font-body); font-size: 13px;
+      padding: 12px 16px; outline: none; flex: 1; min-width: 0;
+      transition: border-color 0.2s;
+    }
+    .notify-form input:focus { border-color: var(--crimson); }
+    .notify-form button {
+      background: var(--crimson); color: var(--white); border: none;
+      padding: 12px 24px; font-family: var(--font-body); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .notify-form button:hover { background: var(--crimson-light); }
+    .apparel-visual {
+      font-family: var(--font-display); font-size: 100px; color: rgba(122,0,0,0.15);
+      letter-spacing: 0.02em; line-height: 1;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #F6F6F6; border-top: 1px solid rgba(122,0,0,0.3);
+      padding: 40px 60px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    footer p { font-size: 11px; color: #666; }
+    footer a.ent-link {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #ff6666;
+      text-transform: uppercase; border: 1px solid rgba(122,0,0,0.4); padding: 6px 14px;
+      transition: background 0.2s;
+    }
+    footer a.ent-link:hover { background: var(--crimson); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #1A1A1A !important;
+      border: 2px solid #7A0000 !important;
+      color: #FFFFFF !important;
+      padding: 14px 24px; font-size: 13px; font-weight: 600;
+      z-index: 9999; transition: transform 0.3s ease;
+      white-space: nowrap; max-width: 90vw;
+      display: flex; align-items: center; gap: 10px;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: #7A0000 !important; flex-shrink: 0; }
+    .toast span { color: #FFFFFF !important; font-size: 13px !important; font-weight: 600 !important; }
+    .toast.error { border-color: #cc0000 !important; }
+    .toast.error .toast-dot { background: #cc0000 !important; }
+    @media(max-width:600px){
+      .toast { white-space: normal; text-align: center; width: 85vw; justify-content: center; bottom: 20px; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-hero, .filter-bar, .shop-section, footer { padding-left: 24px; padding-right: 24px; }
+      .apparel-teaser { margin: 0 24px 60px; padding: 36px 24px; }
+      .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    }
+    @media(max-width:560px){
+      .shop-grid { grid-template-columns: 1fr; }
+      .cart-drawer { width: 100vw; }
+      .apparel-visual { display: none; }
+    }
+    img[src*="fall2022.png"] { object-position: 50% 18% !important; }
+  img[src*="fall2023.png"] { object-position: 50% 18% !important; }
+  img[src*="summer_2022.png"] { object-position: 50% 15% !important; }
+  img[src*="jan2022.png"] { object-position: 50% 22% !important; }
+  img[src*="jan2021.png"] { object-position: 50% 22% !important; }
+  img[src*="Nov2020.png"] { object-position: 50% 18% !important; }
+  img[src*="sept2020.png"] { object-position: 50% 20% !important; }
+  img[src*="march2019.png"] { object-position: 50% 18% !important; }
+  img[src*="SEPT2018.png"] { object-position: 50% 18% !important; }
+</style>
+<style id="focal-fix">
+    /* ── GLOBAL MOBILE TEXT LEGIBILITY ── */
+    @media(max-width:900px) {
+      .section-header h2, .section-label { color: #000000 !important; }
+      .blog-card-body h3 { color: #1A1A1A !important; }
+      .blog-card-body p { color: #444444 !important; }
+      .blog-card-meta .author, .blog-card-meta .date { color: #666 !important; }
+      .issue-card-info h3 { color: #000000 !important; }
+      .issue-card-info .cat { color: #555 !important; }
+      .sidebar-feature-info h3 { color: #000 !important; }
+      .sidebar-feature-info p { color: #555 !important; }
+      .latest-info h2 { color: #000 !important; }
+      .latest-info p { color: #444 !important; }
+      .hero-title { color: #FFFFFF !important; }
+      .pillar h3, .pillar p { color: #1A1A1A !important; }
+      .rate-card h3 { color: #1A1A1A !important; }
+      .rate-card .desc { color: #555 !important; }
+      .rate-card li { color: #444 !important; }
+    }
+
+  img[src*="Cover_2_.png"] { object-position: 25% 45% !important; }
+  img[src*="Magazine_Cover.png"] { object-position: 50% 22% !important; }
+  img[src*="spring2025.png"] { object-position: 55% 18% !important; }
+  img[src*="Spring20252.png"] { object-position: 50% 12% !important; }
+  img[src*="Spring2023.png"] { object-position: 50% 22% !important; }
+  img[src*="Spring2024.png"] { object-position: 50% 18% !important; }
+  img[src*="spring20242.png"] { object-position: 50% 14% !important; }
+  img[src*="sept2022.png"] { object-position: 50% 18% !important; }
+  img[src*="summer20222.png"] { object-position: 50% 20% !important; }
+  img[src*="winterSpring2023.png"] { object-position: 50% 18% !important; }
+  img[src*="waj-red-logo.png"] { object-position: center center !important; }
+
+  .blog-card-img img   { aspect-ratio: 3/4 !important; }
+  .blog-card-img       { aspect-ratio: 3/4 !important; }
+  .popular-post img    { aspect-ratio: 1/1; object-fit: cover; }
+  .ent-post-card img   { aspect-ratio: 3/4 !important; object-fit: cover; }
+  .feature-hero-card img { aspect-ratio: 3/4; object-fit: cover; }
+  .sidebar-feature img { aspect-ratio: 3/4; object-fit: cover; }
+  .feature-card img    { aspect-ratio: 3/4; object-fit: cover; }
+  .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
+  .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+  .hero-bg             { background-position: 30% 40% !important; }
+
+    /* ── MOBILE MENU ── */
+    .mobile-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      z-index: 150; opacity: 0; transition: opacity .25s;
+    }
+    .mobile-backdrop.open { display: block; opacity: 1; }
+    .mobile-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+      background: #FFFFFF; z-index: 151; border-left: 3px solid #7A0000;
+      transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; padding: 0;
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid #E0E0E0;
+    }
+    .mobile-drawer-header img { height: 38px; }
+    .mobile-close {
+      background: none; border: none; font-size: 22px; color: #888;
+      cursor: pointer; padding: 4px; line-height: 1;
+    }
+    .mobile-close:hover { color: #7A0000; }
+    .mobile-nav-links {
+      list-style: none; padding: 16px 0; flex: 1; overflow-y: auto;
+    }
+    .mobile-nav-links li a {
+      display: block; padding: 14px 24px;
+      font-size: 12px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #555; text-decoration: none;
+      border-bottom: 1px solid #F0F0F0; transition: color .15s, background .15s;
+    }
+    .mobile-nav-links li a:hover { color: #7A0000; background: #FBF5F5; }
+    .mobile-nav-links li a.mobile-ent {
+      margin: 16px 20px 0; display: block; text-align: center;
+      padding: 13px; background: #7A0000; color: #fff;
+      border-bottom: none; border-radius: 2px;
+    }
+    .mobile-nav-links li a.mobile-ent:hover { background: #9B0000; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 6px; z-index: 10;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px; background: #1A1A1A;
+      transition: all .25s; border-radius: 2px;
+    }
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } #navCartBtn { display: flex !important; } }
+  
+    /* ── SHOP LEGIBILITY FIX ── */
+    .purchase-option { background: #FFFFFF !important; border: 1px solid #BBBBBB !important; }
+    .purchase-option:hover { background: #FDF5F5 !important; border-color: #7A0000 !important; }
+    .option-label { font-size: 12px !important; font-weight: 700 !important; letter-spacing: .08em; text-transform: uppercase; }
+    .option-label.digital { color: #7A0000 !important; }
+    .option-label.print { color: #1A1A1A !important; }
+    .option-sub { color: #555555 !important; font-size: 11px !important; }
+    .option-price { color: #000000 !important; font-size: 16px !important; font-weight: 700 !important; }
+    .option-dot.digital { background: #7A0000 !important; }
+    .option-dot.print { background: #444444 !important; }
+    .shop-card-body h3 { color: #000000 !important; }
+    .shop-card-body .subtitle { color: #555555 !important; }
+    .section-label { color: #000000 !important; }
+    .add-btn { background: #7A0000 !important; color: #FFFFFF !important; font-size: 20px !important; line-height: 1 !important; }
+
+    /* Cart drawer mobile text fix */
+    .cart-header h3 { color: #1A1A1A !important; }
+    .cart-item-info .item-name { color: #1A1A1A !important; }
+    .cart-item-info .item-type.digital { color: #7A0000 !important; }
+    .cart-item-info .item-type.print { color: #444 !important; }
+    .cart-item-info .item-note { color: #666 !important; }
+    .cart-item-price { color: #000 !important; }
+    .cart-subtotal span { color: #666 !important; }
+    .cart-subtotal .amount { color: #000 !important; }
+    .shipping-note { color: #555 !important; }
+    .cart-close { color: #444 !important; }
+    .cart-empty { color: #666 !important; }
+  
+    /* ── HERO LEGEND FIX ── */
+    .page-hero { color: #FFFFFF !important; }
+    .page-hero h1 { color: #FFFFFF !important; }
+    .page-hero p { color: rgba(255,255,255,0.85) !important; }
+    .pricing-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; }
+    .legend-item {
+      background: rgba(255,255,255,0.15) !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+      padding: 14px 20px;
+      border-radius: 4px;
+    }
+    .legend-item span {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75) !important;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .legend-item strong {
+      font-size: 18px !important;
+      font-weight: 700 !important;
+      color: #FFFFFF !important;
+      display: block;
+    }
+    .legend-icon { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+    .legend-icon.digital { background: #FFFFFF !important; }
+    .legend-icon.print { background: rgba(255,255,255,0.6) !important; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine" /></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop" class="active">Shop</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+    <button class="nav-cart-btn" id="cartToggle">
+      🛒 Cart <span class="cart-count" id="cartCountBadge">0</span>
+    </button>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button id="navCartBtn" class="nav-cart-btn" onclick="document.getElementById('cartToggle') && document.getElementById('cartToggle').click()" aria-label="Cart" style="display:none;position:relative;background:none;border:1px solid #E0E0E0;color:#1A1A1A;padding:7px 12px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;align-items:center;gap:6px;border-radius:2px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A0000" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span id="navCartCount" style="background:#7A0000;color:#fff;width:16px;height:16px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;">0</span>
+      </button>
+      <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CART BACKDROP -->
+  <div class="cart-backdrop" id="cartBackdrop"></div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>YOUR CART</h3>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <span class="empty-icon">📋</span>
+        Your cart is empty.<br>Add a digital or print issue below.
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Total</span>
+        <span class="amount" id="cartTotal">$0.00</span>
+      </div>
+      <p class="shipping-note" id="shippingNote"></p>
+      <button class="btn-checkout" id="checkoutBtn" disabled>Proceed to Checkout</button>
+      <p style="font-size:10px;color:#888;margin-top:12px;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#7A0000"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        Secured by Stripe — your payment info is never stored on our servers
+      </p>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero" style="background:#7A0000;padding:110px 40px 48px;border-bottom:3px solid #5a0000;">
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,8vw,100px);letter-spacing:.04em;color:#FFFFFF;line-height:1;margin-bottom:10px;">Shop</h1>
+    <p style="font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:28px;">Every issue available in digital or print. Physical copies ship anywhere.</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:14px 20px;border-radius:4px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#FFFFFF;flex-shrink:0;"></div>
+        <div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.8);display:block;margin-bottom:3px;">Digital PDF</span>
+          <strong style="font-size:20px;font-weight:700;color:#FFFFFF;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;">$5.99</strong>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:14px 20px;border-radius:4px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.6);flex-shrink:0;"></div>
+        <div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.8);display:block;margin-bottom:3px;">Print Copy</span>
+          <strong style="font-size:20px;font-weight:700;color:#FFFFFF;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;">$30.99 + $10 shipping</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All Issues</button>
+    <button class="filter-btn" data-filter="latest">Latest</button>
+    <button class="filter-btn" data-filter="2025">2025</button>
+    <button class="filter-btn" data-filter="2024">2024</button>
+    <button class="filter-btn" data-filter="2023">2023</button>
+    <button class="filter-btn" data-filter="2022">2022</button>
+  </div>
+
+  <!-- SHOP GRID -->
+  <div class="shop-section">
+    <div class="section-label">All Issues</div>
+    <div class="shop-grid" id="shopGrid">
+
+      <!-- Issue 042 - Honey Bxby -->
+      <div class="shop-card" data-year="latest 2025">
+        <div class="shop-card-img">
+          <img src="../assets/images/Cover_2_.png" alt="Issue 042 Honey Bxby" />
+        </div>
+        <div class="shop-card-body">
+          <h3>HONEY BXBY</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'digital', 5.99, '../assets/images/Cover_2_.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div>
+                  <div class="option-label digital">Digital PDF</div>
+                  <div class="option-sub">Instant download</div>
+                </div>
+              </div>
+              <div class="option-right">
+                <span class="option-price">$5.99</span>
+                <button class="add-btn">+</button>
+              </div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'print', 30.99, '../assets/images/Cover_2_.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div>
+                  <div class="option-label print">Print Copy</div>
+                  <div class="option-sub">+ $10.00 shipping</div>
+                </div>
+              </div>
+              <div class="option-right">
+                <span class="option-price">$30.99</span>
+                <button class="add-btn">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Issue 042 - DJ Taj -->
+      <div class="shop-card" data-year="latest 2025">
+        <div class="shop-card-img">
+          <img src="../assets/images/Magazine_Cover.png" alt="Issue 042 DJ Taj" />
+        </div>
+        <div class="shop-card-body">
+          <h3>DJ TAJ</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'digital', 5.99, '../assets/images/Magazine_Cover.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div>
+                  <div class="option-label digital">Digital PDF</div>
+                  <div class="option-sub">Instant download</div>
+                </div>
+              </div>
+              <div class="option-right">
+                <span class="option-price">$5.99</span>
+                <button class="add-btn">+</button>
+              </div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'print', 30.99, '../assets/images/Magazine_Cover.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div>
+                  <div class="option-label print">Print Copy</div>
+                  <div class="option-sub">+ $10.00 shipping</div>
+                </div>
+              </div>
+              <div class="option-right">
+                <span class="option-price">$30.99</span>
+                <button class="add-btn">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spring 2025 -->
+      <div class="shop-card" data-year="2025">
+        <div class="shop-card-img">
+          <img src="../assets/images/spring2025.png" alt="Spring 2025" />
+        </div>
+        <div class="shop-card-body">
+          <h3>DJ SMALLZ 732</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'DJ SMALLZ 732', 'digital', 5.99, '../assets/images/spring2025.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'DJ SMALLZ 732', 'print', 30.99, '../assets/images/spring2025.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spring 2025 Vol 2 -->
+      <div class="shop-card" data-year="2025">
+        <div class="shop-card-img">
+          <img src="../assets/images/Spring20252.png" alt="Spring 2025 Vol 2" />
+        </div>
+        <div class="shop-card-body">
+          <h3>QAYSEAN WILLIAMS</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'digital', 5.99, '../assets/images/Spring20252.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'print', 30.99, '../assets/images/Spring20252.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spring 2024 -->
+      <div class="shop-card" data-year="2024">
+        <div class="shop-card-img">
+          <img src="../assets/images/Spring2024.png" alt="Spring 2024" />
+        </div>
+        <div class="shop-card-body">
+          <h3>THE ARTIST</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'digital', 5.99, '../assets/images/Spring2024.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'print', 30.99, '../assets/images/Spring2024.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spring 2024 Vol 2 -->
+      <div class="shop-card" data-year="2024">
+        <div class="shop-card-img">
+          <img src="../assets/images/spring20242.png" alt="Spring 2024 Vol 2" />
+        </div>
+        <div class="shop-card-body">
+          <h3>LADY LUCK</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'digital', 5.99, '../assets/images/spring20242.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'print', 30.99, '../assets/images/spring20242.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spring 2023 -->
+      <div class="shop-card" data-year="2023">
+        <div class="shop-card-img">
+          <img src="../assets/images/Spring2023.png" alt="Spring 2023" />
+        </div>
+        <div class="shop-card-body">
+          <h3>MAPY</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'digital', 5.99, '../assets/images/Spring2023.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'print', 30.99, '../assets/images/Spring2023.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Winter/Spring 2023 -->
+      <div class="shop-card" data-year="2023">
+        <div class="shop-card-img">
+          <img src="../assets/images/winterSpring2023.png" alt="Winter/Spring 2023" />
+        </div>
+        <div class="shop-card-body">
+          <h3>SHAKUR STEVENSON</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'digital', 5.99, '../assets/images/winterSpring2023.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'print', 30.99, '../assets/images/winterSpring2023.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summer 2022 -->
+      <div class="shop-card" data-year="2022">
+        <div class="shop-card-img">
+          <img src="../assets/images/summer20222.png" alt="Summer 2022" />
+        </div>
+        <div class="shop-card-body">
+          <h3>TREY BUDDEN</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'digital', 5.99, '../assets/images/summer20222.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'print', 30.99, '../assets/images/summer20222.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sept 2022 -->
+      <div class="shop-card" data-year="2022">
+        <div class="shop-card-img">
+          <img src="../assets/images/sept2022.png" alt="September 2022" />
+        </div>
+        <div class="shop-card-body">
+          <h3>KIA</h3>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'TREY BUDDEN', 'digital', 5.99, '../assets/images/sept2022.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'TREY BUDDEN', 'print', 30.99, '../assets/images/sept2022.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end shop-grid -->
+
+
+    <!-- RECENT ARCHIVE ISSUES -->
+    <div class="section-label" style="margin-top:48px;">Archive Issues</div>
+    <div class="shop-grid" style="margin-bottom:48px;">
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/fall2022.png" alt="FRANKIE EDGAR x TOBIAS EATS"/>
+          
+        </div>
+        <div class="shop-card-body">
+          <h3>FRANKIE EDGAR x TOBIAS EATS</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 036 featuring UFC legend Frankie "The Answer" Edgar and Tobias Eats. Covering spo...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'FRANKIE EDGAR x TOBIAS EATS', 'digital', 5.99, '../assets/images/fall2022.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'FRANKIE EDGAR x TOBIAS EATS', 'print', 30.99, '../assets/images/fall2022.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/fall2023.png" alt="THE MALCOLM JENKINS FOUNDATION"/>
+          
+        </div>
+        <div class="shop-card-body">
+          <h3>THE MALCOLM JENKINS FOUNDATION</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 037 featuring The Malcolm Jenkins Foundation — effectuating positive change in th...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'digital', 5.99, '../assets/images/fall2023.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'print', 30.99, '../assets/images/fall2023.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/summer_2022.png" alt="PILAR SCRATCH & RIVER MASON"/>
+          
+        </div>
+        <div class="shop-card-body">
+          <h3>PILAR SCRATCH & RIVER MASON</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 035 featuring Pilar Scratch and River Mason — Creating a Legacy. A heartfelt stor...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'PILAR SCRATCH & RIVER MASON', 'digital', 5.99, '../assets/images/summer_2022.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'PILAR SCRATCH & RIVER MASON', 'print', 30.99, '../assets/images/summer_2022.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/jan2022.png" alt="UNIIQU3"/>
+          
+        </div>
+        <div class="shop-card-body">
+          <h3>UNIIQU3</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 033 featuring UNIIQU3 — fashion-forward, bold, and unapologetically creative. A ...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'UNIIQU3', 'digital', 5.99, '../assets/images/jan2022.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'UNIIQU3', 'print', 30.99, '../assets/images/jan2022.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAST BEST SELLERS -->
+    <div class="section-label" style="margin-top:0;">Past Best Sellers</div>
+    <p style="font-size:12px;color:#888;margin-bottom:24px;letter-spacing:.04em;">Iconic issues from our archive — each one a piece of WAJ Magazine history.</p>
+    <div class="shop-grid" style="margin-bottom:48px;">
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/jan2021.png" alt="KERTASY"/>
+          <span class="issue-card-badge" style="background:#1A1A1A;">Best Seller</span>
+        </div>
+        <div class="shop-card-body">
+          <h3>KERTASY</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine January 2021 featuring recording artist Kertasy. Exclusive story by Amy Lothian. Also f...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'KERTASY', 'digital', 5.99, '../assets/images/jan2021.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'KERTASY', 'print', 30.99, '../assets/images/jan2021.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/Nov2020.png" alt="REGGIE COUZ"/>
+          <span class="issue-card-badge" style="background:#1A1A1A;">Best Seller</span>
+        </div>
+        <div class="shop-card-body">
+          <h3>REGGIE COUZ</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine November 2020 featuring influencer and music artist Reggie Couz. Exclusive story by Mel...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'digital', 5.99, '../assets/images/Nov2020.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'print', 30.99, '../assets/images/Nov2020.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/sept2020.png" alt="FELICIA TEMPLE"/>
+          <span class="issue-card-badge" style="background:#1A1A1A;">Best Seller</span>
+        </div>
+        <div class="shop-card-body">
+          <h3>FELICIA TEMPLE</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine September 2020 — 6 Year Anniversary Edition featuring COVID-19 frontline hero and singe...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'FELICIA TEMPLE', 'digital', 5.99, '../assets/images/sept2020.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'FELICIA TEMPLE', 'print', 30.99, '../assets/images/sept2020.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/march2019.png" alt="CHAD PIFF"/>
+          <span class="issue-card-badge" style="background:#1A1A1A;">Best Seller</span>
+        </div>
+        <div class="shop-card-body">
+          <h3>CHAD PIFF</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine March 2019 featuring Chad Piff — guitarist, artist, and creative force. Also featuring ...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'CHAD PIFF', 'digital', 5.99, '../assets/images/march2019.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'CHAD PIFF', 'print', 30.99, '../assets/images/march2019.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card" data-year="archive">
+        <div class="shop-card-img">
+          <img src="../assets/images/SEPT2018.png" alt="KHERK COBAIN"/>
+          <span class="issue-card-badge" style="background:#1A1A1A;">Best Seller</span>
+        </div>
+        <div class="shop-card-body">
+          <h3>KHERK COBAIN</h3>
+          <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine September 2018 featuring Kherk Cobain — the Unicorn. Also featuring KRTV, Mally Gee, Ni...</p>
+          <div class="purchase-options">
+            <div class="purchase-option" onclick="addToCart(this, 'KHERK COBAIN', 'digital', 5.99, '../assets/images/SEPT2018.png')">
+              <div class="option-info">
+                <div class="option-dot digital"></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
+            </div>
+            <div class="purchase-option" onclick="addToCart(this, 'KHERK COBAIN', 'print', 30.99, '../assets/images/SEPT2018.png')">
+              <div class="option-info">
+                <div class="option-dot print"></div>
+                <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
+              </div>
+              <div class="option-right"><span class="option-price">$30.99</span><button class="add-btn">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPAREL TEASER -->
+    <div class="apparel-teaser">
+      <div>
+        <span class="coming-soon-badge">Coming Soon</span>
+        <h2>JERSEY CURATED<br>GEAR</h2>
+        <p>Classic WAJ shirts and sweatshirts are on the way. We Are Jersey apparel designed for the culture — drop your email to be the first to know when it launches.</p>
+        <div class="notify-form">
+          <input type="email" placeholder="your@email.com" id="notifyEmail" />
+          <button onclick="handleNotify()">Notify Me</button>
+        </div>
+      </div>
+      <div class="apparel-visual">WAJ</div>
+    </div>
+
+  </div><!-- end shop-section -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+    <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" style="
+    position:fixed; bottom:32px; left:50%;
+    transform:translateX(-50%) translateY(120px);
+    background:#1A1A1A; border:2px solid #7A0000; color:#FFFFFF;
+    padding:14px 24px; font-size:13px; font-weight:600;
+    z-index:9999; transition:transform 0.3s ease;
+    white-space:nowrap; max-width:90vw; border-radius:4px;
+    display:flex; align-items:center; gap:10px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    pointer-events:none;
+  ">
+    <div style="width:8px;height:8px;border-radius:50%;background:#7A0000;flex-shrink:0;" id="toastDot"></div>
+    <span style="color:#FFFFFF !important;font-size:13px;font-weight:600;" id="toastMsg">Added to cart</span>
+  </div>
+
+  <script>
+    // ── CART STATE ──
+    let cart = [];
+
+    function addToCart(optionEl, name, type, price, img) {
+      const id = name + '|' + type;
+      const existing = cart.find(i => i.id === id);
+      if (existing) {
+        showToast(`${name} (${type}) already in cart`);
+        return;
+      }
+      cart.push({ id, name, type, price, img });
+      const btn = optionEl.querySelector('.add-btn');
+      btn.classList.add('added');
+      btn.textContent = '';
+      updateCart();
+      showToast(`Added: ${name} — ${type === 'digital' ? 'Digital PDF' : 'Print Copy'}`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(i => i.id !== id);
+      updateCart();
+    }
+
+    function updateCart() {
+      const countEl = document.getElementById('cartCountBadge');
+      const itemsEl = document.getElementById('cartItems');
+      const totalEl = document.getElementById('cartTotal');
+      const shippingEl = document.getElementById('shippingNote');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      countEl.textContent = cart.length;
+
+      if (cart.length === 0) {
+        itemsEl.innerHTML = `<div class="cart-empty"><span class="empty-icon">📋</span>Your cart is empty.<br>Add a digital or print issue below.</div>`;
+        totalEl.textContent = '$0.00';
+        shippingEl.textContent = '';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      const printCount = cart.filter(i => i.type === 'print').length;
+      const shipping = printCount * 10;
+      const subtotal = cart.reduce((sum, i) => sum + i.price, 0);
+      const grandTotal = subtotal + shipping;
+
+      itemsEl.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <img src="${item.img}" alt="${item.name}" />
+          <div class="cart-item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-type ${item.type}">${item.type === 'digital' ? 'Digital PDF' : 'Print Copy'}</div>
+            ${item.type === 'print' ? '<div class="item-note">+ $10.00 shipping</div>' : '<div class="item-note">Instant download</div>'}
+          </div>
+          <div>
+            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+            <button class="cart-item-remove" onclick="removeFromCart('${item.id.replace(/'/g, "\\'")}')">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      totalEl.textContent = `$${grandTotal.toFixed(2)}`;
+
+      if (printCount > 0) {
+        shippingEl.innerHTML = `Includes <span>$${shipping.toFixed(2)} shipping</span> for ${printCount} print issue${printCount > 1 ? 's' : ''}.`;
+      } else {
+        shippingEl.textContent = 'No shipping — all digital downloads.';
+      }
+
+      checkoutBtn.disabled = false;
+    }
+
+    // ── CART DRAWER ──
+    const drawer = document.getElementById('cartDrawer');
+    const backdrop = document.getElementById('cartBackdrop');
+
+    document.getElementById('cartToggle').addEventListener('click', () => {
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+    });
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    backdrop.addEventListener('click', closeCart);
+
+    function closeCart() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+    }
+
+    document.getElementById('checkoutBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('checkoutBtn');
+      if (!cart.length) return;
+
+      // Loading state
+      btn.disabled = true;
+      btn.textContent = 'Redirecting to Checkout...';
+
+      try {
+        const response = await fetch('/.netlify/functions/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: cart }),
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          // Redirect to Stripe-hosted checkout page
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Checkout failed');
+        }
+      } catch (err) {
+        console.error('Checkout error:', err);
+        btn.disabled = false;
+        btn.textContent = 'Proceed to Checkout';
+        showToast('Checkout error. Check your Stripe setup or contact magazine@wearejerseyent.com', true);
+      }
+    });
+
+    // ── TOAST ──
+    function showToast(msg, isError) {
+      const t = document.getElementById('toast');
+      const dot = document.getElementById('toastDot');
+      document.getElementById('toastMsg').textContent = msg;
+      // Force styles regardless of CSS
+      t.style.background = isError ? '#2a0000' : '#1A1A1A';
+      t.style.borderColor = isError ? '#cc0000' : '#7A0000';
+      t.style.color = '#FFFFFF';
+      if (dot) dot.style.background = isError ? '#cc0000' : '#7A0000';
+      // Animate in
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => {
+        t.style.transform = 'translateX(-50%) translateY(120px)';
+      }, isError ? 5000 : 3000);
+    }
+
+    // ── FILTER ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.shop-card').forEach(card => {
+          if (filter === 'all' || card.dataset.year.includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // ── APPAREL NOTIFY ──
+    function handleNotify() {
+      const email = document.getElementById('notifyEmail').value;
+      if (!email || !email.includes('@')) { alert('Please enter a valid email.'); return; }
+      document.getElementById('notifyEmail').value = '';
+      showToast('You\'re on the list! We\'ll notify you when apparel drops.');
+    }
+  </script>
+
+  <!-- MOBILE BACKDROP -->
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="mobile-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function openMobileMenu() {
+      document.getElementById('mobileDrawer').classList.add('open');
+      document.getElementById('mobileBackdrop').classList.add('open');
+      document.querySelector('.nav-hamburger').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('mobileBackdrop').classList.remove('open');
+      document.querySelector('.nav-hamburger').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    // Wire hamburger button
+    const hamburger = document.querySelector('.nav-hamburger');
+    if (hamburger) hamburger.addEventListener('click', openMobileMenu);
+    // Close on escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
+
+  <script>
+  // Sync nav cart badge with actual cart count
+  const origUpdateCart = typeof updateCart === 'function' ? updateCart : null;
+  function syncNavCart() {
+    const badge = document.getElementById('navCartCount');
+    const count = document.getElementById('cartCountBadge');
+    if (badge && count) badge.textContent = count.textContent;
+  }
+  // Watch for cart changes
+  const cartObserver = new MutationObserver(syncNavCart);
+  document.addEventListener('DOMContentLoaded', () => {
+    const badge = document.getElementById('cartCountBadge');
+    if (badge) cartObserver.observe(badge, { childList: true, subtree: true, characterData: true });
+  });
+  // Nav cart button opens the cart drawer
+  document.addEventListener('DOMContentLoaded', () => {
+    const navBtn = document.getElementById('navCartBtn');
+    if (navBtn) {
+      navBtn.onclick = () => {
+        const drawer = document.getElementById('cartDrawer');
+        const backdrop = document.getElementById('cartBackdrop');
+        if (drawer) drawer.classList.add('open');
+        if (backdrop) backdrop.classList.add('open');
+      };
+    }
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>All Issues — WAJ Magazine</title>
+  <meta name="description" content="Browse every WAJ Magazine issue from our complete archive. Digital downloads and print copies available."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="All Issues — WAJ Magazine Archive"/>
+  <meta property="og:description" content="Browse every WAJ Magazine issue from our complete archive. Digital downloads and print copies available."/>
+  <meta property="og:image" content="../assets/images/Cover_2_.png"/>
+  <meta property="og:url" content="https://wajmagazine.com/pages/issues.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="WAJ Magazine"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="All Issues — WAJ Magazine Archive"/>
+  <meta name="twitter:description" content="Browse every WAJ Magazine issue from our complete archive. Digital downloads and print copies available."/>
+  <meta name="twitter:image" content="../assets/images/Cover_2_.png"/>
+  <meta name="twitter:site" content="@wajmagazine"/>
+  <link rel="canonical" href="https://wajmagazine.com/pages/issues.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--crimson:#7A0000;--crimson-light:#9B0000;--text:#1A1A1A;--text-muted:#555;--text-light:#888;--bg:#FFFFFF;--bg-alt:#F6F6F6;--border:#E0E0E0;--black:#0A0A0A;--white:#FFFFFF;--font-display:"Bebas Neue",sans-serif;--font-body:"Montserrat",sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
+    a{text-decoration:none;color:inherit;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px;background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);border-bottom:2px solid var(--crimson);}
+    .nav-logo img{height:44px;}
+    .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+    .nav-links a{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--crimson);}
+    .nav-links .nav-ent{padding:8px 18px;background:var(--crimson);color:var(--white);border-radius:2px;font-size:10px;}
+    .nav-links .nav-ent:hover{background:var(--crimson-light);color:var(--white);}
+
+    .page-hero{padding:110px 60px 60px;background:var(--crimson);border-bottom:3px solid #5a0000;}
+    .page-hero h1{font-family:var(--font-display);font-size:clamp(60px,8vw,100px);letter-spacing:.04em;color:var(--white);line-height:1;}
+    .page-hero p{font-size:14px;color:rgba(255,255,255,.75);margin-top:10px;}
+
+    .filter-bar{padding:24px 60px;background:var(--bg);display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+    .filter-btn{padding:7px 18px;background:transparent;border:1px solid var(--border);color:var(--text-muted);font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .filter-btn:hover,.filter-btn.active{background:var(--crimson);border-color:var(--crimson);color:var(--white);}
+
+    .issues-grid{padding:60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px;background:var(--bg-alt);}
+    .issue-card{background:var(--white);border:1px solid var(--border);overflow:hidden;transition:transform .3s,box-shadow .3s;}
+    .issue-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1);}
+    .issue-card-img{position:relative;overflow:hidden;}
+    .issue-card-img img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;transition:transform .4s;}
+    .issue-card:hover .issue-card-img img{transform:scale(1.04);}
+    .issue-card-badge{position:absolute;top:12px;left:12px;background:var(--crimson);color:var(--white);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;}
+    .issue-card-info{padding:18px;}
+    .issue-card-info .issue-num{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--crimson);margin-bottom:5px;}
+    .issue-card-info h3{font-family:var(--font-display);font-size:26px;letter-spacing:.04em;color:var(--text);margin-bottom:4px;}
+    .issue-card-info .cat{font-size:11px;color:var(--text-light);margin-bottom:14px;}
+    .issue-card-info a{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--crimson);border-bottom:1px solid rgba(122,0,0,.3);padding-bottom:2px;transition:border-color .2s;}
+    .issue-card-info a:hover{border-color:var(--crimson);}
+
+    footer{background:var(--black);border-top:3px solid var(--crimson);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+    footer p{font-size:11px;color:#666;}
+    footer a.ent-link{font-size:11px;font-weight:700;letter-spacing:.1em;color:#ff6666;text-transform:uppercase;border:1px solid rgba(122,0,0,.4);padding:6px 14px;transition:background .2s;}
+    footer a.ent-link:hover{background:var(--crimson);color:var(--white);}
+    @media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none;}.filter-bar,.issues-grid,footer{padding-left:24px;padding-right:24px;}.issues-grid{grid-template-columns:repeat(2,1fr);gap:16px;}footer{padding:32px 24px;}}
+    img[src*="fall2022.png"] { object-position: 50% 18% !important; }
+  img[src*="fall2023.png"] { object-position: 50% 18% !important; }
+  img[src*="summer_2022.png"] { object-position: 50% 15% !important; }
+  img[src*="jan2022.png"] { object-position: 50% 22% !important; }
+  img[src*="jan2021.png"] { object-position: 50% 22% !important; }
+  img[src*="Nov2020.png"] { object-position: 50% 18% !important; }
+  img[src*="sept2020.png"] { object-position: 50% 20% !important; }
+  img[src*="march2019.png"] { object-position: 50% 18% !important; }
+  img[src*="SEPT2018.png"] { object-position: 50% 18% !important; }
+</style>
+<style id="focal-fix">
+    /* ── GLOBAL MOBILE TEXT LEGIBILITY ── */
+    @media(max-width:900px) {
+      .section-header h2, .section-label { color: #000000 !important; }
+      .blog-card-body h3 { color: #1A1A1A !important; }
+      .blog-card-body p { color: #444444 !important; }
+      .blog-card-meta .author, .blog-card-meta .date { color: #666 !important; }
+      .issue-card-info h3 { color: #000000 !important; }
+      .issue-card-info .cat { color: #555 !important; }
+      .sidebar-feature-info h3 { color: #000 !important; }
+      .sidebar-feature-info p { color: #555 !important; }
+      .latest-info h2 { color: #000 !important; }
+      .latest-info p { color: #444 !important; }
+      .hero-title { color: #FFFFFF !important; }
+      .pillar h3, .pillar p { color: #1A1A1A !important; }
+      .rate-card h3 { color: #1A1A1A !important; }
+      .rate-card .desc { color: #555 !important; }
+      .rate-card li { color: #444 !important; }
+    }
+
+  img[src*="Cover_2_.png"] { object-position: 25% 45% !important; }
+  img[src*="Magazine_Cover.png"] { object-position: 50% 22% !important; }
+  img[src*="spring2025.png"] { object-position: 55% 18% !important; }
+  img[src*="Spring20252.png"] { object-position: 50% 12% !important; }
+  img[src*="Spring2023.png"] { object-position: 50% 22% !important; }
+  img[src*="Spring2024.png"] { object-position: 50% 18% !important; }
+  img[src*="spring20242.png"] { object-position: 50% 14% !important; }
+  img[src*="sept2022.png"] { object-position: 50% 18% !important; }
+  img[src*="summer20222.png"] { object-position: 50% 20% !important; }
+  img[src*="winterSpring2023.png"] { object-position: 50% 18% !important; }
+  img[src*="waj-red-logo.png"] { object-position: center center !important; }
+
+  .blog-card-img img   { aspect-ratio: 3/4 !important; }
+  .blog-card-img       { aspect-ratio: 3/4 !important; }
+  .popular-post img    { aspect-ratio: 1/1; object-fit: cover; }
+  .ent-post-card img   { aspect-ratio: 3/4 !important; object-fit: cover; }
+  .feature-hero-card img { aspect-ratio: 3/4; object-fit: cover; }
+  .sidebar-feature img { aspect-ratio: 3/4; object-fit: cover; }
+  .feature-card img    { aspect-ratio: 3/4; object-fit: cover; }
+  .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
+  .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+  .hero-bg             { background-position: 30% 40% !important; }
+
+    /* ── MOBILE MENU ── */
+    .mobile-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      z-index: 150; opacity: 0; transition: opacity .25s;
+    }
+    .mobile-backdrop.open { display: block; opacity: 1; }
+    .mobile-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 280px;
+      background: #FFFFFF; z-index: 151; border-left: 3px solid #7A0000;
+      transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; padding: 0;
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .mobile-drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid #E0E0E0;
+    }
+    .mobile-drawer-header img { height: 38px; }
+    .mobile-close {
+      background: none; border: none; font-size: 22px; color: #888;
+      cursor: pointer; padding: 4px; line-height: 1;
+    }
+    .mobile-close:hover { color: #7A0000; }
+    .mobile-nav-links {
+      list-style: none; padding: 16px 0; flex: 1; overflow-y: auto;
+    }
+    .mobile-nav-links li a {
+      display: block; padding: 14px 24px;
+      font-size: 12px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #555; text-decoration: none;
+      border-bottom: 1px solid #F0F0F0; transition: color .15s, background .15s;
+    }
+    .mobile-nav-links li a:hover { color: #7A0000; background: #FBF5F5; }
+    .mobile-nav-links li a.mobile-ent {
+      margin: 16px 20px 0; display: block; text-align: center;
+      padding: 13px; background: #7A0000; color: #fff;
+      border-bottom: none; border-radius: 2px;
+    }
+    .mobile-nav-links li a.mobile-ent:hover { background: #9B0000; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 6px; z-index: 10;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px; background: #1A1A1A;
+      transition: all .25s; border-radius: 2px;
+    }
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } #navCartBtn { display: flex !important; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues" class="active">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button id="navCartBtn" class="nav-cart-btn" onclick="document.getElementById('cartToggle') && document.getElementById('cartToggle').click()" aria-label="Cart" style="display:none;position:relative;background:none;border:1px solid #E0E0E0;color:#1A1A1A;padding:7px 12px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;align-items:center;gap:6px;border-radius:2px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A0000" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span id="navCartCount" style="background:#7A0000;color:#fff;width:16px;height:16px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;">0</span>
+      </button>
+      <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>All Issues</h1>
+    <p>Browse the complete WAJ Magazine archive — from our debut issue to today.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="fashion">Fashion</button>
+    <button class="filter-btn" data-filter="music">Music</button>
+    <button class="filter-btn" data-filter="sports">Sports</button>
+    <button class="filter-btn" data-filter="entrepreneur">Entrepreneur</button>
+    <button class="filter-btn" data-filter="community">Community</button>
+  </div>
+
+  <div class="issues-grid">
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/Cover_2_.png" alt="Issue 042 Honey Bxby"/></div><div class="issue-card-info"><h3>HONEY BXBY</h3><p class="cat">Fashion · Community</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/Magazine_Cover.png" alt="Issue 042 DJ Taj"/></div><div class="issue-card-info"><h3>DJ TAJ</h3><p class="cat">Music · Lifestyle</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/spring2025.png" alt="Spring 2025"/></div><div class="issue-card-info"><h3>DJ SMALLZ 732</h3><p class="cat">Music · Community</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/Spring20252.png" alt="Spring 2025 Vol 2"/></div><div class="issue-card-info"><h3>QAYSEAN WILLIAMS</h3><p class="cat">Fashion · Entrepreneur</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/Spring2024.png" alt="Spring 2024"/></div><div class="issue-card-info"><h3>THE ARTIST</h3><p class="cat">Sports · Music</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/spring20242.png" alt="Spring 2024 Vol 2"/></div><div class="issue-card-info"><h3>LADY LUCK</h3><p class="cat">Sports · Music</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/Spring2023.png" alt="Spring 2023"/></div><div class="issue-card-info"><h3>MAPY</h3><p class="cat">Fashion · Music</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/winterSpring2023.png" alt="Winter/Spring 2023"/></div><div class="issue-card-info"><h3>SHAKUR STEVENSON</h3><p class="cat">Sports · Music</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/summer20222.png" alt="Summer 2022"/></div><div class="issue-card-info"><h3>TREY BUDDEN</h3><p class="cat">Fashion · Hip-Hop</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/sept2022.png" alt="September 2022"/></div><div class="issue-card-info"><h3>KIA</h3><p class="cat">Community · Arts</p><a href="/shop">Get Issue →</a></div></div>
+  </div>
+
+  
+  <div style="padding:0 60px 60px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.06em;color:#1A1A1A;margin-bottom:28px;display:flex;align-items:center;gap:16px;">Archive Issues <div style="flex:1;height:1px;background:#E0E0E0;"></div></div>
+    <div class="issues-grid" style="padding:0;margin-bottom:48px;">
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/fall2022.png" alt="FRANKIE EDGAR x TOBIAS EATS"/></div><div class="issue-card-info"><h3>FRANKIE EDGAR x TOBIAS EATS</h3><p class="cat">Sports · Food</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/fall2023.png" alt="THE MALCOLM JENKINS FOUNDATION"/></div><div class="issue-card-info"><h3>THE MALCOLM JENKINS FOUNDATION</h3><p class="cat">Community · Sports</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/summer_2022.png" alt="PILAR SCRATCH & RIVER MASON"/></div><div class="issue-card-info"><h3>PILAR SCRATCH & RIVER MASON</h3><p class="cat">Community · Family</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/jan2022.png" alt="UNIIQU3"/></div><div class="issue-card-info"><h3>UNIIQU3</h3><p class="cat">Fashion · Hip-Hop</p><a href="/shop">Get Issue →</a></div></div>
+    </div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.06em;color:#1A1A1A;margin-bottom:12px;display:flex;align-items:center;gap:16px;">Past Best Sellers <div style="flex:1;height:1px;background:#E0E0E0;"></div></div>
+    <p style="font-size:12px;color:#888;margin-bottom:24px;">Iconic issues from our history — the covers that defined a generation of WAJ.</p>
+    <div class="issues-grid" style="padding:0;">
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/jan2021.png" alt="KERTASY"/></div><div class="issue-card-info"><h3>KERTASY</h3><p class="cat">Music</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/Nov2020.png" alt="REGGIE COUZ"/></div><div class="issue-card-info"><h3>REGGIE COUZ</h3><p class="cat">Music · Lifestyle</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/sept2020.png" alt="FELICIA TEMPLE"/></div><div class="issue-card-info"><h3>FELICIA TEMPLE</h3><p class="cat">Music · Community</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/march2019.png" alt="CHAD PIFF"/></div><div class="issue-card-info"><h3>CHAD PIFF</h3><p class="cat">Music</p><a href="/shop">Get Issue →</a></div></div>
+    <div class="issue-card"><div class="issue-card-img"><img src="../assets/images/SEPT2018.png" alt="KHERK COBAIN"/></div><div class="issue-card-info"><h3>KHERK COBAIN</h3><p class="cat">Music · Culture</p><a href="/shop">Get Issue →</a></div></div>
+    </div>
+  </div>
+
+<footer>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+    <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+
+  <!-- MOBILE BACKDROP -->
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="mobile-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function openMobileMenu() {
+      document.getElementById('mobileDrawer').classList.add('open');
+      document.getElementById('mobileBackdrop').classList.add('open');
+      document.querySelector('.nav-hamburger').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('mobileBackdrop').classList.remove('open');
+      document.querySelector('.nav-hamburger').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    // Wire hamburger button
+    const hamburger = document.querySelector('.nav-hamburger');
+    if (hamburger) hamburger.addEventListener('click', openMobileMenu);
+    // Close on escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
+</body>
+</html>
