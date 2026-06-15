@@ -626,11 +626,40 @@
         </div>
 
         <div style="margin-bottom:24px;">
-          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:7px;">Your Article / Post Content *</label>
-          <textarea name="content" required rows="10" placeholder="Write your article here. Include all text, quotes, and key points. Our editorial team will review, lightly format, and reach out to you if any changes are needed before publishing."
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888;">Your Article / Post Content *</label>
+            <span id="wordCountDisplay" style="font-size:11px;font-weight:600;color:#7A0000;letter-spacing:.05em;">0 words</span>
+          </div>
+          <textarea id="articleContent" name="content" required rows="10"
+            placeholder="Write your article here. Include all text, quotes, and key points. Our editorial team will review, lightly format, and reach out to you if any changes are needed before publishing."
             style="width:100%;background:#F6F6F6;border:1px solid #E0E0E0;color:#1A1A1A;font-family:'Montserrat',sans-serif;font-size:13px;line-height:1.7;padding:14px;outline:none;resize:vertical;transition:border-color .2s;"
-            onfocus="this.style.borderColor='#7A0000'" onblur="this.style.borderColor='#E0E0E0'"></textarea>
+            onfocus="this.style.borderColor='#7A0000'" onblur="this.style.borderColor='#E0E0E0'"
+            oninput="updateWordCount(this)"></textarea>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;">
+            <span style="font-size:10px;color:#aaa;">Minimum 150 words recommended for editorial review</span>
+            <span id="readTimeDisplay" style="font-size:10px;color:#aaa;"></span>
+          </div>
         </div>
+
+        <script>
+          function updateWordCount(textarea) {
+            const text = textarea.value.trim();
+            const words = text === '' ? [] : text.split(/\s+/).filter(w => w.length > 0);
+            const count = words.length;
+            const display = document.getElementById('wordCountDisplay');
+            const readTime = document.getElementById('readTimeDisplay');
+
+            display.textContent = count + (count === 1 ? ' word' : ' words');
+            display.style.color = count < 150 ? '#cc6600' : '#7A0000';
+
+            if (count >= 50) {
+              const mins = Math.max(1, Math.round(count / 200));
+              readTime.textContent = '~' + mins + ' min read';
+            } else {
+              readTime.textContent = '';
+            }
+          }
+        </script>
 
         <div style="margin-bottom:24px;">
           <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:7px;">Image Link (optional)</label>
