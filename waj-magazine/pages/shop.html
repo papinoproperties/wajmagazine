@@ -1287,40 +1287,59 @@
       backdrop.classList.remove('open');
     }
 
-    document.getElementById('checkoutBtn').addEventListener('click', async () => {
+    // ── STRIPE PAYMENT LINKS ──
+    // Set these after creating Payment Links in your Stripe Dashboard:
+    // dashboard.stripe.com → Products → Payment Links
+    const STRIPE_DIGITAL_LINK = 'https://buy.stripe.com/test_cNi3cvfLp2KyfnYaTw33W01';
+    const STRIPE_PRINT_LINK   = 'https://buy.stripe.com/test_00w28r6aP2Ky4Jk9Ps33W00';
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
       const btn = document.getElementById('checkoutBtn');
       if (!cart.length) return;
+
+      const digitalItems = cart.filter(i => i.type === 'digital');
+      const printItems   = cart.filter(i => i.type === 'print');
 
       btn.disabled = true;
       btn.textContent = 'Redirecting to Checkout...';
 
-      try {
-        const response = await fetch('/.netlify/functions/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: cart }),
+      // Build a readable order summary to pass to Stripe
+      // This shows up in your Stripe dashboard against every payment
+      const allItems = cart.map(i =>
+        i.name + ' (' + (i.type === 'digital' ? 'Digital PDF' : 'Print Copy') + ')'
+      ).join(' | ');
+
+      const digitalCount = digitalItems.length;
+      const printCount   = printItems.length;
+
+      // We open separate Stripe pages for digital vs print
+      // Each item in the cart gets its own checkout so Stripe records the exact issue
+      function goToStripe(items, baseLink, type) {
+        if (!items.length) return;
+        items.forEach((item, idx) => {
+          const label = encodeURIComponent(item.name + ' — ' + (type === 'digital' ? 'Digital PDF $5.99' : 'Print Copy $30.99 + $10 shipping'));
+          // client_reference_id tells Stripe exactly which issue this payment is for
+          const url = baseLink + '?client_reference_id=' + label;
+          if (idx === 0) {
+            // Open first item in current tab
+            setTimeout(() => { window.location.href = url; }, 300);
+          } else {
+            // Open additional items in new tabs so customer can complete each
+            setTimeout(() => { window.open(url, '_blank'); }, 300 + (idx * 200));
+          }
         });
+      }
 
-        let data;
-        try {
-          data = await response.json();
-        } catch(parseErr) {
-          throw new Error('Server response was not valid JSON. Status: ' + response.status);
-        }
-
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          // Show the ACTUAL error from Stripe/function
-          const msg = data.error || data.message || ('HTTP ' + response.status);
-          throw new Error(msg);
-        }
-      } catch (err) {
-        console.error('Checkout error:', err);
-        btn.disabled = false;
-        btn.textContent = 'Proceed to Checkout';
-        // Show actual error so we can diagnose
-        showToast('Error: ' + err.message, true);
+      if (digitalCount > 0 && printCount === 0) {
+        // Digital only — one Stripe page per issue
+        goToStripe(digitalItems, STRIPE_DIGITAL_LINK, 'digital');
+      } else if (printCount > 0 && digitalCount === 0) {
+        // Print only — one Stripe page per issue
+        goToStripe(printItems, STRIPE_PRINT_LINK, 'print');
+      } else {
+        // Mixed cart — open digital first, then print
+        goToStripe(digitalItems, STRIPE_DIGITAL_LINK, 'digital');
+        goToStripe(printItems, STRIPE_PRINT_LINK, 'print');
       }
     });
 
