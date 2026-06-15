@@ -1291,7 +1291,6 @@
       const btn = document.getElementById('checkoutBtn');
       if (!cart.length) return;
 
-      // Loading state
       btn.disabled = true;
       btn.textContent = 'Redirecting to Checkout...';
 
@@ -1302,19 +1301,26 @@
           body: JSON.stringify({ items: cart }),
         });
 
-        const data = await response.json();
+        let data;
+        try {
+          data = await response.json();
+        } catch(parseErr) {
+          throw new Error('Server response was not valid JSON. Status: ' + response.status);
+        }
 
         if (data.url) {
-          // Redirect to Stripe-hosted checkout page
           window.location.href = data.url;
         } else {
-          throw new Error(data.error || 'Checkout failed');
+          // Show the ACTUAL error from Stripe/function
+          const msg = data.error || data.message || ('HTTP ' + response.status);
+          throw new Error(msg);
         }
       } catch (err) {
         console.error('Checkout error:', err);
         btn.disabled = false;
         btn.textContent = 'Proceed to Checkout';
-        showToast('Checkout error. Check your Stripe setup or contact magazine@wearejerseyent.com', true);
+        // Show actual error so we can diagnose
+        showToast('Error: ' + err.message, true);
       }
     });
 
