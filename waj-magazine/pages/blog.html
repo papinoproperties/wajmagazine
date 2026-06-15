@@ -323,7 +323,7 @@
         <span class="eyebrow">Featured Post</span>
         <h2>How New Jersey Artists Are Redefining the Sound of the East Coast</h2>
         <p>From Jersey Club to R&amp;B to Hip-Hop, the Garden State has quietly become one of the most creative music ecosystems in the country. We break down the artists, the sounds, and the movement driving it all.</p>
-        <p class="meta">By <span>WAJ Editorial</span> &nbsp;·&nbsp; June 2025 &nbsp;·&nbsp; 6 min read</p>
+        <p class="meta">By <span>WAJ Editorial</span> &nbsp;·&nbsp; June 2025</p>
         <a href="#" class="read-btn">Read Article</a>
       </div>
     </div>
@@ -465,7 +465,11 @@
           const img = item.thumbnail || item.enclosure?.link || 'Cover_2_.png';
           const cat = (item.categories && item.categories[0]) || 'News';
           const date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',year:'numeric'}) : '';
-          const desc = item.description ? item.description.replace(/<[^>]+>/g,'').slice(0,100) + '…' : '';
+          const rawDesc = item.description ? item.description.replace(/<[^>]+>/g,'').trim() : '';
+          // Truncate at word boundary, not mid-word
+          const desc = rawDesc.length > 180
+            ? rawDesc.slice(0, 180).replace(/\s+\S*$/, '') + '…'
+            : rawDesc;
           return `
             <a href="${item.link}" target="_blank" class="ent-post-card" style="display:block;text-decoration:none;">
               <img src="${img}" alt="${item.title}" onerror="this.src='Cover_2_.png'"/>
@@ -670,21 +674,23 @@
     function handleFormSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('submitForm');
-      const formData = new FormData(form);
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
 
+      const formData = new FormData(form);
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData).toString()
       })
-      .then(() => {
+      .then(res => {
         form.style.display = 'none';
         document.getElementById('submitSuccess').style.display = 'block';
       })
       .catch(() => {
-        // Fallback — show success anyway (Netlify will still capture on actual site)
-        form.style.display = 'none';
-        document.getElementById('submitSuccess').style.display = 'block';
+        // Try native form submit as fallback
+        form.submit();
       });
     }
   </script>
@@ -708,6 +714,18 @@
     function formatPost(post, index) {
       const cat = normalizeCategory(post.category);
       const imgSrc = post.image || 'Cover_2_.png';
+
+      // Truncate description at word boundary
+      const rawDesc = (post.description || '').replace(/<[^>]+>/g,'').trim();
+      const desc = rawDesc.length > 160
+        ? rawDesc.slice(0, 160).replace(/\s+\S*$/, '') + '…'
+        : rawDesc;
+
+      // Calculate read time from word count (avg 200 words/min)
+      const wordCount = rawDesc.split(/\s+/).filter(Boolean).length;
+      const readMins = Math.max(1, Math.round(wordCount / 200));
+      const readTime = wordCount > 10 ? readMins + ' min read' : '';
+
       return `
         <div class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}">
           <div class="blog-card-img">
@@ -716,10 +734,10 @@
           </div>
           <div class="blog-card-body">
             <h3>${post.title}</h3>
-            <p>${post.description}</p>
+            <p>${desc}</p>
             <div class="blog-card-meta">
               <span class="author">WAJ Magazine</span>
-              <span class="date">${post.date}</span>
+              <span class="date">${post.date}${readTime ? ' &nbsp;·&nbsp; ' + readTime : ''}</span>
             </div>
           </div>
         </div>`;
