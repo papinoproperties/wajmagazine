@@ -66,6 +66,16 @@
   status = 200
 
 [[redirects]]
+  from = "/post"
+  to = "/pages/post.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/pages/admin.html"
+  status = 200
+
+[[redirects]]
   from = "/order-success"
   to = "/pages/order-success.html"
   status = 200
