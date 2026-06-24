@@ -48,12 +48,26 @@
     footer{background:var(--black);border-top:3px solid var(--crimson);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
     footer p{font-size:11px;color:#666;}
     footer a.ent-link{font-size:11px;font-weight:700;letter-spacing:.1em;color:#ff6666;text-transform:uppercase;border:1px solid rgba(122,0,0,.4);padding:6px 14px;text-decoration:none;}
-    @media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none;}.policy-body{padding:40px 24px 60px;}footer{padding:32px 24px;}}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+    .nav-hamburger span{display:block;width:24px;height:2px;background:#1A1A1A;border-radius:2px;}
+    @media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none!important;}.nav-hamburger{display:flex;}.policy-body{padding:40px 24px 60px;}footer{padding:32px 24px;}}
+
+    .mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;opacity:0;transition:opacity .25s;}
+    .mobile-backdrop.open{display:block;opacity:1;}
+    .mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:280px;background:#fff;z-index:151;border-left:3px solid #7A0000;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+    .mobile-drawer.open{transform:translateX(0);}
+    .mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E0E0E0;}
+    .mobile-drawer-header img{height:38px;}
+    .mobile-close{background:none;border:none;font-size:22px;color:#888;cursor:pointer;padding:4px;}
+    .mobile-nav-links{list-style:none;padding:16px 0;flex:1;overflow-y:auto;}
+    .mobile-nav-links li a{display:block;padding:14px 24px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#555;border-bottom:1px solid #F0F0F0;transition:color .15s;text-decoration:none;}
+    .mobile-nav-links li a:hover{color:#7A0000;}
+    .mobile-nav-links li a.mobile-ent{margin:16px 20px 0;display:block;text-align:center;padding:13px;background:#7A0000;color:#fff;border-bottom:none;}
   </style>
 </head>
 <body>
   <nav>
-    <a href="../index.html" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <ul class="nav-links">
       <li><a href="/issues">Issues</a></li>
       <li><a href="/shop">Shop</a></li>
@@ -61,7 +75,47 @@
       <li><a href="/contact">Contact</a></li>
       <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
     </ul>
+    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="mobile-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function openMobileMenu() {
+      document.getElementById('mobileDrawer').classList.add('open');
+      document.getElementById('mobileBackdrop').classList.add('open');
+      document.querySelector('.nav-hamburger').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('mobileBackdrop').classList.remove('open');
+      document.querySelector('.nav-hamburger').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
 
   <div class="policy-hero">
     <h1>Terms of Service</h1>
@@ -147,13 +201,13 @@
     </ul>
 
     <div class="policy-links">
-      <a href="privacy.html">Privacy Policy</a>
+      <a href="/privacy">Privacy Policy</a>
       <a href="/contact">Contact Us</a>
     </div>
   </div>
 
   <footer>
-    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="privacy.html" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="terms.html" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
     <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
   </footer>
 </body>
