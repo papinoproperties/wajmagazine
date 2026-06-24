@@ -264,84 +264,89 @@
         <h1>SUBMIT<br>A POST</h1>
         <p class="intro">Have a story, interview, opinion, or cultural piece you'd like to share? Submit it here and our editorial team will review it for publication on WAJ Magazine. All submissions are reviewed within 5–7 business days.</p>
 
-        <!-- AUTHOR INFO -->
-        <p class="form-section-title">Your Information</p>
-        <div class="form-row">
-          <div class="form-group"><label>First Name *</label><input type="text" id="firstName" placeholder="First name" required/></div>
-          <div class="form-group"><label>Last Name *</label><input type="text" id="lastName" placeholder="Last name" required/></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="your@email.com" required/></div>
-          <div class="form-group"><label>Instagram Handle</label><input type="text" id="instagram" placeholder="@yourhandle"/></div>
-        </div>
-        <div class="form-group"><label>Website / Portfolio (optional)</label><input type="url" id="website" placeholder="https://yourwebsite.com"/></div>
+        <form name="submit-post" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="submitPostForm" enctype="multipart/form-data">
+          <input type="hidden" name="form-name" value="submit-post"/>
+          <p style="display:none;"><input name="bot-field"/></p>
 
-        <!-- POST DETAILS -->
-        <p class="form-section-title">Post Details</p>
-        <div class="form-group"><label>Post Title *</label><input type="text" id="postTitle" placeholder="Your article headline" maxlength="100" oninput="updateCount('titleCount',this.value,100)" required/><p class="char-hint"><span id="titleCount">0</span>/100</p></div>
-        <div class="form-row">
-          <div class="form-group"><label>Category *</label>
-            <select id="category" required>
-              <option value="">Select a category...</option>
-              <option>Beauty</option>
-              <option>Business</option>
-              <option>Community</option>
-              <option>Culture</option>
-              <option>Fashion</option>
-              <option>Food</option>
-              <option>Health</option>
-              <option>Music</option>
-              <option>Sports</option>
-            </select>
+          <!-- AUTHOR INFO -->
+          <p class="form-section-title">Your Information</p>
+          <div class="form-row">
+            <div class="form-group"><label>First Name *</label><input type="text" id="firstName" name="first-name" placeholder="First name" required/></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" id="lastName" name="last-name" placeholder="Last name" required/></div>
           </div>
-          <div class="form-group"><label>Post Type</label>
-            <select id="postType">
-              <option>Article / Opinion</option>
-              <option>Interview</option>
-              <option>Event Recap</option>
-              <option>Product / Brand Feature</option>
-              <option>Music Review</option>
-              <option>Community Spotlight</option>
-              <option>Other</option>
-            </select>
+          <div class="form-row">
+            <div class="form-group"><label>Email Address *</label><input type="email" id="email" name="email" placeholder="your@email.com" required/></div>
+            <div class="form-group"><label>Instagram Handle</label><input type="text" id="instagram" name="instagram" placeholder="@yourhandle"/></div>
           </div>
-        </div>
-        <div class="form-group"><label>Short Summary *<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">1–2 sentences describing your post (shown as preview)</span></label><textarea class="short" id="summary" placeholder="Brief description of your article..." maxlength="280" oninput="updateCount('sumCount',this.value,280)" required></textarea><p class="char-hint"><span id="sumCount">0</span>/280</p></div>
-        <div class="form-group"><label>Full Article Content *</label><textarea id="content" placeholder="Paste or write your full article here. Minimum 300 words." oninput="updateCount('wordCount',this.value,0)" required></textarea><p class="char-hint" id="wordCountDisplay">0 words</p></div>
+          <div class="form-group"><label>Website / Portfolio (optional)</label><input type="url" id="website" name="website" placeholder="https://yourwebsite.com"/></div>
 
-        <!-- MEDIA -->
-        <p class="form-section-title">Media (Optional)</p>
-        <div class="form-group">
-          <label>Cover / Feature Image</label>
-          <div class="file-upload" onclick="document.getElementById('imageUpload').click()">
-            <p>Click to upload a cover image</p>
-            <span>JPG or PNG · Max 5MB · Recommended 1200×800px</span>
-            <input type="file" id="imageUpload" accept="image/jpeg,image/png" onchange="showFileName(this,'imageFileName')"/>
-            <p class="file-name" id="imageFileName"></p>
+          <!-- POST DETAILS -->
+          <p class="form-section-title">Post Details</p>
+          <div class="form-group"><label>Post Title *</label><input type="text" id="postTitle" name="post-title" placeholder="Your article headline" maxlength="100" oninput="updateCount('titleCount',this.value,100)" required/><p class="char-hint"><span id="titleCount">0</span>/100</p></div>
+          <div class="form-row">
+            <div class="form-group"><label>Category *</label>
+              <select id="category" name="category" required>
+                <option value="">Select a category...</option>
+                <option>Beauty</option>
+                <option>Business</option>
+                <option>Community</option>
+                <option>Culture</option>
+                <option>Fashion</option>
+                <option>Food</option>
+                <option>Health</option>
+                <option>Music</option>
+                <option>Sports</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Post Type</label>
+              <select id="postType" name="post-type">
+                <option>Article / Opinion</option>
+                <option>Interview</option>
+                <option>Event Recap</option>
+                <option>Product / Brand Feature</option>
+                <option>Music Review</option>
+                <option>Community Spotlight</option>
+                <option>Other</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="form-group"><label>Image Credits / Caption (if applicable)</label><input type="text" id="imageCredit" placeholder="Photo by: Name or @handle"/></div>
+          <div class="form-group"><label>Short Summary *<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">1–2 sentences describing your post (shown as preview)</span></label><textarea class="short" id="summary" name="summary" placeholder="Brief description of your article..." maxlength="280" oninput="updateCount('sumCount',this.value,280)" required></textarea><p class="char-hint"><span id="sumCount">0</span>/280</p></div>
+          <div class="form-group"><label>Full Article Content *</label><textarea id="content" name="content" placeholder="Paste or write your full article here. Minimum 300 words." oninput="updateWordCount(this)" required></textarea><p class="char-hint" id="wordCountDisplay">0 words</p></div>
 
-        <!-- GUIDELINES -->
-        <div class="guidelines">
-          <h4>Submission Guidelines</h4>
-          <ul>
-            <li>Minimum 300 words. Long-form pieces (800–1500 words) are preferred.</li>
-            <li>Content must be original and not published elsewhere.</li>
-            <li>No hate speech, explicit content, or defamatory claims.</li>
-            <li>WAJ Magazine reserves the right to edit for length, clarity, and style.</li>
-            <li>Approval typically takes 5–7 business days. We'll email you either way.</li>
-            <li>Approved posts will be credited to you and link to your social/website.</li>
-          </ul>
-        </div>
+          <!-- MEDIA -->
+          <p class="form-section-title">Media (Optional)</p>
+          <div class="form-group">
+            <label>Cover / Feature Image</label>
+            <div class="file-upload" onclick="document.getElementById('imageUpload').click()">
+              <p>Click to upload a cover image</p>
+              <span>JPG or PNG · Max 5MB · Recommended 1200×800px</span>
+              <input type="file" id="imageUpload" name="cover-image" accept="image/jpeg,image/png" onchange="showFileName(this,'imageFileName')"/>
+              <p class="file-name" id="imageFileName"></p>
+            </div>
+          </div>
+          <div class="form-group"><label>Image Credits / Caption (if applicable)</label><input type="text" id="imageCredit" name="image-credit" placeholder="Photo by: Name or @handle"/></div>
 
-        <div class="agree-row">
-          <input type="checkbox" id="agreeCheck"/>
-          <label for="agreeCheck">I confirm this content is original, that I have rights to any included media, and I agree to WAJ Magazine's <a href="/contact">submission terms</a>. I understand the editorial team may edit my submission before publishing.</label>
-        </div>
+          <!-- GUIDELINES -->
+          <div class="guidelines">
+            <h4>Submission Guidelines</h4>
+            <ul>
+              <li>Minimum 300 words. Long-form pieces (800–1500 words) are preferred.</li>
+              <li>Content must be original and not published elsewhere.</li>
+              <li>No hate speech, explicit content, or defamatory claims.</li>
+              <li>WAJ Magazine reserves the right to edit for length, clarity, and style.</li>
+              <li>Approval typically takes 5–7 business days. We'll email you either way.</li>
+              <li>Approved posts will be credited to you and link to your social/website.</li>
+            </ul>
+          </div>
 
-        <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
-        <p style="font-size:11px;color:var(--text-light);margin-top:12px;text-align:center;">Your submission will be sent to the WAJ editorial team for review. We'll be in touch within 5–7 business days.</p>
+          <div class="agree-row">
+            <input type="checkbox" id="agreeCheck" name="agreed-to-terms"/>
+            <label for="agreeCheck">I confirm this content is original, that I have rights to any included media, and I agree to WAJ Magazine's <a href="/contact">submission terms</a>. I understand the editorial team may edit my submission before publishing.</label>
+          </div>
+
+          <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
+          <p style="font-size:11px;color:var(--text-light);margin-top:12px;text-align:center;">Your submission will be sent to the WAJ editorial team for review. We'll be in touch within 5–7 business days.</p>
+        </form>
       </div>
 
       <!-- SUCCESS STATE -->
@@ -413,13 +418,16 @@
     function updateCount(id, val, max) {
       const el = document.getElementById(id);
       if(!el) return;
-      if(id === 'wordCountDisplay') {
-        const words = val.trim().split(/\s+/).filter(w=>w).length;
-        document.getElementById('wordCountDisplay').textContent = words + ' words';
-        document.getElementById('wordCountDisplay').style.color = words < 300 ? '#888' : '#2a7a2a';
-      } else {
-        el.textContent = val.length;
-      }
+      el.textContent = val.length;
+    }
+
+    function updateWordCount(textarea) {
+      const text = textarea.value.trim();
+      const words = text === '' ? [] : text.split(/\s+/).filter(w => w.length > 0);
+      const count = words.length;
+      const display = document.getElementById('wordCountDisplay');
+      display.textContent = count + (count === 1 ? ' word' : ' words');
+      display.style.color = count < 300 ? '#888' : '#2a7a2a';
     }
 
     function showFileName(input, targetId) {
@@ -448,17 +456,29 @@
       if(wordCount < 300){alert('Your article needs at least 300 words. Currently: ' + wordCount + ' words.');return;}
       if(!agreed){alert('Please agree to the submission terms before submitting.');return;}
 
-      // In production: send to a form service (Netlify Forms, Formspree, EmailJS)
-      // Netlify Forms: just add name="submit-post" and data-netlify="true" to the form tag
-      // For now, show success state
-      document.getElementById('submitBtn').disabled = true;
-      document.getElementById('submitBtn').textContent = 'Submitting...';
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
 
-      setTimeout(() => {
+      const form = document.getElementById('submitPostForm');
+      const formData = new FormData(form);
+
+      fetch(window.location.href, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Submission failed: ' + response.status);
         document.getElementById('formState').style.display = 'none';
         document.getElementById('successState').style.display = 'block';
         window.scrollTo({top: 0, behavior: 'smooth'});
-      }, 1200);
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        btn.disabled = false;
+        btn.textContent = 'Submit for Review';
+        alert('There was an error submitting your post. Please try again or email magazine@wearejerseyent.com directly.');
+      });
     }
   </script>
 

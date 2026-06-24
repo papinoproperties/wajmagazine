@@ -722,12 +722,14 @@
         body: new URLSearchParams(formData).toString()
       })
       .then(res => {
+        if (!res.ok) throw new Error('Submission failed: ' + res.status);
         form.style.display = 'none';
         document.getElementById('submitSuccess').style.display = 'block';
       })
-      .catch(() => {
-        // Try native form submit as fallback
-        form.submit();
+      .catch((err) => {
+        console.error('Blog submission error:', err);
+        if (btn) { btn.disabled = false; btn.textContent = originalText; }
+        alert('There was an error submitting your post. Please try again or email magazine@wearejerseyent.com directly.');
       });
     }
   </script>
