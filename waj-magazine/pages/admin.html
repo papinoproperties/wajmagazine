@@ -149,8 +149,15 @@
             <option>Health</option><option>Music</option><option>Sports</option>
           </select>
         </div>
-        <div class="field"><label>Cover Image URL</label><input type="text" id="editImage" placeholder="/assets/images/Cover_2_.png"/>
-          <p class="hint">Use an existing image path, or paste an external image URL.</p>
+        <div class="field"><label>Cover Image</label>
+          <input type="text" id="editImage" placeholder="/assets/images/Cover_2_.png" oninput="previewEditorImage()"/>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+            <button type="button" class="btn-reject" style="padding:9px 18px;" onclick="document.getElementById('imageFileInput').click()">📁 Upload from Computer</button>
+            <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="uploadEditorImage(this)"/>
+            <span id="uploadStatus" style="font-size:11px;color:#999;"></span>
+          </div>
+          <p class="hint">Upload a file directly, or paste an existing path / external image URL above.</p>
+          <img id="editImagePreview" style="display:none;max-width:200px;max-height:140px;object-fit:cover;border:1px solid var(--border);margin-top:8px;"/>
         </div>
       </div>
       <div class="field"><label>URL Slug (optional — auto-generated from title if blank)</label><input type="text" id="editSlug" placeholder="my-post-title"/></div>
@@ -248,6 +255,7 @@
         const summary = d.summary || '';
         const category = d.category || '';
         const email = d.email || '';
+        const uploadedImage = d['cover-image'] || d['image'] || d['photo'] || '';
         const date = new Date(s.created_at).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
         return `
           <div class="sub-card">
@@ -258,6 +266,7 @@
               </div>
               <span class="sub-badge ${s.form}">${s.form === 'submit-post' ? 'Full Submission' : 'Blog Modal'}</span>
             </div>
+            ${uploadedImage ? `<div class="sub-field"><label>Uploaded Cover Image</label><img src="${uploadedImage}" alt="Uploaded cover" style="max-width:240px;max-height:180px;object-fit:cover;border:1px solid var(--border);display:block;margin-top:4px;" onerror="this.outerHTML='<p style=&quot;font-size:12px;color:#cc0000;&quot;>⚠ Image failed to load — link may be broken</p>'"/></div>` : `<div class="sub-field"><label>Uploaded Cover Image</label><div class="val" style="color:#999;">No image uploaded — will use default placeholder</div></div>`}
             <div class="sub-field"><label>Category</label><div class="val">${category || '—'}</div></div>
             ${summary ? `<div class="sub-field"><label>Summary</label><div class="val">${summary}</div></div>` : ''}
             <div class="sub-field"><label>Full Content</label><div class="sub-content">${content || '(no content)'}</div></div>
@@ -269,6 +278,61 @@
       }).join('');
     }
 
+    function previewEditorImage() {
+      const url = document.getElementById('editImage').value.trim();
+      const preview = document.getElementById('editImagePreview');
+      if (!url) { preview.style.display = 'none'; return; }
+      preview.src = url;
+      preview.style.display = 'block';
+      preview.onerror = () => { preview.style.display = 'none'; };
+    }
+
+    function uploadEditorImage(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      if (file.size > 4.5 * 1024 * 1024) {
+        showToast('Image is too large. Please use a file under 4MB.', true);
+        input.value = '';
+        return;
+      }
+
+      const status = document.getElementById('uploadStatus');
+      status.textContent = 'Uploading...';
+      status.style.color = '#7A0000';
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        // reader.result is "data:image/png;base64,XXXXX" — strip the prefix
+        const base64 = reader.result.split(',')[1];
+
+        try {
+          const res = await fetch('/.netlify/functions/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+            body: JSON.stringify({ filename: file.name, contentBase64: base64 })
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Upload failed');
+
+          document.getElementById('editImage').value = data.url;
+          previewEditorImage();
+          status.textContent = '✓ Uploaded successfully';
+          status.style.color = '#2a7a2a';
+          showToast('Image uploaded — live in ~60 seconds');
+        } catch (err) {
+          status.textContent = '✗ Upload failed';
+          status.style.color = '#cc0000';
+          showToast('Upload error: ' + err.message, true);
+        }
+      };
+      reader.onerror = () => {
+        status.textContent = '✗ Failed to read file';
+        status.style.color = '#cc0000';
+      };
+      reader.readAsDataURL(file);
+    }
+
     function approveSubmission(index) {
       const s = allSubmissions[index];
       const d = s.data;
@@ -278,11 +342,12 @@
       document.getElementById('editCategory').value = d.category || 'Community';
       document.getElementById('editSummary').value = d.summary || '';
       document.getElementById('editContent').value = d.content || '';
-      document.getElementById('editImage').value = '/assets/images/Cover_2_.png';
+      document.getElementById('editImage').value = d['cover-image'] || d['image'] || d['photo'] || '/assets/images/Cover_2_.png';
       document.getElementById('editOriginalSlug').value = '';
       document.getElementById('editSlug').value = '';
       document.getElementById('editFeatured').checked = false;
       document.getElementById('publishBtn').dataset.approvingSubmissionId = s.id;
+      previewEditorImage();
       switchTab('new');
       showToast('Submission loaded — review and click Publish');
       window.scrollTo({top:0, behavior:'smooth'});
@@ -423,6 +488,7 @@
       document.getElementById('editContent').value = p.content;
       document.getElementById('editFeatured').checked = !!p.featured;
       document.getElementById('editOriginalSlug').value = p.slug;
+      previewEditorImage();
       document.getElementById('publishBtn').textContent = 'Save Changes';
       document.getElementById('cancelEditBtn').style.display = 'inline-block';
       switchTab('new');

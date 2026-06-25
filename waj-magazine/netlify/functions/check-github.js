@@ -10,6 +10,7 @@ exports.handler = async () => {
     starts_with_github_pat: token ? token.startsWith('github_pat_') : false,
   };
 
+  // If a token exists, actually test it against GitHub's API
   if (token) {
     try {
       const res = await fetch('https://api.github.com/user', {
@@ -25,6 +26,7 @@ exports.handler = async () => {
         ? { authenticated_as: data.login }
         : { error: data.message };
 
+      // Also test direct access to the actual repo file
       if (res.ok) {
         const repoRes = await fetch(
           'https://api.github.com/repos/papinoproperties/wajmagazine/contents/waj-magazine/content/posts.json',

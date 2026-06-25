@@ -24,6 +24,57 @@ function slugify(str) {
     .replace(/^-|-$/g, '');
 }
 
+// Fetches an external image URL and permanently commits it into the repo,
+// so posts never depend on temporary/external links (e.g. Netlify Forms
+// file uploads, which can disappear once the submission is deleted).
+async function rehostImageIfNeeded(imageUrl, GH_HEADERS) {
+  if (!imageUrl) return null;
+  // Already one of our own permanent assets — leave it alone
+  if (imageUrl.startsWith('/assets/')) return imageUrl;
+  // Relative path of some other kind — leave it alone
+  if (!imageUrl.startsWith('http')) return imageUrl;
+
+  try {
+    const imgRes = await fetch(imageUrl);
+    if (!imgRes.ok) {
+      console.warn('Could not fetch image to rehost, keeping original URL:', imageUrl);
+      return imageUrl;
+    }
+    const buffer = await imgRes.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString('base64');
+
+    const contentType = imgRes.headers.get('content-type') || '';
+    let ext = 'jpg';
+    if (contentType.includes('png')) ext = 'png';
+    else if (contentType.includes('webp')) ext = 'webp';
+    else if (contentType.includes('gif')) ext = 'gif';
+    else if (contentType.includes('jpeg')) ext = 'jpg';
+
+    const filename = `post-${Date.now()}.${ext}`;
+    const uploadPath = `waj-magazine/assets/uploads/${filename}`;
+
+    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${uploadPath}`, {
+      method: 'PUT',
+      headers: { ...GH_HEADERS, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Permanently host post image: ${filename}`,
+        content: base64,
+        branch: BRANCH,
+      }),
+    });
+
+    if (!putRes.ok) {
+      console.warn('Failed to rehost image, keeping original URL:', imageUrl);
+      return imageUrl;
+    }
+
+    return `/assets/uploads/${filename}`;
+  } catch (err) {
+    console.error('Image rehost error:', err.message);
+    return imageUrl;
+  }
+}
+
 exports.handler = async (event, context) => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers: CORS, body: '' };
@@ -95,13 +146,15 @@ exports.handler = async (event, context) => {
         counter++;
       }
 
+      const permanentImage = await rehostImageIfNeeded(post.image, GH_HEADERS);
+
       resultPost = {
         slug: finalSlug,
         title: post.title,
         author: post.author || 'WAJ Editorial',
         category: post.category || 'Community',
         date: post.date || new Date().toISOString().split('T')[0],
-        image: post.image || '/assets/images/Cover_2_.png',
+        image: permanentImage || '/assets/images/Cover_2_.png',
         summary: post.summary || post.content.slice(0, 160) + '…',
         content: post.content,
         featured: !!post.featured,
@@ -132,13 +185,15 @@ exports.handler = async (event, context) => {
         newSlug = candidate;
       }
 
+      const permanentImage = post.image ? await rehostImageIfNeeded(post.image, GH_HEADERS) : existing.image;
+
       resultPost = {
         ...existing,
         slug: newSlug,
         title: post.title || existing.title,
         author: post.author || existing.author,
         category: post.category || existing.category,
-        image: post.image || existing.image,
+        image: permanentImage || existing.image,
         summary: post.summary || existing.summary,
         content: post.content || existing.content,
         featured: post.featured !== undefined ? !!post.featured : existing.featured,
