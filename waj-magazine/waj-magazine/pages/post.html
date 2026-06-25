@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title id="pageTitle">Loading… — WAJ Magazine</title>
+  <meta name="description" id="pageDesc" content="WAJ Magazine"/>
+  <meta property="og:title" id="ogTitle" content="WAJ Magazine"/>
+  <meta property="og:description" id="ogDesc" content="WAJ Magazine"/>
+  <meta property="og:image" id="ogImage" content="/assets/images/waj-red-logo.png"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MBG1ZXVMHE');</script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--crimson:#7A0000;--text:#1A1A1A;--text-muted:#555;--text-light:#888;--bg:#FFFFFF;--bg-alt:#F6F6F6;--border:#E0E0E0;--black:#0A0A0A;--white:#FFFFFF;--font-display:'Bebas Neue',sans-serif;--font-serif:'Playfair Display',serif;--font-body:'Montserrat',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
+    a{text-decoration:none;color:var(--crimson);}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:2px solid var(--crimson);}
+    .nav-logo img{height:44px;}
+    .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+    .nav-links a{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);}
+    .nav-links a:hover{color:var(--crimson);}
+    .nav-links .nav-ent{padding:8px 18px;background:var(--crimson);color:#fff;border-radius:2px;font-size:10px;}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+    .nav-hamburger span{display:block;width:24px;height:2px;background:#1A1A1A;border-radius:2px;}
+    @media(max-width:900px){.nav-hamburger{display:flex;}.nav-links{display:none!important;}}
+
+    .article-hero{padding:140px 24px 0;max-width:760px;margin:0 auto;}
+    .cat-tag{display:inline-block;background:var(--crimson);color:#fff;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;margin-bottom:20px;}
+    .article-hero h1{font-family:var(--font-serif);font-style:italic;font-weight:700;font-size:clamp(32px,5vw,52px);line-height:1.15;color:var(--text);margin-bottom:20px;}
+    .article-meta{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-muted);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+    .article-meta strong{color:var(--text);}
+    .hero-img{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:0;}
+
+    .article-body{max-width:680px;margin:0 auto;padding:48px 24px 60px;}
+    .article-body p{font-size:17px;line-height:1.85;color:#2a2a2a;margin-bottom:22px;}
+    .article-body p:first-of-type{font-size:19px;}
+
+    .share-row{display:flex;align-items:center;gap:14px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:32px 0;}
+    .share-row span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;}
+    .share-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--bg-alt);border-radius:50%;cursor:pointer;transition:background .2s;}
+    .share-btn:hover{background:var(--crimson);}
+    .share-btn:hover svg{fill:#fff;}
+
+    .back-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--crimson);margin-bottom:32px;}
+
+    .not-found{max-width:600px;margin:160px auto;text-align:center;padding:0 24px;}
+    .not-found h1{font-family:var(--font-display);font-size:48px;letter-spacing:.04em;margin-bottom:16px;}
+    .not-found p{font-size:14px;color:var(--text-muted);margin-bottom:24px;}
+
+    .related-section{background:var(--bg-alt);padding:60px 24px;border-top:1px solid var(--border);}
+    .related-inner{max-width:1000px;margin:0 auto;}
+    .related-inner h3{font-family:var(--font-display);font-size:28px;letter-spacing:.04em;margin-bottom:24px;}
+    .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .related-card{background:#fff;border:1px solid var(--border);}
+    .related-card img{width:100%;aspect-ratio:16/9;object-fit:cover;}
+    .related-card .body{padding:16px;}
+    .related-card h4{font-size:14px;font-weight:700;color:var(--text);line-height:1.4;}
+    .related-card .cat{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--crimson);margin-bottom:6px;display:block;}
+
+    footer{background:var(--black);border-top:3px solid var(--crimson);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+    footer p{font-size:11px;color:#666;}
+    footer a.ent-link{font-size:11px;font-weight:700;letter-spacing:.1em;color:#ff6666;text-transform:uppercase;border:1px solid rgba(122,0,0,.4);padding:6px 14px;}
+
+    @media(max-width:700px){
+      nav{padding:0 20px;}
+      .article-hero{padding:110px 20px 0;}
+      .related-grid{grid-template-columns:1fr;}
+      footer{padding:32px 24px;flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div id="articleContainer">
+    <div style="text-align:center;padding:200px 20px;">
+      <div style="display:inline-block;width:36px;height:36px;border:3px solid #E0E0E0;border-top-color:#7A0000;border-radius:50%;animation:spin .8s linear infinite;"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
+    <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
+  </footer>
+
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="mobile-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </div>
+
+  <style>
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;opacity:0;transition:opacity .25s;}
+    .mobile-backdrop.open{display:block;opacity:1;}
+    .mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:280px;background:#fff;z-index:151;border-left:3px solid #7A0000;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+    .mobile-drawer.open{transform:translateX(0);}
+    .mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E0E0E0;}
+    .mobile-drawer-header img{height:38px;}
+    .mobile-close{background:none;border:none;font-size:22px;color:#888;cursor:pointer;padding:4px;}
+    .mobile-nav-links{list-style:none;padding:16px 0;flex:1;overflow-y:auto;}
+    .mobile-nav-links li a{display:block;padding:14px 24px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#555;border-bottom:1px solid #F0F0F0;text-decoration:none;}
+    .mobile-nav-links li a.mobile-ent{margin:16px 20px 0;display:block;text-align:center;padding:13px;background:#7A0000;color:#fff;border-bottom:none;}
+  </style>
+
+  <script>
+    function openMobileMenu(){document.getElementById('mobileDrawer').classList.add('open');document.getElementById('mobileBackdrop').classList.add('open');document.body.style.overflow='hidden';}
+    function closeMobileMenu(){document.getElementById('mobileDrawer').classList.remove('open');document.getElementById('mobileBackdrop').classList.remove('open');document.body.style.overflow='';}
+    document.addEventListener('keydown', e=>{if(e.key==='Escape')closeMobileMenu();});
+
+    function formatDate(str){
+      return new Date(str + 'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    }
+
+    function paragraphs(content){
+      return content.split(/\n\s*\n/).filter(p=>p.trim()).map(p=>`<p>${p.trim()}</p>`).join('');
+    }
+
+    function renderNotFound(){
+      document.getElementById('articleContainer').innerHTML = `
+        <div class="not-found">
+          <h1>404</h1>
+          <p>We couldn't find that post. It may have been moved or removed.</p>
+          <a href="/blog" style="display:inline-block;padding:13px 32px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;">Back to Blog</a>
+        </div>`;
+    }
+
+    function renderArticle(post, allPosts){
+      document.getElementById('pageTitle').textContent = post.title + ' — WAJ Magazine';
+      document.getElementById('pageDesc').setAttribute('content', post.summary || '');
+      document.getElementById('ogTitle').setAttribute('content', post.title);
+      document.getElementById('ogDesc').setAttribute('content', post.summary || '');
+      document.getElementById('ogImage').setAttribute('content', post.image || '/assets/images/waj-red-logo.png');
+
+      const related = allPosts.filter(p => p.slug !== post.slug && p.category === post.category).slice(0,3);
+      const relatedHtml = related.length ? `
+        <div class="related-section">
+          <div class="related-inner">
+            <h3>More in ${post.category}</h3>
+            <div class="related-grid">
+              ${related.map(r => `
+                <a href="/post?slug=${r.slug}" class="related-card" style="display:block;">
+                  <img src="${r.image}" alt="${r.title}" onerror="this.style.display='none'"/>
+                  <div class="body">
+                    <span class="cat">${r.category}</span>
+                    <h4>${r.title}</h4>
+                  </div>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        </div>` : '';
+
+      document.getElementById('articleContainer').innerHTML = `
+        <div class="article-hero">
+          <a href="/blog" class="back-link">← Back to Blog</a>
+          <span class="cat-tag">${post.category}</span>
+          <h1>${post.title}</h1>
+          <div class="article-meta">
+            <strong>${post.author}</strong> · ${formatDate(post.date)}
+          </div>
+        </div>
+        ${post.image ? `<img src="${post.image}" alt="${post.title}" class="hero-img" onerror="this.style.display='none'"/>` : ''}
+        <div class="article-body">
+          ${paragraphs(post.content)}
+          <div class="share-row">
+            <span>Share:</span>
+            <a class="share-btn" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}" target="_blank" title="Share on Twitter/X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#555"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" title="Share on Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#555"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+            </a>
+            <a class="share-btn" href="javascript:void(0)" onclick="navigator.clipboard.writeText(window.location.href);this.querySelector('svg').style.fill='#7A0000';" title="Copy Link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#555"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7C4.24 7 2 9.24 2 12s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+            </a>
+          </div>
+        </div>
+        ${relatedHtml}
+      `;
+    }
+
+    // ── LOAD POST ──
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+      if (!slug) { renderNotFound(); return; }
+
+      fetch('/content/posts.json?t=' + Date.now())
+        .then(r => r.json())
+        .then(data => {
+          const posts = data.posts || [];
+          const post = posts.find(p => p.slug === slug);
+          if (!post) { renderNotFound(); return; }
+          renderArticle(post, posts);
+        })
+        .catch(() => renderNotFound());
+    })();
+  </script>
+</body>
+</html>

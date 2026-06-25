@@ -259,6 +259,14 @@
     .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } #navCartBtn { display: flex !important; } }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MBG1ZXVMHE');
+  </script>
 </head>
 <body>
 
@@ -323,7 +331,7 @@
         <span class="eyebrow">Featured Post</span>
         <h2>How New Jersey Artists Are Redefining the Sound of the East Coast</h2>
         <p>From Jersey Club to R&amp;B to Hip-Hop, the Garden State has quietly become one of the most creative music ecosystems in the country. We break down the artists, the sounds, and the movement driving it all.</p>
-        <p class="meta">By <span>WAJ Editorial</span> &nbsp;·&nbsp; June 2025 &nbsp;·&nbsp; 6 min read</p>
+        <p class="meta">By <span>WAJ Editorial</span> &nbsp;·&nbsp; June 2025</p>
         <a href="#" class="read-btn">Read Article</a>
       </div>
     </div>
@@ -411,100 +419,9 @@
     <a href="submit-post.html" style="display:inline-block;padding:16px 40px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='#9B0000'" onmouseout="this.style.background='#7A0000'">Submit a Post →</a>
   </section>
 
-  <!-- FROM WE ARE JERSEY ENT (Live Sync) -->
-  <section style="padding:60px;background:#F6F6F6;border-top:1px solid #E0E0E0;">
-    <div class="section-header">
-      <h2>From We Are Jersey ENT</h2>
-      <div class="line"></div>
-      <a href="https://www.wearejerseyent.com/news" target="_blank" style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;white-space:nowrap;">Visit ENT →</a>
-    </div>
-    <p style="font-size:12px;color:#888;margin-bottom:28px;letter-spacing:.05em;">The latest news and stories from <strong style="color:#1A1A1A;">wearejerseyent.com</strong> — pulled live.</p>
-
-    <div id="entFeed" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
-      <!-- Loading state -->
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#888;font-size:13px;">
-        <div id="feedLoader" style="display:inline-block;width:32px;height:32px;border:3px solid #E0E0E0;border-top-color:#7A0000;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px;"></div>
-        <p>Loading latest posts from We Are Jersey ENT...</p>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:36px;">
-      <a href="https://www.wearejerseyent.com/news" target="_blank" style="display:inline-block;padding:13px 36px;border:1px solid #7A0000;color:#7A0000;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:all .2s;" onmouseover="this.style.background='#7A0000';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color='#7A0000'">Read More on We Are Jersey ENT ↗</a>
-    </div>
-  </section>
-
-  <style>
-    @keyframes spin{to{transform:rotate(360deg);}}
-    @keyframes blogSpin{to{transform:rotate(360deg);}}
-    .ent-post-card{background:#fff;border:1px solid #E0E0E0;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;}
-    .ent-post-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.07);}
-    .ent-post-card img{width:100%;aspect-ratio:16/9;object-fit:cover;}
-    .ent-post-card .ent-card-body{padding:18px;}
-    .ent-post-card .ent-cat{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7A0000;margin-bottom:7px;}
-    .ent-post-card h4{font-size:15px;line-height:1.4;color:#1A1A1A;margin-bottom:8px;font-family:'Playfair Display',serif;}
-    .ent-post-card p{font-size:11px;color:#888;line-height:1.6;margin-bottom:12px;}
-    .ent-post-card .ent-meta{font-size:10px;color:#aaa;}
-    @media(max-width:768px){#entFeed{grid-template-columns:1fr!important;}}
-  </style>
-
-  <script>
-  (function(){
-    // Fetch ENT blog via RSS-to-JSON proxy (avoids CORS)
-    const RSS_URL = encodeURIComponent('https://www.wearejerseyent.com/blog-feed.xml');
-    const API = 'https://api.rss2json.com/v1/api.json?rss_url=' + RSS_URL + '&count=6';
-
-    fetch(API)
-      .then(r => r.json())
-      .then(data => {
-        const feed = document.getElementById('entFeed');
-        if (!data.items || !data.items.length) {
-          feed.innerHTML = fallbackPosts();
-          return;
-        }
-        feed.innerHTML = data.items.slice(0,6).map(item => {
-          const img = item.thumbnail || item.enclosure?.link || 'Cover_2_.png';
-          const cat = (item.categories && item.categories[0]) || 'News';
-          const date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',year:'numeric'}) : '';
-          const desc = item.description ? item.description.replace(/<[^>]+>/g,'').slice(0,100) + '…' : '';
-          return `
-            <a href="${item.link}" target="_blank" class="ent-post-card" style="display:block;text-decoration:none;">
-              <img src="${img}" alt="${item.title}" onerror="this.src='Cover_2_.png'"/>
-              <div class="ent-card-body">
-                <p class="ent-cat">${cat}</p>
-                <h4>${item.title}</h4>
-                <p>${desc}</p>
-                <span class="ent-meta">${date}</span>
-              </div>
-            </a>`;
-        }).join('');
-      })
-      .catch(() => {
-        document.getElementById('entFeed').innerHTML = fallbackPosts();
-      });
-
-    function fallbackPosts() {
-      // Static fallback cards if RSS unavailable
-      const posts = [
-        {img:'Cover_2_.png', cat:'Music', title:'Honey Bxby: Unapologetically Her', date:'Jun 2025'},
-        {img:'spring2025.png', cat:'Community', title:'DJ Smallz 732 on Jersey Club Legacy', date:'May 2025'},
-        {img:'Spring20252.png', cat:'Fashion', title:'Qaysean Williams: Shattering Stereotypes', date:'Apr 2025'},
-      ];
-      return posts.map(p => `
-        <a href="https://www.wearejerseyent.com/news" target="_blank" class="ent-post-card" style="display:block;">
-          <img src="${p.img}" alt="${p.title}"/>
-          <div class="ent-card-body">
-            <p class="ent-cat">${p.cat}</p>
-            <h4>${p.title}</h4>
-            <span class="ent-meta">${p.date}</span>
-          </div>
-        </a>`).join('');
-    }
-  })();
-  </script>
-
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
     <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
   </footer>
 
@@ -622,11 +539,40 @@
         </div>
 
         <div style="margin-bottom:24px;">
-          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:7px;">Your Article / Post Content *</label>
-          <textarea name="content" required rows="10" placeholder="Write your article here. Include all text, quotes, and key points. Our editorial team will review, lightly format, and reach out to you if any changes are needed before publishing."
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888;">Your Article / Post Content *</label>
+            <span id="wordCountDisplay" style="font-size:11px;font-weight:600;color:#7A0000;letter-spacing:.05em;">0 words</span>
+          </div>
+          <textarea id="articleContent" name="content" required rows="10"
+            placeholder="Write your article here. Include all text, quotes, and key points. Our editorial team will review, lightly format, and reach out to you if any changes are needed before publishing."
             style="width:100%;background:#F6F6F6;border:1px solid #E0E0E0;color:#1A1A1A;font-family:'Montserrat',sans-serif;font-size:13px;line-height:1.7;padding:14px;outline:none;resize:vertical;transition:border-color .2s;"
-            onfocus="this.style.borderColor='#7A0000'" onblur="this.style.borderColor='#E0E0E0'"></textarea>
+            onfocus="this.style.borderColor='#7A0000'" onblur="this.style.borderColor='#E0E0E0'"
+            oninput="updateWordCount(this)"></textarea>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;">
+            <span style="font-size:10px;color:#aaa;">Minimum 150 words recommended for editorial review</span>
+            <span id="readTimeDisplay" style="font-size:10px;color:#aaa;"></span>
+          </div>
         </div>
+
+        <script>
+          function updateWordCount(textarea) {
+            const text = textarea.value.trim();
+            const words = text === '' ? [] : text.split(/\s+/).filter(w => w.length > 0);
+            const count = words.length;
+            const display = document.getElementById('wordCountDisplay');
+            const readTime = document.getElementById('readTimeDisplay');
+
+            display.textContent = count + (count === 1 ? ' word' : ' words');
+            display.style.color = count < 150 ? '#cc6600' : '#7A0000';
+
+            if (count >= 50) {
+              const mins = Math.max(1, Math.round(count / 200));
+              readTime.textContent = '~' + mins + ' min read';
+            } else {
+              readTime.textContent = '';
+            }
+          }
+        </script>
 
         <div style="margin-bottom:24px;">
           <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:7px;">Image Link (optional)</label>
@@ -670,21 +616,25 @@
     function handleFormSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('submitForm');
-      const formData = new FormData(form);
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
 
-      fetch('/', {
+      const formData = new FormData(form);
+      fetch(window.location.href, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData).toString()
       })
-      .then(() => {
+      .then(res => {
+        if (!res.ok) throw new Error('Submission failed: ' + res.status);
         form.style.display = 'none';
         document.getElementById('submitSuccess').style.display = 'block';
       })
-      .catch(() => {
-        // Fallback — show success anyway (Netlify will still capture on actual site)
-        form.style.display = 'none';
-        document.getElementById('submitSuccess').style.display = 'block';
+      .catch((err) => {
+        console.error('Blog submission error:', err);
+        if (btn) { btn.disabled = false; btn.textContent = originalText; }
+        alert('There was an error submitting your post. Please try again or email magazine@wearejerseyent.com directly.');
       });
     }
   </script>
@@ -695,9 +645,8 @@
     let allPosts = [];
     let activeCategory = 'all';
 
-    // Map Wix categories to our nav categories (case insensitive)
     function normalizeCategory(cat) {
-      if (!cat) return 'news';
+      if (!cat) return 'community';
       const c = cat.toLowerCase().trim();
       for (const k of CATEGORIES) {
         if (c.includes(k)) return k;
@@ -705,30 +654,45 @@
       return c;
     }
 
+    function formatDate(str) {
+      if (!str) return '';
+      return new Date(str + 'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    }
+
     function formatPost(post, index) {
       const cat = normalizeCategory(post.category);
-      const imgSrc = post.image || 'Cover_2_.png';
+      const imgSrc = post.image || '/assets/images/Cover_2_.png';
+
+      const rawDesc = (post.summary || post.content || '').replace(/<[^>]+>/g,'').trim();
+      const desc = rawDesc.length > 160
+        ? rawDesc.slice(0, 160).replace(/\s+\S*$/, '') + '…'
+        : rawDesc;
+
+      const wordCount = (post.content || '').split(/\s+/).filter(Boolean).length;
+      const readMins = Math.max(1, Math.round(wordCount / 200));
+      const readTime = wordCount > 10 ? readMins + ' min read' : '';
+
       return `
-        <div class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}">
+        <a href="/post?slug=${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
           <div class="blog-card-img">
-            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='Cover_2_.png'" loading="lazy"/>
-            <span class="blog-card-cat">${post.category || 'News'}</span>
+            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='/assets/images/Cover_2_.png'" loading="lazy"/>
+            <span class="blog-card-cat">${post.category || 'Community'}</span>
           </div>
           <div class="blog-card-body">
             <h3>${post.title}</h3>
-            <p>${post.description}</p>
+            <p>${desc}</p>
             <div class="blog-card-meta">
-              <span class="author">WAJ Magazine</span>
-              <span class="date">${post.date}</span>
+              <span class="author">${post.author || 'WAJ Magazine'}</span>
+              <span class="date">${formatDate(post.date)}${readTime ? ' &nbsp;·&nbsp; ' + readTime : ''}</span>
             </div>
           </div>
-        </div>`;
+        </a>`;
     }
 
     function renderPosts(posts) {
       const grid = document.getElementById('blogGrid');
       if (!posts || !posts.length) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:14px;">No posts found. <a href="https://www.wearejerseyent.com/news" target="_blank" style="color:var(--crimson);">Visit We Are Jersey ENT →</a></div>';
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:14px;">No posts yet. Check back soon!</div>';
         return;
       }
       grid.innerHTML = posts.map((p,i) => formatPost(p,i)).join('');
@@ -739,11 +703,14 @@
         const pop = popular.querySelectorAll('.popular-post');
         posts.slice(0,4).forEach((p,i) => {
           if (pop[i]) {
-            pop[i].querySelector('img').src = p.image || 'Cover_2_.png';
-            pop[i].querySelector('img').onerror = function(){ this.src='Cover_2_.png'; };
-            pop[i].querySelector('.cat').textContent = p.category || 'News';
-            pop[i].querySelector('h4').textContent = p.title;
-            pop[i].closest('a') && (pop[i].closest('a').href = p.link);
+            const img = pop[i].querySelector('img');
+            if (img) { img.src = p.image || '/assets/images/Cover_2_.png'; img.onerror = function(){ this.src='/assets/images/Cover_2_.png'; }; }
+            const catEl = pop[i].querySelector('.cat');
+            if (catEl) catEl.textContent = p.category || 'Community';
+            const h4 = pop[i].querySelector('h4');
+            if (h4) h4.textContent = p.title;
+            const link = pop[i].closest('a');
+            if (link) link.href = '/post?slug=' + p.slug;
           }
         });
       }
@@ -756,7 +723,6 @@
       renderPosts(filtered);
     }
 
-    // Wire category bar buttons
     document.querySelectorAll('.cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -765,7 +731,6 @@
       });
     });
 
-    // Wire sidebar category links
     document.querySelectorAll('.sidebar-cat-list a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -775,20 +740,23 @@
       });
     });
 
-    // Fetch from Netlify function
-    fetch('/.netlify/functions/blog-feed')
+    // Fetch native posts — direct static file, no function call needed
+    fetch('/content/posts.json?t=' + Date.now())
       .then(r => r.json())
       .then(data => {
-        allPosts = data.posts || [];
+        allPosts = (data.posts || []).filter(p => p.status === 'published');
+        // Featured posts first, then by date descending
+        allPosts.sort((a,b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return new Date(b.date) - new Date(a.date);
+        });
         renderPosts(allPosts);
       })
       .catch(err => {
-        console.warn('Blog feed error:', err);
+        console.warn('Posts load error:', err);
         document.getElementById('blogGrid').innerHTML =
-          '<div style="grid-column:1/-1;text-align:center;padding:40px;">' +
-          '<p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">Posts are loading — visit the source directly.</p>' +
-          '<a href="https://www.wearejerseyent.com/news" target="_blank" style="display:inline-block;padding:12px 28px;background:var(--crimson);color:#fff;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;">Read on We Are Jersey ENT →</a>' +
-          '</div>';
+          '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:14px;">Unable to load posts right now. Please refresh the page.</div>';
       });
 
   })();

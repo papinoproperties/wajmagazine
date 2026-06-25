@@ -179,6 +179,14 @@
     .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } #navCartBtn { display: flex !important; } }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MBG1ZXVMHE');
+  </script>
 </head>
 <body>
   <nav>
@@ -232,21 +240,59 @@
   <section class="submit-section" id="inquire">
     <h2>GET IN TOUCH</h2>
     <p>Fill out the form below and we'll respond within 48 hours to discuss your advertising or partnership needs.</p>
-    <div class="form-row">
-      <div class="form-group"><label>First Name</label><input type="text" placeholder="Your first name"/></div>
-      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Your last name"/></div>
+
+    <!-- Success message -->
+    <div id="advertise-success" style="display:none;padding:40px 0;text-align:center;max-width:500px;">
+      <div style="width:56px;height:56px;background:#7A0000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#1A1A1A;margin-bottom:8px;">Inquiry Received!</h3>
+      <p style="font-size:14px;color:#555;line-height:1.7;">Thank you for your interest in partnering with WAJ Magazine. We'll be in touch within 48 hours.</p>
     </div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
-    <div class="form-group"><label>Business / Brand Name</label><input type="text" placeholder="Your business name"/></div>
-    <div class="form-group"><label>Interested In</label>
-      <select><option>Digital Spotlight — $199</option><option>Full Feature — $499</option><option>Brand Partnership — Custom</option><option>Submit a Feature / Story</option><option>Other Inquiry</option></select>
-    </div>
-    <div class="form-group"><label>Tell Us About Your Brand</label><textarea placeholder="Share a little about your brand, goals, and what you're looking for..."></textarea></div>
-    <button class="btn-crimson" style="width:auto;padding:13px 36px;display:inline-block;">Send Inquiry</button>
+
+    <form id="advertise-form" name="waj-advertise" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="waj-advertise"/>
+      <p style="display:none;"><input name="bot-field"/></p>
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" name="first-name" required placeholder="Your first name"/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" name="last-name" required placeholder="Your last name"/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" name="email" required placeholder="your@email.com"/></div>
+      <div class="form-group"><label>Business / Brand Name</label><input type="text" name="business-name" required placeholder="Your business name"/></div>
+      <div class="form-group"><label>Interested In</label>
+        <select name="interest">
+          <option>Digital Spotlight — $199</option>
+          <option>Full Feature — $499</option>
+          <option>Brand Partnership — Custom</option>
+          <option>Submit a Feature / Story</option>
+          <option>Other Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Tell Us About Your Brand</label>
+        <textarea name="message" required placeholder="Share a little about your brand, goals, and what you're looking for..."></textarea>
+      </div>
+      <button type="submit" class="btn-crimson" style="width:auto;padding:13px 36px;display:inline-block;">Send Inquiry</button>
+    </form>
   </section>
 
+  <script>
+    document.getElementById('advertise-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = this;
+      const data = new FormData(form);
+      fetch(window.location.href, { method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() })
+        .then(() => {
+          form.style.display = 'none';
+          document.getElementById('advertise-success').style.display = 'block';
+        })
+        .catch(() => {
+          form.submit();
+        });
+    });
+  </script>
+
   <footer>
-    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
     <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
   </footer>
 

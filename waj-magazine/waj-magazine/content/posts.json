@@ -1,0 +1,40 @@
+{
+  "posts": [
+    {
+      "slug": "waj-magazine-new-website-launch",
+      "title": "WAJ Magazine Has a Brand New Home",
+      "author": "WAJ Editorial",
+      "category": "Community",
+      "date": "2025-06-15",
+      "image": "/assets/images/Cover_2_.png",
+      "summary": "After 10+ years and 42 issues, WAJ Magazine is now fully independent with its own home at wajmagazine.com — built for the creatives, entrepreneurs, and community voices we've always existed to amplify.",
+      "content": "For over a decade, WAJ Magazine has told the stories of the people shaping culture in New Jersey and beyond — the artists, the entrepreneurs, the athletes, and the community leaders who don't always get the spotlight they deserve.\n\nToday, we're proud to launch our own independent home at wajmagazine.com. Every issue we've ever published, all 42 of them, is now available right here — both as digital downloads and physical print copies you can hold in your hands.\n\nThis is more than a new website. It's a new chapter. WAJ Magazine is growing into a full media brand with its own blog, its own features program, and its own voice — while staying true to where we started: two friends from Bergen County who believed the people doing the real work in our community deserved a real platform.\n\nWant to be featured? Have a story to tell? We're opening submissions to our community — whether you're an artist, a business owner, an athlete, or someone doing meaningful work where you live. Submit your story and our editorial team will take it from there.\n\nThank you for a decade of support. Here's to the next one.",
+      "featured": true,
+      "status": "published"
+    },
+    {
+      "slug": "honey-bxby-cover-story-issue-42",
+      "title": "Honey Bxby Covers Issue 042 — New Jersey's Own",
+      "author": "WAJ Editorial",
+      "category": "Music",
+      "date": "2025-05-20",
+      "image": "/assets/images/Cover_2_.png",
+      "summary": "Honey Bxby takes the cover of WAJ Magazine Issue 042, bringing her unmistakable presence and New Jersey roots to the forefront of our latest issue.",
+      "content": "There's a reason Honey Bxby's name keeps coming up in conversations about New Jersey's rising creative scene. Her presence is magnetic, her work is unapologetically her own, and Issue 042 of WAJ Magazine captures exactly that.\n\nInside this issue, we sit down with Honey Bxby to talk about her journey, the moments that shaped her, and what it means to represent New Jersey on her own terms. We also feature an exclusive interview with Tripp Fontane of \"Tripp After Dark,\" diving into the creative culture that connects this community together.\n\nIssue 042 is available now in both digital and print. Grab your copy and see why New Jersey keeps producing some of the most compelling voices in culture today.",
+      "featured": false,
+      "status": "published"
+    },
+    {
+      "slug": "get-featured-in-waj-magazine",
+      "title": "We're Opening Submissions — Get Featured in WAJ Magazine",
+      "author": "WAJ Editorial",
+      "category": "Community",
+      "date": "2025-06-10",
+      "image": "/assets/images/Magazine_Cover.png",
+      "summary": "WAJ Magazine has officially opened community submissions for our Features program. Merit-based selection, no payment required — just real stories from real people.",
+      "content": "Since 2014, WAJ Magazine has been built on one core belief: every community has voices worth amplifying, and most of them never get asked to share their story. We're changing that in a bigger way.\n\nWe've officially opened our Features submission program to the public. Whether you're a musician, an entrepreneur, an athlete, a community organizer, or someone doing something meaningful that the world should know about — we want to hear from you.\n\nOur selection process is entirely merit-based. There is no payment required to submit, and no payment required to be featured. Our editorial team reads every single submission and selects features based on your story, your impact, and your connection to the culture and community we cover.\n\nHead to our Features page to submit your story. If selected, our team will reach out within 30 days to take things further.\n\nThis is your platform. Use it.",
+      "featured": false,
+      "status": "published"
+    }
+  ]
+}

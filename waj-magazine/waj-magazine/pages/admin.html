@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Admin Dashboard — WAJ Magazine</title>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--crimson:#7A0000;--text:#1A1A1A;--text-muted:#555;--bg:#F6F6F6;--border:#E0E0E0;--white:#fff;--font-display:'Bebas Neue',sans-serif;--font-body:'Montserrat',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;}
+    a{color:var(--crimson);text-decoration:none;}
+
+    /* Login gate */
+    #loginGate{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0A0A0A;}
+    #loginGate .box{text-align:center;padding:48px;}
+    #loginGate img{height:60px;margin-bottom:24px;}
+    #loginGate h1{font-family:var(--font-display);font-size:32px;color:#fff;letter-spacing:.04em;margin-bottom:10px;}
+    #loginGate p{font-size:13px;color:#888;margin-bottom:28px;}
+    #loginGate button{padding:14px 36px;background:var(--crimson);color:#fff;border:none;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
+
+    /* Main dashboard */
+    #dashboard{display:none;}
+    header{background:#0A0A0A;border-bottom:3px solid var(--crimson);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;}
+    header .left{display:flex;align-items:center;gap:16px;}
+    header img{height:36px;}
+    header h1{font-family:var(--font-display);font-size:20px;color:#fff;letter-spacing:.06em;}
+    header .right{display:flex;align-items:center;gap:16px;}
+    header .user-email{font-size:11px;color:#888;}
+    header button.logout{background:none;border:1px solid #444;color:#aaa;padding:7px 16px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+    header button.logout:hover{border-color:var(--crimson);color:var(--crimson);}
+
+    .tabs{display:flex;gap:0;background:#fff;border-bottom:1px solid var(--border);padding:0 32px;}
+    .tab{padding:16px 24px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;}
+    .tab.active{color:var(--crimson);border-bottom-color:var(--crimson);}
+    .tab .count{display:inline-block;background:var(--crimson);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;}
+
+    .panel{display:none;padding:32px;max-width:1100px;margin:0 auto;}
+    .panel.active{display:block;}
+
+    /* Submission cards */
+    .sub-card{background:#fff;border:1px solid var(--border);padding:24px;margin-bottom:16px;}
+    .sub-card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:16px;}
+    .sub-card-head h3{font-size:18px;font-weight:700;color:var(--text);}
+    .sub-meta{font-size:11px;color:#999;margin-top:4px;}
+    .sub-badge{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:3px;white-space:nowrap;}
+    .sub-badge.submit-post{background:#E8F0FE;color:#1A5FB4;}
+    .sub-badge.blog-submission{background:#FCE8E8;color:var(--crimson);}
+    .sub-field{margin-bottom:10px;}
+    .sub-field label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;display:block;margin-bottom:3px;}
+    .sub-field .val{font-size:13px;color:var(--text);line-height:1.6;}
+    .sub-content{max-height:200px;overflow-y:auto;background:var(--bg);padding:14px;border:1px solid var(--border);font-size:13px;line-height:1.7;white-space:pre-wrap;}
+    .sub-actions{display:flex;gap:10px;margin-top:16px;}
+    .btn{padding:10px 22px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:all .15s;}
+    .btn-approve{background:var(--crimson);color:#fff;}
+    .btn-approve:hover{background:#9B0000;}
+    .btn-reject{background:#fff;color:#888;border:1px solid var(--border);}
+    .btn-reject:hover{border-color:#cc0000;color:#cc0000;}
+    .empty-state{text-align:center;padding:60px 20px;color:#999;}
+
+    /* Post editor */
+    .editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+    .field{margin-bottom:18px;}
+    .field label{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#888;margin-bottom:7px;}
+    .field input,.field select,.field textarea{width:100%;background:#fff;border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--crimson);}
+    .field textarea{resize:vertical;line-height:1.7;}
+    .field .hint{font-size:10px;color:#999;margin-top:5px;}
+    .btn-publish{padding:15px 40px;background:var(--crimson);color:#fff;font-family:var(--font-display);font-size:18px;letter-spacing:.06em;border:none;cursor:pointer;}
+    .btn-publish:hover{background:#9B0000;}
+    .btn-publish:disabled{background:#999;cursor:not-allowed;}
+
+    /* Published posts list */
+    .post-row{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--border);padding:16px 20px;margin-bottom:10px;}
+    .post-row img{width:60px;height:60px;object-fit:cover;flex-shrink:0;}
+    .post-row .info{flex:1;}
+    .post-row h4{font-size:14px;font-weight:700;color:var(--text);}
+    .post-row .meta{font-size:11px;color:#999;margin-top:3px;}
+    .post-row .actions{display:flex;gap:8px;flex-shrink:0;}
+    .post-row button{padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);background:#fff;cursor:pointer;}
+    .post-row button:hover{border-color:var(--crimson);color:var(--crimson);}
+
+    .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:#1A1A1A;border:2px solid var(--crimson);color:#fff;padding:14px 24px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s;border-radius:4px;}
+    .toast.show{transform:translateX(-50%) translateY(0);}
+    .toast.error{border-color:#cc0000;}
+
+    .loading-spin{display:inline-block;width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--crimson);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    @media(max-width:700px){
+      .editor-grid{grid-template-columns:1fr;}
+      .panel{padding:20px;}
+      header{padding:14px 18px;}
+      header h1{display:none;}
+      .tabs{padding:0 12px;overflow-x:auto;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN GATE -->
+  <div id="loginGate">
+    <div class="box">
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <h1>Admin Dashboard</h1>
+      <p>Log in with your invited Netlify Identity account to continue.</p>
+      <button onclick="netlifyIdentity.open()">Log In</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <header>
+      <div class="left">
+        <img src="/assets/images/waj-red-logo.png" alt="WAJ"/>
+        <h1>WAJ Admin</h1>
+      </div>
+      <div class="right">
+        <span class="user-email" id="userEmail"></span>
+        <button class="logout" onclick="netlifyIdentity.logout()">Log Out</button>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="pending" onclick="switchTab('pending')">Pending Submissions <span class="count" id="pendingCount">0</span></div>
+      <div class="tab" data-tab="new" onclick="switchTab('new')">Write New Post</div>
+      <div class="tab" data-tab="published" onclick="switchTab('published')">Published Posts <span class="count" id="publishedCount">0</span></div>
+    </div>
+
+    <!-- PENDING SUBMISSIONS -->
+    <div class="panel active" id="panel-pending">
+      <div id="pendingList"><div style="text-align:center;padding:60px;"><div class="loading-spin"></div></div></div>
+    </div>
+
+    <!-- NEW POST EDITOR -->
+    <div class="panel" id="panel-new">
+      <div class="editor-grid">
+        <div class="field"><label>Title *</label><input type="text" id="editTitle" placeholder="Post title"/></div>
+        <div class="field"><label>Author</label><input type="text" id="editAuthor" placeholder="WAJ Editorial" value="WAJ Editorial"/></div>
+      </div>
+      <div class="editor-grid">
+        <div class="field"><label>Category</label>
+          <select id="editCategory">
+            <option>Beauty</option><option>Business</option><option selected>Community</option>
+            <option>Culture</option><option>Fashion</option><option>Food</option>
+            <option>Health</option><option>Music</option><option>Sports</option>
+          </select>
+        </div>
+        <div class="field"><label>Cover Image URL</label><input type="text" id="editImage" placeholder="/assets/images/Cover_2_.png"/>
+          <p class="hint">Use an existing image path, or paste an external image URL.</p>
+        </div>
+      </div>
+      <div class="field"><label>URL Slug (optional — auto-generated from title if blank)</label><input type="text" id="editSlug" placeholder="my-post-title"/></div>
+      <div class="field"><label>Short Summary (shown on blog cards)</label><textarea id="editSummary" rows="2" placeholder="1-2 sentence summary..."></textarea></div>
+      <div class="field"><label>Full Content *</label><textarea id="editContent" rows="14" placeholder="Write the full article here. Separate paragraphs with a blank line."></textarea></div>
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+          <input type="checkbox" id="editFeatured" style="width:auto;"/> Feature this post at the top of the blog
+        </label>
+      </div>
+      <input type="hidden" id="editOriginalSlug"/>
+      <button class="btn-publish" id="publishBtn" onclick="submitPost()">Publish Post</button>
+      <button class="btn-reject" style="margin-left:10px;display:none;" id="cancelEditBtn" onclick="resetEditor()">Cancel Edit</button>
+    </div>
+
+    <!-- PUBLISHED POSTS -->
+    <div class="panel" id="panel-published">
+      <div id="publishedList"><div style="text-align:center;padding:60px;"><div class="loading-spin"></div></div></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+  <script>
+    let allPosts = [];
+    let allSubmissions = [];
+    let authToken = null;
+
+    // ── IDENTITY SETUP ──
+    netlifyIdentity.on('init', user => {
+      if (user) showDashboard(user);
+    });
+    netlifyIdentity.on('login', user => {
+      showDashboard(user);
+      netlifyIdentity.close();
+    });
+    netlifyIdentity.on('logout', () => {
+      document.getElementById('loginGate').style.display = 'flex';
+      document.getElementById('dashboard').style.display = 'none';
+    });
+    netlifyIdentity.init();
+
+    async function showDashboard(user) {
+      authToken = await user.jwt();
+      document.getElementById('loginGate').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('userEmail').textContent = user.email;
+      loadSubmissions();
+      loadPosts();
+    }
+
+    function showToast(msg, isError) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.toggle('error', !!isError);
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 4000);
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    // ── LOAD PENDING SUBMISSIONS ──
+    async function loadSubmissions() {
+      try {
+        const res = await fetch('/.netlify/functions/get-submissions', {
+          headers: { 'Authorization': 'Bearer ' + authToken }
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load submissions');
+        allSubmissions = data.submissions || [];
+        renderSubmissions();
+      } catch (err) {
+        document.getElementById('pendingList').innerHTML = `<div class="empty-state">Error loading submissions: ${err.message}</div>`;
+      }
+    }
+
+    function renderSubmissions() {
+      document.getElementById('pendingCount').textContent = allSubmissions.length;
+      const list = document.getElementById('pendingList');
+      if (!allSubmissions.length) {
+        list.innerHTML = '<div class="empty-state">No pending submissions right now.</div>';
+        return;
+      }
+      list.innerHTML = allSubmissions.map((s, i) => {
+        const d = s.data;
+        const name = d['first-name'] || d.name || 'Unknown';
+        const lastName = d['last-name'] || '';
+        const title = d['post-title'] || d.title || '(no title)';
+        const content = d.content || '';
+        const summary = d.summary || '';
+        const category = d.category || '';
+        const email = d.email || '';
+        const date = new Date(s.created_at).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+        return `
+          <div class="sub-card">
+            <div class="sub-card-head">
+              <div>
+                <h3>${title}</h3>
+                <p class="sub-meta">By ${name} ${lastName} · ${email} · ${date}</p>
+              </div>
+              <span class="sub-badge ${s.form}">${s.form === 'submit-post' ? 'Full Submission' : 'Blog Modal'}</span>
+            </div>
+            <div class="sub-field"><label>Category</label><div class="val">${category || '—'}</div></div>
+            ${summary ? `<div class="sub-field"><label>Summary</label><div class="val">${summary}</div></div>` : ''}
+            <div class="sub-field"><label>Full Content</label><div class="sub-content">${content || '(no content)'}</div></div>
+            <div class="sub-actions">
+              <button class="btn btn-approve" onclick='approveSubmission(${i})'>Approve &amp; Publish</button>
+              <button class="btn btn-reject" onclick='rejectSubmission("${s.id}")'>Reject</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function approveSubmission(index) {
+      const s = allSubmissions[index];
+      const d = s.data;
+      // Pre-fill the New Post editor with this submission's content
+      document.getElementById('editTitle').value = d['post-title'] || d.title || '';
+      document.getElementById('editAuthor').value = ((d['first-name']||d.name||'') + ' ' + (d['last-name']||'')).trim() || 'WAJ Editorial';
+      document.getElementById('editCategory').value = d.category || 'Community';
+      document.getElementById('editSummary').value = d.summary || '';
+      document.getElementById('editContent').value = d.content || '';
+      document.getElementById('editImage').value = '/assets/images/Cover_2_.png';
+      document.getElementById('editOriginalSlug').value = '';
+      document.getElementById('editSlug').value = '';
+      document.getElementById('editFeatured').checked = false;
+      document.getElementById('publishBtn').dataset.approvingSubmissionId = s.id;
+      switchTab('new');
+      showToast('Submission loaded — review and click Publish');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    async function rejectSubmission(id) {
+      if (!confirm('Reject and delete this submission? This cannot be undone.')) return;
+      try {
+        const res = await fetch('/.netlify/functions/delete-submission', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+          body: JSON.stringify({ id })
+        });
+        if (!res.ok) throw new Error('Failed to reject submission');
+        showToast('Submission rejected');
+        loadSubmissions();
+      } catch (err) {
+        showToast('Error: ' + err.message, true);
+      }
+    }
+
+    // ── PUBLISH / UPDATE POST ──
+    async function submitPost() {
+      const title = document.getElementById('editTitle').value.trim();
+      const content = document.getElementById('editContent').value.trim();
+      if (!title || !content) { showToast('Title and content are required', true); return; }
+
+      const originalSlug = document.getElementById('editOriginalSlug').value;
+      const action = originalSlug ? 'update' : 'create';
+
+      const post = {
+        title,
+        author: document.getElementById('editAuthor').value.trim() || 'WAJ Editorial',
+        category: document.getElementById('editCategory').value,
+        image: document.getElementById('editImage').value.trim() || '/assets/images/Cover_2_.png',
+        summary: document.getElementById('editSummary').value.trim(),
+        content,
+        slug: document.getElementById('editSlug').value.trim(),
+        featured: document.getElementById('editFeatured').checked,
+      };
+
+      const btn = document.getElementById('publishBtn');
+      btn.disabled = true;
+      btn.textContent = 'Publishing...';
+
+      try {
+        const res = await fetch('/.netlify/functions/publish-post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+          body: JSON.stringify({ action, post, originalSlug: originalSlug || undefined })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Publish failed');
+
+        // If this came from an approved submission, delete it from the queue
+        const approvingId = btn.dataset.approvingSubmissionId;
+        if (approvingId) {
+          await fetch('/.netlify/functions/delete-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+            body: JSON.stringify({ id: approvingId })
+          });
+          delete btn.dataset.approvingSubmissionId;
+        }
+
+        showToast(action === 'create' ? 'Post published! Live in ~60 seconds.' : 'Post updated! Live in ~60 seconds.');
+        resetEditor();
+        loadSubmissions();
+        loadPosts();
+        switchTab('published');
+      } catch (err) {
+        showToast('Error: ' + err.message, true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Publish Post';
+      }
+    }
+
+    function resetEditor() {
+      document.getElementById('editTitle').value = '';
+      document.getElementById('editAuthor').value = 'WAJ Editorial';
+      document.getElementById('editCategory').value = 'Community';
+      document.getElementById('editImage').value = '';
+      document.getElementById('editSlug').value = '';
+      document.getElementById('editSummary').value = '';
+      document.getElementById('editContent').value = '';
+      document.getElementById('editFeatured').checked = false;
+      document.getElementById('editOriginalSlug').value = '';
+      document.getElementById('publishBtn').textContent = 'Publish Post';
+      document.getElementById('cancelEditBtn').style.display = 'none';
+      delete document.getElementById('publishBtn').dataset.approvingSubmissionId;
+    }
+
+    // ── LOAD / RENDER PUBLISHED POSTS ──
+    async function loadPosts() {
+      try {
+        const res = await fetch('/content/posts.json?t=' + Date.now());
+        const data = await res.json();
+        allPosts = data.posts || [];
+        renderPosts();
+      } catch (err) {
+        document.getElementById('publishedList').innerHTML = `<div class="empty-state">Error loading posts: ${err.message}</div>`;
+      }
+    }
+
+    function renderPosts() {
+      document.getElementById('publishedCount').textContent = allPosts.length;
+      const list = document.getElementById('publishedList');
+      if (!allPosts.length) {
+        list.innerHTML = '<div class="empty-state">No posts published yet.</div>';
+        return;
+      }
+      list.innerHTML = allPosts.map(p => `
+        <div class="post-row">
+          <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'"/>
+          <div class="info">
+            <h4>${p.title} ${p.featured ? '⭐' : ''}</h4>
+            <p class="meta">${p.category} · ${p.date} · by ${p.author}</p>
+          </div>
+          <div class="actions">
+            <button onclick='editPost("${p.slug}")'>Edit</button>
+            <button onclick='deletePost("${p.slug}")'>Delete</button>
+            <a href="/post?slug=${p.slug}" target="_blank" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:7px 14px;border:1px solid #E0E0E0;color:#555;text-decoration:none;">View</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function editPost(slug) {
+      const p = allPosts.find(x => x.slug === slug);
+      if (!p) return;
+      document.getElementById('editTitle').value = p.title;
+      document.getElementById('editAuthor').value = p.author;
+      document.getElementById('editCategory').value = p.category;
+      document.getElementById('editImage').value = p.image;
+      document.getElementById('editSlug').value = p.slug;
+      document.getElementById('editSummary').value = p.summary;
+      document.getElementById('editContent').value = p.content;
+      document.getElementById('editFeatured').checked = !!p.featured;
+      document.getElementById('editOriginalSlug').value = p.slug;
+      document.getElementById('publishBtn').textContent = 'Save Changes';
+      document.getElementById('cancelEditBtn').style.display = 'inline-block';
+      switchTab('new');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    async function deletePost(slug) {
+      if (!confirm('Permanently delete this post? This cannot be undone.')) return;
+      try {
+        const res = await fetch('/.netlify/functions/publish-post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+          body: JSON.stringify({ action: 'delete', originalSlug: slug })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Delete failed');
+        showToast('Post deleted');
+        loadPosts();
+      } catch (err) {
+        showToast('Error: ' + err.message, true);
+      }
+    }
+  </script>
+</body>
+</html>

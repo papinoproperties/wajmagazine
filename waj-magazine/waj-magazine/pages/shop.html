@@ -336,14 +336,26 @@
 
     /* ── TOAST ── */
     .toast {
-      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: #FFFFFF; border: 1px solid rgba(122,0,0,0.5);
-      color: var(--white); padding: 14px 24px; font-size: 13px; font-weight: 600;
-      z-index: 400; transition: transform 0.3s; white-space: nowrap;
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: #1A1A1A !important;
+      border: 2px solid #7A0000 !important;
+      color: #FFFFFF !important;
+      padding: 14px 24px; font-size: 13px; font-weight: 600;
+      z-index: 9999; transition: transform 0.3s ease;
+      white-space: nowrap; max-width: 90vw;
       display: flex; align-items: center; gap: 10px;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
-    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--crimson); flex-shrink: 0; }
+    .toast-dot { width: 8px; height: 8px; border-radius: 50%; background: #7A0000 !important; flex-shrink: 0; }
+    .toast span { color: #FFFFFF !important; font-size: 13px !important; font-weight: 600 !important; }
+    .toast.error { border-color: #cc0000 !important; }
+    .toast.error .toast-dot { background: #cc0000 !important; }
+    @media(max-width:600px){
+      .toast { white-space: normal; text-align: center; width: 85vw; justify-content: center; bottom: 20px; }
+    }
 
     /* ── RESPONSIVE ── */
     @media(max-width:900px){
@@ -521,6 +533,14 @@
     .legend-icon.digital { background: #FFFFFF !important; }
     .legend-icon.print { background: rgba(255,255,255,0.6) !important; }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MBG1ZXVMHE');
+  </script>
 </head>
 <body>
 
@@ -625,12 +645,12 @@
         <div class="shop-card-body">
           <h3>HONEY BXBY</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'digital', 5.99, '../assets/images/Cover_2_.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'digital', 5.99, '../assets/images/Cover_2_.png', 'WAJ-042-HONEY-BXBY')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
                 <div>
                   <div class="option-label digital">Digital PDF</div>
-                  <div class="option-sub">Instant download</div>
+                  <div class="option-sub">Delivered by email within 24 hrs</div>
                 </div>
               </div>
               <div class="option-right">
@@ -638,7 +658,7 @@
                 <button class="add-btn">+</button>
               </div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'print', 30.99, '../assets/images/Cover_2_.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'print', 30.99, '../assets/images/Cover_2_.png', 'WAJ-042-HONEY-BXBY')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div>
@@ -663,12 +683,12 @@
         <div class="shop-card-body">
           <h3>DJ TAJ</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'digital', 5.99, '../assets/images/Magazine_Cover.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'digital', 5.99, '../assets/images/Magazine_Cover.png', 'WAJ-042-DJ-TAJ')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
                 <div>
                   <div class="option-label digital">Digital PDF</div>
-                  <div class="option-sub">Instant download</div>
+                  <div class="option-sub">Delivered by email within 24 hrs</div>
                 </div>
               </div>
               <div class="option-right">
@@ -676,7 +696,7 @@
                 <button class="add-btn">+</button>
               </div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'print', 30.99, '../assets/images/Magazine_Cover.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'print', 30.99, '../assets/images/Magazine_Cover.png', 'WAJ-042-DJ-TAJ')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div>
@@ -701,14 +721,14 @@
         <div class="shop-card-body">
           <h3>DJ SMALLZ 732</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'DJ SMALLZ 732', 'digital', 5.99, '../assets/images/spring2025.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'DJ SMALLZ 732', 'digital', 5.99, '../assets/images/spring2025.png', 'WAJ-041-DJ-SMALLZ-732')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'DJ SMALLZ 732', 'print', 30.99, '../assets/images/spring2025.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'DJ SMALLZ 732', 'print', 30.99, '../assets/images/spring2025.png', 'WAJ-041-DJ-SMALLZ-732')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -727,14 +747,14 @@
         <div class="shop-card-body">
           <h3>QAYSEAN WILLIAMS</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'digital', 5.99, '../assets/images/Spring20252.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'digital', 5.99, '../assets/images/Spring20252.png', 'WAJ-041-QAYSEAN-WILLIAMS')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'print', 30.99, '../assets/images/Spring20252.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'print', 30.99, '../assets/images/Spring20252.png', 'WAJ-041-QAYSEAN-WILLIAMS')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -753,14 +773,14 @@
         <div class="shop-card-body">
           <h3>THE ARTIST</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'digital', 5.99, '../assets/images/Spring2024.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'THE ARTIST', 'digital', 5.99, '../assets/images/Spring2024.png', 'WAJ-040-THE-ARTIST')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'QAYSEAN WILLIAMS', 'print', 30.99, '../assets/images/Spring2024.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'THE ARTIST', 'print', 30.99, '../assets/images/Spring2024.png', 'WAJ-040-THE-ARTIST')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -779,14 +799,14 @@
         <div class="shop-card-body">
           <h3>LADY LUCK</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'digital', 5.99, '../assets/images/spring20242.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'digital', 5.99, '../assets/images/spring20242.png', 'WAJ-040-LADY-LUCK')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'print', 30.99, '../assets/images/spring20242.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'print', 30.99, '../assets/images/spring20242.png', 'WAJ-040-LADY-LUCK')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -805,14 +825,14 @@
         <div class="shop-card-body">
           <h3>MAPY</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'digital', 5.99, '../assets/images/Spring2023.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'MAPY', 'digital', 5.99, '../assets/images/Spring2023.png', 'WAJ-038-MAPY')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'LADY LUCK', 'print', 30.99, '../assets/images/Spring2023.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'MAPY', 'print', 30.99, '../assets/images/Spring2023.png', 'WAJ-038-MAPY')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -831,14 +851,14 @@
         <div class="shop-card-body">
           <h3>SHAKUR STEVENSON</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'digital', 5.99, '../assets/images/winterSpring2023.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'digital', 5.99, '../assets/images/winterSpring2023.png', 'WAJ-039-SHAKUR-STEVENSON')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'print', 30.99, '../assets/images/winterSpring2023.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'print', 30.99, '../assets/images/winterSpring2023.png', 'WAJ-039-SHAKUR-STEVENSON')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -857,14 +877,14 @@
         <div class="shop-card-body">
           <h3>TREY BUDDEN</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'digital', 5.99, '../assets/images/summer20222.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'TREY BUDDEN', 'digital', 5.99, '../assets/images/summer20222.png', 'WAJ-035-TREY-BUDDEN')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'SHAKUR STEVENSON', 'print', 30.99, '../assets/images/summer20222.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'TREY BUDDEN', 'print', 30.99, '../assets/images/summer20222.png', 'WAJ-035-TREY-BUDDEN')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -883,14 +903,14 @@
         <div class="shop-card-body">
           <h3>KIA</h3>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'TREY BUDDEN', 'digital', 5.99, '../assets/images/sept2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'KIA', 'digital', 5.99, '../assets/images/sept2022.png', 'WAJ-036-KIA')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'TREY BUDDEN', 'print', 30.99, '../assets/images/sept2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'KIA', 'print', 30.99, '../assets/images/sept2022.png', 'WAJ-036-KIA')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -916,14 +936,14 @@
           <h3>FRANKIE EDGAR x TOBIAS EATS</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 036 featuring UFC legend Frankie "The Answer" Edgar and Tobias Eats. Covering spo...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'FRANKIE EDGAR x TOBIAS EATS', 'digital', 5.99, '../assets/images/fall2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'FRANKIE EDGAR x TOBIAS EATS', 'digital', 5.99, '../assets/images/fall2022.png', 'WAJ-036-FRANKIE-EDGAR-TOBIAS-EATS')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'FRANKIE EDGAR x TOBIAS EATS', 'print', 30.99, '../assets/images/fall2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'FRANKIE EDGAR x TOBIAS EATS', 'print', 30.99, '../assets/images/fall2022.png', 'WAJ-036-FRANKIE-EDGAR-TOBIAS-EATS')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -942,14 +962,14 @@
           <h3>THE MALCOLM JENKINS FOUNDATION</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 037 featuring The Malcolm Jenkins Foundation — effectuating positive change in th...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'digital', 5.99, '../assets/images/fall2023.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'digital', 5.99, '../assets/images/fall2023.png', 'WAJ-037-MALCOLM-JENKINS-FOUNDATION')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'print', 30.99, '../assets/images/fall2023.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'print', 30.99, '../assets/images/fall2023.png', 'WAJ-037-MALCOLM-JENKINS-FOUNDATION')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -968,14 +988,14 @@
           <h3>PILAR SCRATCH & RIVER MASON</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 035 featuring Pilar Scratch and River Mason — Creating a Legacy. A heartfelt stor...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'PILAR SCRATCH & RIVER MASON', 'digital', 5.99, '../assets/images/summer_2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'PILAR SCRATCH & RIVER MASON', 'digital', 5.99, '../assets/images/summer_2022.png', 'WAJ-035-PILAR-SCRATCH-RIVER-MASON')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'PILAR SCRATCH & RIVER MASON', 'print', 30.99, '../assets/images/summer_2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'PILAR SCRATCH & RIVER MASON', 'print', 30.99, '../assets/images/summer_2022.png', 'WAJ-035-PILAR-SCRATCH-RIVER-MASON')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -994,14 +1014,14 @@
           <h3>UNIIQU3</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 033 featuring UNIIQU3 — fashion-forward, bold, and unapologetically creative. A ...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'UNIIQU3', 'digital', 5.99, '../assets/images/jan2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'UNIIQU3', 'digital', 5.99, '../assets/images/jan2022.png', 'WAJ-033-UNIIQU3')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'UNIIQU3', 'print', 30.99, '../assets/images/jan2022.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'UNIIQU3', 'print', 30.99, '../assets/images/jan2022.png', 'WAJ-033-UNIIQU3')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -1026,14 +1046,14 @@
           <h3>KERTASY</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine January 2021 featuring recording artist Kertasy. Exclusive story by Amy Lothian. Also f...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'KERTASY', 'digital', 5.99, '../assets/images/jan2021.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'KERTASY', 'digital', 5.99, '../assets/images/jan2021.png', 'WAJ-2021-JAN-KERTASY')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'KERTASY', 'print', 30.99, '../assets/images/jan2021.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'KERTASY', 'print', 30.99, '../assets/images/jan2021.png', 'WAJ-2021-JAN-KERTASY')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -1052,14 +1072,14 @@
           <h3>REGGIE COUZ</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine November 2020 featuring influencer and music artist Reggie Couz. Exclusive story by Mel...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'digital', 5.99, '../assets/images/Nov2020.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'digital', 5.99, '../assets/images/Nov2020.png', 'WAJ-2020-NOV-REGGIE-COUZ')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'print', 30.99, '../assets/images/Nov2020.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'print', 30.99, '../assets/images/Nov2020.png', 'WAJ-2020-NOV-REGGIE-COUZ')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -1078,14 +1098,14 @@
           <h3>FELICIA TEMPLE</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine September 2020 — 6 Year Anniversary Edition featuring COVID-19 frontline hero and singe...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'FELICIA TEMPLE', 'digital', 5.99, '../assets/images/sept2020.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'FELICIA TEMPLE', 'digital', 5.99, '../assets/images/sept2020.png', 'WAJ-2020-SEPT-FELICIA-TEMPLE')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'FELICIA TEMPLE', 'print', 30.99, '../assets/images/sept2020.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'FELICIA TEMPLE', 'print', 30.99, '../assets/images/sept2020.png', 'WAJ-2020-SEPT-FELICIA-TEMPLE')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -1104,14 +1124,14 @@
           <h3>CHAD PIFF</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine March 2019 featuring Chad Piff — guitarist, artist, and creative force. Also featuring ...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'CHAD PIFF', 'digital', 5.99, '../assets/images/march2019.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'CHAD PIFF', 'digital', 5.99, '../assets/images/march2019.png', 'WAJ-2019-MAR-CHAD-PIFF')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'CHAD PIFF', 'print', 30.99, '../assets/images/march2019.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'CHAD PIFF', 'print', 30.99, '../assets/images/march2019.png', 'WAJ-2019-MAR-CHAD-PIFF')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -1130,14 +1150,14 @@
           <h3>KHERK COBAIN</h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine September 2018 featuring Kherk Cobain — the Unicorn. Also featuring KRTV, Mally Gee, Ni...</p>
           <div class="purchase-options">
-            <div class="purchase-option" onclick="addToCart(this, 'KHERK COBAIN', 'digital', 5.99, '../assets/images/SEPT2018.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'KHERK COBAIN', 'digital', 5.99, '../assets/images/SEPT2018.png', 'WAJ-2018-SEPT-KHERK-COBAIN')">
               <div class="option-info">
                 <div class="option-dot digital"></div>
-                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Instant download</div></div>
+                <div><div class="option-label digital">Digital PDF</div><div class="option-sub">Delivered by email within 24 hrs</div></div>
               </div>
               <div class="option-right"><span class="option-price">$5.99</span><button class="add-btn">+</button></div>
             </div>
-            <div class="purchase-option" onclick="addToCart(this, 'KHERK COBAIN', 'print', 30.99, '../assets/images/SEPT2018.png')">
+            <div class="purchase-option" onclick="addToCart(this, 'KHERK COBAIN', 'print', 30.99, '../assets/images/SEPT2018.png', 'WAJ-2018-SEPT-KHERK-COBAIN')">
               <div class="option-info">
                 <div class="option-dot print"></div>
                 <div><div class="option-label print">Print Copy</div><div class="option-sub">+ $10.00 shipping</div></div>
@@ -1167,28 +1187,38 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
     <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
   </footer>
 
   <!-- TOAST -->
-  <div class="toast" id="toast">
-    <div class="toast-dot"></div>
-    <span id="toastMsg">Added to cart</span>
+  <div id="toast" style="
+    position:fixed; bottom:32px; left:50%;
+    transform:translateX(-50%) translateY(120px);
+    background:#1A1A1A; border:2px solid #7A0000; color:#FFFFFF;
+    padding:14px 24px; font-size:13px; font-weight:600;
+    z-index:9999; transition:transform 0.3s ease;
+    white-space:nowrap; max-width:90vw; border-radius:4px;
+    display:flex; align-items:center; gap:10px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    pointer-events:none;
+  ">
+    <div style="width:8px;height:8px;border-radius:50%;background:#7A0000;flex-shrink:0;" id="toastDot"></div>
+    <span style="color:#FFFFFF !important;font-size:13px;font-weight:600;" id="toastMsg">Added to cart</span>
   </div>
 
   <script>
     // ── CART STATE ──
     let cart = [];
 
-    function addToCart(optionEl, name, type, price, img) {
-      const id = name + '|' + type;
+    function addToCart(optionEl, name, type, price, img, productId) {
+      const id = (productId || name) + '|' + type;
       const existing = cart.find(i => i.id === id);
       if (existing) {
         showToast(`${name} (${type}) already in cart`);
         return;
       }
-      cart.push({ id, name, type, price, img });
+      cart.push({ id, name, type, price, img, productId: productId || name });
       const btn = optionEl.querySelector('.add-btn');
       btn.classList.add('added');
       btn.textContent = '';
@@ -1265,43 +1295,81 @@
       backdrop.classList.remove('open');
     }
 
-    document.getElementById('checkoutBtn').addEventListener('click', async () => {
+    // ── STRIPE PAYMENT LINKS ──
+    // Set these after creating Payment Links in your Stripe Dashboard:
+    // dashboard.stripe.com → Products → Payment Links
+    const STRIPE_DIGITAL_LINK = 'https://buy.stripe.com/cNi3cvfLp2KyfnYaTw33W01';
+    const STRIPE_PRINT_LINK   = 'https://buy.stripe.com/00w28r6aP2Ky4Jk9Ps33W00';
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
       const btn = document.getElementById('checkoutBtn');
       if (!cart.length) return;
 
-      // Loading state
+      const digitalItems = cart.filter(i => i.type === 'digital');
+      const printItems   = cart.filter(i => i.type === 'print');
+
       btn.disabled = true;
       btn.textContent = 'Redirecting to Checkout...';
 
-      try {
-        const response = await fetch('/.netlify/functions/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: cart }),
+      // Build a readable order summary to pass to Stripe
+      // This shows up in your Stripe dashboard against every payment
+      const allItems = cart.map(i =>
+        i.name + ' (' + (i.type === 'digital' ? 'Digital PDF' : 'Print Copy') + ')'
+      ).join(' | ');
+
+      const digitalCount = digitalItems.length;
+      const printCount   = printItems.length;
+
+      // We open separate Stripe pages for digital vs print
+      // Each item in the cart gets its own checkout so Stripe records the exact issue
+      function goToStripe(items, baseLink, type) {
+        if (!items.length) return;
+        items.forEach((item, idx) => {
+          // Build a clean, URL-safe reference ID Stripe can display clearly
+          // Format: ISSUE-NAME_DIGITAL or ISSUE-NAME_PRINT
+          // Use the explicit product ID assigned to each item
+          const typeLabel = type === 'digital' ? 'DIGITAL-USD5.99' : 'PRINT-USD30.99';
+          const refId = (item.productId || item.name) + '_' + typeLabel;
+
+          const url = baseLink + '?client_reference_id=' + refId;
+
+          if (idx === 0) {
+            setTimeout(() => { window.location.href = url; }, 300);
+          } else {
+            setTimeout(() => { window.open(url, '_blank'); }, 300 + (idx * 200));
+          }
         });
+      }
 
-        const data = await response.json();
-
-        if (data.url) {
-          // Redirect to Stripe-hosted checkout page
-          window.location.href = data.url;
-        } else {
-          throw new Error(data.error || 'Checkout failed');
-        }
-      } catch (err) {
-        console.error('Checkout error:', err);
-        btn.disabled = false;
-        btn.textContent = 'Proceed to Checkout';
-        showToast('Checkout error — please try again or contact us.');
+      if (digitalCount > 0 && printCount === 0) {
+        // Digital only — one Stripe page per issue
+        goToStripe(digitalItems, STRIPE_DIGITAL_LINK, 'digital');
+      } else if (printCount > 0 && digitalCount === 0) {
+        // Print only — one Stripe page per issue
+        goToStripe(printItems, STRIPE_PRINT_LINK, 'print');
+      } else {
+        // Mixed cart — open digital first, then print
+        goToStripe(digitalItems, STRIPE_DIGITAL_LINK, 'digital');
+        goToStripe(printItems, STRIPE_PRINT_LINK, 'print');
       }
     });
 
     // ── TOAST ──
-    function showToast(msg) {
+    function showToast(msg, isError) {
       const t = document.getElementById('toast');
+      const dot = document.getElementById('toastDot');
       document.getElementById('toastMsg').textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
+      // Force styles regardless of CSS
+      t.style.background = isError ? '#2a0000' : '#1A1A1A';
+      t.style.borderColor = isError ? '#cc0000' : '#7A0000';
+      t.style.color = '#FFFFFF';
+      if (dot) dot.style.background = isError ? '#cc0000' : '#7A0000';
+      // Animate in
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => {
+        t.style.transform = 'translateX(-50%) translateY(120px)';
+      }, isError ? 5000 : 3000);
     }
 
     // ── FILTER ──

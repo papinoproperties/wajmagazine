@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="WAJ Magazine Terms of Service — the terms and conditions governing your use of wajmagazine.com and our products and services."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="icon" href="../assets/images/waj-red-logo.png" type="image/png"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MBG1ZXVMHE');
+  </script>
+  <title>Terms of Service — WAJ Magazine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--crimson:#7A0000;--text:#1A1A1A;--text-muted:#555;--text-light:#888;--bg:#FFFFFF;--bg-alt:#F6F6F6;--border:#E0E0E0;--black:#0A0A0A;--white:#FFFFFF;--font-display:'Bebas Neue',sans-serif;--font-body:'Montserrat',sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);}
+    a{text-decoration:none;color:var(--crimson);}
+    a:hover{text-decoration:underline;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:2px solid var(--crimson);}
+    .nav-logo img{height:44px;}
+    .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+    .nav-links a{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);transition:color .2s;text-decoration:none;}
+    .nav-links a:hover{color:var(--crimson);}
+    .nav-links .nav-ent{padding:8px 18px;background:var(--crimson);color:var(--white);border-radius:2px;font-size:10px;}
+
+    .policy-hero{padding:110px 60px 60px;background:var(--text);border-bottom:3px solid var(--crimson);}
+    .policy-hero h1{font-family:var(--font-display);font-size:clamp(48px,7vw,80px);letter-spacing:.04em;color:var(--white);margin-bottom:10px;}
+    .policy-hero p{font-size:13px;color:#888;}
+
+    .policy-body{max-width:800px;margin:0 auto;padding:60px 60px 80px;}
+    .policy-body h2{font-family:var(--font-display);font-size:28px;letter-spacing:.04em;color:var(--text);margin:40px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--crimson);}
+    .policy-body h2:first-child{margin-top:0;}
+    .policy-body h3{font-size:14px;font-weight:700;color:var(--text);margin:20px 0 8px;}
+    .policy-body p{font-size:14px;line-height:1.85;color:var(--text-muted);margin-bottom:14px;}
+    .policy-body ul{margin:8px 0 14px 20px;display:flex;flex-direction:column;gap:6px;}
+    .policy-body li{font-size:14px;line-height:1.7;color:var(--text-muted);}
+    .policy-body .updated{display:inline-block;background:var(--bg-alt);border:1px solid var(--border);padding:8px 16px;font-size:11px;color:var(--text-light);margin-bottom:40px;}
+    .policy-links{display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;}
+    .policy-links a{display:inline-block;padding:8px 20px;border:1px solid var(--crimson);color:var(--crimson);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;}
+    .policy-links a:hover{background:var(--crimson);color:var(--white);text-decoration:none;}
+
+    footer{background:var(--black);border-top:3px solid var(--crimson);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+    footer p{font-size:11px;color:#666;}
+    footer a.ent-link{font-size:11px;font-weight:700;letter-spacing:.1em;color:#ff6666;text-transform:uppercase;border:1px solid rgba(122,0,0,.4);padding:6px 14px;text-decoration:none;}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+    .nav-hamburger span{display:block;width:24px;height:2px;background:#1A1A1A;border-radius:2px;}
+    @media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none!important;}.nav-hamburger{display:flex;}.policy-body{padding:40px 24px 60px;}footer{padding:32px 24px;}}
+
+    .mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;opacity:0;transition:opacity .25s;}
+    .mobile-backdrop.open{display:block;opacity:1;}
+    .mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:280px;background:#fff;z-index:151;border-left:3px solid #7A0000;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+    .mobile-drawer.open{transform:translateX(0);}
+    .mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E0E0E0;}
+    .mobile-drawer-header img{height:38px;}
+    .mobile-close{background:none;border:none;font-size:22px;color:#888;cursor:pointer;padding:4px;}
+    .mobile-nav-links{list-style:none;padding:16px 0;flex:1;overflow-y:auto;}
+    .mobile-nav-links li a{display:block;padding:14px 24px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#555;border-bottom:1px solid #F0F0F0;transition:color .15s;text-decoration:none;}
+    .mobile-nav-links li a:hover{color:#7A0000;}
+    .mobile-nav-links li a.mobile-ent{margin:16px 20px 0;display:block;text-align:center;padding:13px;background:#7A0000;color:#fff;border-bottom:none;}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <ul class="nav-links">
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/press">Press</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="https://www.wearejerseyent.com" target="_blank" class="mobile-ent">We Are Jersey ENT ↗</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function openMobileMenu() {
+      document.getElementById('mobileDrawer').classList.add('open');
+      document.getElementById('mobileBackdrop').classList.add('open');
+      document.querySelector('.nav-hamburger').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('mobileBackdrop').classList.remove('open');
+      document.querySelector('.nav-hamburger').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
+
+  <div class="policy-hero">
+    <h1>Terms of Service</h1>
+    <p>WAJ Magazine / We Are Jersey ENT LLC — wajmagazine.com</p>
+  </div>
+
+  <div class="policy-body">
+    <span class="updated">Last Updated: June 2025</span>
+
+    <p>Welcome to WAJ Magazine. These Terms of Service ("Terms") govern your access to and use of wajmagazine.com (the "Site") and all products, services, and content offered by We Are Jersey ENT LLC ("WAJ," "we," "us," or "our"). By accessing or using the Site, you agree to be bound by these Terms. If you do not agree, please do not use the Site.</p>
+
+    <h2>1. Use of the Site</h2>
+    <p>You agree to use the Site only for lawful purposes and in a manner that does not infringe the rights of others or restrict their use of the Site. You must be at least 13 years of age to use this Site. By using the Site, you represent that you meet this requirement.</p>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Attempt to gain unauthorized access to any portion of the Site or its related systems</li>
+      <li>Use the Site to distribute spam, malware, or any harmful content</li>
+      <li>Scrape, crawl, or harvest content from the Site without written permission</li>
+      <li>Misrepresent your identity or affiliation with any person or organization</li>
+      <li>Use our content for commercial purposes without prior written consent</li>
+    </ul>
+
+    <h2>2. Intellectual Property</h2>
+    <p>All content published on the Site — including but not limited to magazine covers, editorial photographs, written articles, logos, graphics, and video content — is the property of We Are Jersey ENT LLC or its respective contributors and is protected by copyright, trademark, and other applicable laws.</p>
+    <p>You may not reproduce, distribute, modify, create derivative works from, publicly display, or exploit any content from the Site without express written permission from WAJ Magazine, except for personal, non-commercial use (such as sharing a link or screenshot for personal reference).</p>
+    <p>The WAJ Magazine name, logo, and associated marks are trademarks of We Are Jersey ENT LLC. Unauthorized use of our trademarks is prohibited.</p>
+
+    <h2>3. Magazine Purchases — Digital Issues</h2>
+    <p>When you purchase a digital issue of WAJ Magazine, you receive a personal, non-transferable license to read and enjoy that issue for your own personal, non-commercial use.</p>
+    <ul>
+      <li>Digital issues are delivered to your email address within 24 hours of purchase</li>
+      <li>You may not resell, redistribute, or share digital issues publicly</li>
+      <li>All digital sales are final. Due to the nature of digital products, refunds are not available once delivery has been made</li>
+      <li>If you experience a technical issue receiving your digital download, contact us at magazine@wearejerseyent.com and we will assist you promptly</li>
+    </ul>
+
+    <h2>4. Magazine Purchases — Print Issues</h2>
+    <p>Print copies of WAJ Magazine are fulfilled and shipped within 5–7 business days of purchase. By placing a print order, you agree to the following:</p>
+    <ul>
+      <li>You are responsible for providing an accurate shipping address. WAJ Magazine is not responsible for orders lost or delayed due to incorrect address information</li>
+      <li>Shipping charges are non-refundable</li>
+      <li>Damaged or defective print issues may be eligible for a replacement. Contact us within 14 days of receipt with photographic evidence of the damage</li>
+      <li>International shipping may be subject to customs fees and import duties, which are the buyer's responsibility</li>
+    </ul>
+
+    <h2>5. User-Submitted Content</h2>
+    <p>If you submit content to WAJ Magazine — including blog post submissions, advertising inquiries, or any other materials — you grant us a non-exclusive, royalty-free, worldwide license to use, edit, publish, and distribute that content in connection with our publishing and editorial activities.</p>
+    <p>You represent and warrant that:</p>
+    <ul>
+      <li>You own or have the right to submit the content</li>
+      <li>The content does not infringe on any third party's intellectual property or privacy rights</li>
+      <li>The content is accurate and not misleading</li>
+      <li>The content does not contain defamatory, obscene, or unlawful material</li>
+    </ul>
+    <p>WAJ Magazine reserves the right to refuse, edit, or remove any submitted content at our sole discretion. Submission does not guarantee publication.</p>
+
+    <h2>6. Advertising and Partnerships</h2>
+    <p>All advertising placements, sponsored features, and partnership agreements are subject to separate written agreements negotiated between the advertiser and WAJ Magazine. Submission of an advertising inquiry does not constitute a binding agreement. All sponsored content will be clearly identified as such in accordance with applicable advertising standards.</p>
+
+    <h2>7. Third-Party Links and Services</h2>
+    <p>The Site may contain links to third-party websites including We Are Jersey ENT (wearejerseyent.com), YouTube, Stripe, and others. These links are provided for convenience only. WAJ Magazine has no control over third-party content and assumes no responsibility for it. Your use of third-party services is governed by those services' own terms and privacy policies.</p>
+    <p>Payment processing is handled by Stripe, Inc. By making a purchase, you also agree to Stripe's terms of service available at stripe.com/legal.</p>
+
+    <h2>8. Disclaimers</h2>
+    <p>The Site and all content are provided "as is" without warranties of any kind, either express or implied. WAJ Magazine does not warrant that the Site will be uninterrupted, error-free, or free of viruses or other harmful components. We reserve the right to modify, suspend, or discontinue the Site at any time without notice.</p>
+    <p>Opinions expressed in editorial content represent the views of the authors and do not constitute professional advice of any kind including legal, financial, medical, or psychological advice.</p>
+
+    <h2>9. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, We Are Jersey ENT LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Site or our products and services, even if we have been advised of the possibility of such damages. Our total liability to you for any claim shall not exceed the amount you paid for the specific product or service giving rise to the claim.</p>
+
+    <h2>10. Governing Law</h2>
+    <p>These Terms shall be governed by and construed in accordance with the laws of the State of New Jersey, United States, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Bergen County, New Jersey.</p>
+
+    <h2>11. Changes to These Terms</h2>
+    <p>We reserve the right to update these Terms at any time. When we do, we will update the "Last Updated" date at the top of this page. Continued use of the Site after changes are posted constitutes your acceptance of the revised Terms.</p>
+
+    <h2>12. Contact Us</h2>
+    <p>If you have questions about these Terms, please contact us:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:magazine@wearejerseyent.com">magazine@wearejerseyent.com</a></li>
+      <li><strong>Website:</strong> wajmagazine.com</li>
+      <li><strong>Company:</strong> We Are Jersey ENT LLC, Bergen County, New Jersey, USA</li>
+    </ul>
+
+    <div class="policy-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/contact">Contact Us</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
+    <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
+  </footer>
+</body>
+</html>

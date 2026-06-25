@@ -3,14 +3,13 @@
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "24"
 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# Clean URL redirects — /shop → /pages/shop.html
 [[redirects]]
   from = "/shop"
   to = "/pages/shop.html"
@@ -57,8 +56,23 @@
   status = 200
 
 [[redirects]]
+  from = "/terms"
+  to = "/pages/terms.html"
+  status = 200
+
+[[redirects]]
   from = "/privacy"
   to = "/pages/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/post"
+  to = "/pages/post.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/pages/admin.html"
   status = 200
 
 [[redirects]]
@@ -69,7 +83,6 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"

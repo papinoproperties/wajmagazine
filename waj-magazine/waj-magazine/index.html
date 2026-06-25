@@ -311,6 +311,26 @@
     .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } #navCartBtn { display: flex !important; } }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MBG1ZXVMHE');
+  </script>
+  <!-- Netlify Identity — catches invite/confirmation/recovery links and opens the right modal -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      netlifyIdentity.on('init', user => {});
+      netlifyIdentity.on('login', () => {
+        // After completing signup or logging in, send them to the admin dashboard
+        window.location.href = '/admin';
+      });
+      netlifyIdentity.init();
+    }
+  </script>
 </head>
 <body>
 
@@ -387,7 +407,7 @@
 
   <section class="issues-section">
     <div class="section-header">
-      <h2>Past Issues</h2>
+      <h2>Best Sellers</h2>
       <div class="line"></div>
       <a href="/issues">View Archive →</a>
     </div>
@@ -422,151 +442,6 @@
 
 
   <!-- WATCH: LATEST VIDEOS -->
-  <section id="videos" style="padding:80px 60px;background:var(--bg-alt);border-bottom:1px solid var(--border);">
-    <div class="section-header">
-      <h2>Watch</h2>
-      <div class="line"></div>
-      <a href="https://www.youtube.com/wearejersey" target="_blank" style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--crimson);white-space:nowrap;">Subscribe on YouTube ↗</a>
-    </div>
-    <p style="font-size:13px;color:var(--text-muted);margin-bottom:36px;max-width:560px;line-height:1.7;">The latest interviews, features, and stories from <strong>We Are Jersey</strong> — updated automatically whenever new content drops.</p>
-
-    <!-- Featured video + side list -->
-    <div id="videoSection" style="display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:start;">
-      <div id="featuredVideo" style="background:#111;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
-        <div style="text-align:center;color:#666;font-size:13px;">
-          <div style="width:40px;height:40px;border:3px solid #333;border-top-color:#7A0000;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;"></div>
-          Loading latest videos...
-        </div>
-      </div>
-      <div id="videoList" style="display:flex;flex-direction:column;gap:12px;"></div>
-    </div>
-
-    <!-- Full grid for remaining videos -->
-    <div id="videoGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:28px;"></div>
-
-    <div style="text-align:center;margin-top:36px;">
-      <a href="https://www.youtube.com/wearejersey" target="_blank" style="display:inline-block;padding:13px 36px;background:var(--crimson);color:#fff;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:background .2s;" onmouseover="this.style.background='#9B0000'" onmouseout="this.style.background='#7A0000'">View All Videos ↗</a>
-    </div>
-  </section>
-
-  <style>
-    @keyframes spin{to{transform:rotate(360deg);}}
-    .vid-thumb-card{display:grid;grid-template-columns:100px 1fr;gap:12px;cursor:pointer;padding:12px;border:1px solid var(--border);background:#fff;transition:border-color .2s,background .2s;}
-    .vid-thumb-card:hover{border-color:#7A0000;background:#fafafa;}
-    .vid-thumb-card img{width:100px;aspect-ratio:16/9;object-fit:cover;}
-    .vid-thumb-card .vtitle{font-size:12px;font-weight:700;color:#1A1A1A;line-height:1.4;margin-bottom:4px;}
-    .vid-thumb-card .vdate{font-size:10px;color:#888;}
-    .vid-grid-card{background:#fff;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;}
-    .vid-grid-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08);}
-    .vid-grid-card .thumb-wrap{position:relative;overflow:hidden;}
-    .vid-grid-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .4s;}
-    .vid-grid-card:hover img{transform:scale(1.03);}
-    .vid-grid-card .play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:rgba(122,0,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
-    .vid-grid-card:hover .play-icon{opacity:1;}
-    .vid-grid-card .play-icon::after{content:"";border-style:solid;border-width:8px 0 8px 14px;border-color:transparent transparent transparent #fff;margin-left:3px;}
-    .vid-grid-card .vid-info{padding:16px;}
-    .vid-grid-card .vid-info h4{font-size:13px;font-weight:700;color:#1A1A1A;line-height:1.4;margin-bottom:6px;}
-    .vid-grid-card .vid-info span{font-size:10px;color:#888;}
-    @media(max-width:900px){
-      #videoSection{grid-template-columns:1fr!important;}
-      #videoGrid{grid-template-columns:1fr 1fr!important;}
-    }
-    @media(max-width:560px){#videoGrid{grid-template-columns:1fr!important;}}
-  </style>
-
-  <script>
-  (function(){
-    const CHANNEL_ID = 'UCerZgSUO5y_qLl9KLl0zGwQ';
-    const RSS = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-    const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS) + '&count=20';
-
-    function isShort(item) {
-      const title = (item.title || '').toLowerCase();
-      const desc  = (item.description || '').toLowerCase();
-      const link  = (item.link || '').toLowerCase();
-      return link.includes('/shorts/') ||
-             title.includes('#shorts') || title.includes('#short') ||
-             desc.includes('#shorts')  || desc.includes('#short') ||
-             title.includes('short:');
-    }
-
-    function formatDate(str) {
-      if(!str) return '';
-      return new Date(str).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    }
-
-    function getThumb(item) {
-      return item.thumbnail ||
-             'https://img.youtube.com/vi/' + extractId(item.link) + '/mqdefault.jpg';
-    }
-
-    function extractId(link) {
-      if(!link) return '';
-      const m = link.match(/[?&]v=([^&]+)/) || link.match(/youtu\.be\/([^?]+)/);
-      return m ? m[1] : '';
-    }
-
-    function loadFeatured(vid) {
-      const id = extractId(vid.link);
-      const fv = document.getElementById('featuredVideo');
-      fv.innerHTML = `
-        <div style="position:relative;width:100%;aspect-ratio:16/9;">
-          <iframe src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1"
-            title="${vid.title}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
-            allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>
-        </div>
-        <div style="padding:16px 0 0;background:transparent;">
-          <h3 style="font-size:16px;font-weight:700;color:#1A1A1A;line-height:1.4;margin-bottom:6px;">${vid.title}</h3>
-          <span style="font-size:11px;color:#888;">${formatDate(vid.pubDate)}</span>
-        </div>`;
-    }
-
-    fetch(API_URL)
-      .then(r=>r.json())
-      .then(data=>{
-        const all = (data.items||[]).filter(v=>!isShort(v));
-        const videos = all.slice(0,5);
-        if(!videos.length){ document.getElementById('videoSection').innerHTML='<p style="color:#888;padding:40px;">No videos found.</p>'; return; }
-
-        // Featured (first video - autoplay on click)
-        loadFeatured(videos[0]);
-
-        // Side list (videos 2-3)
-        const list = document.getElementById('videoList');
-        videos.slice(1,3).forEach(v=>{
-          const id = extractId(v.link);
-          const card = document.createElement('div');
-          card.className='vid-thumb-card';
-          card.innerHTML=`<img src="${getThumb(v)}" alt="${v.title}" loading="lazy"/><div><p class="vtitle">${v.title}</p><span class="vdate">${formatDate(v.pubDate)}</span></div>`;
-          card.onclick=()=>loadFeatured(v);
-          list.appendChild(card);
-        });
-
-        // Grid (videos 3-5)
-        const grid = document.getElementById('videoGrid');
-        videos.slice(3,6).forEach(v=>{
-          const id = extractId(v.link);
-          grid.innerHTML+=`
-            <div class="vid-grid-card" onclick="window.open('${v.link}','_blank')">
-              <div class="thumb-wrap">
-                <img src="${getThumb(v)}" alt="${v.title}" loading="lazy"/>
-                <div class="play-icon"></div>
-              </div>
-              <div class="vid-info">
-                <h4>${v.title}</h4>
-                <span>${formatDate(v.pubDate)}</span>
-              </div>
-            </div>`;
-        });
-      })
-      .catch(()=>{
-        document.getElementById('featuredVideo').innerHTML=
-          '<p style="padding:40px;color:#888;text-align:center;">Visit <a href="https://www.youtube.com/wearejersey" target="_blank" style="color:#7A0000;">youtube.com/wearejersey</a> to watch our latest videos.</p>';
-      });
-  })();
-  </script>
-
-  <!-- LATEST VIDEOS -->
   <section id="videos" style="padding:80px 60px;background:#F6F6F6;border-bottom:1px solid #E0E0E0;">
     <div class="section-header">
       <h2>Watch</h2>
@@ -582,45 +457,36 @@
       <div>
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;border:1px solid #E0E0E0;">
           <iframe src="https://www.youtube.com/embed/6jgNctw8wSs?rel=0&modestbranding=1"
-            title="We Are Jersey Interview 1" loading="lazy"
+            title="Tripp Fontane Opens Up About His Creative Journey &amp; Culture" loading="lazy"
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
-        <div style="padding:12px 0 0;">
-          <span style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7A0000;">Latest</span>
-          <h3 style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#1A1A1A;margin:5px 0 0;line-height:1.4;">WAJ Magazine Interview</h3>
-        </div>
+
       </div>
 
       <!-- Video 2 -->
       <div>
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;border:1px solid #E0E0E0;">
           <iframe src="https://www.youtube.com/embed/FouXtxPQP-0?rel=0&modestbranding=1"
-            title="We Are Jersey Interview 2" loading="lazy"
+            title="Chef Angel Rivera on Xperience Kitchen &amp; Cocktails: Elevating NJ's Dining Scene" loading="lazy"
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
-        <div style="padding:12px 0 0;">
-          <span style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7A0000;">Feature</span>
-          <h3 style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#1A1A1A;margin:5px 0 0;line-height:1.4;">WAJ Magazine Feature</h3>
-        </div>
+
       </div>
 
       <!-- Video 3 -->
       <div>
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;border:1px solid #E0E0E0;">
           <iframe src="https://www.youtube.com/embed/3fvEsHDjU6s?rel=0&modestbranding=1"
-            title="We Are Jersey Interview 3" loading="lazy"
+            title="How To Empower At-Risk Youth: Jeffrey Osborne on Join Our Youth Inc." loading="lazy"
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
-        <div style="padding:12px 0 0;">
-          <span style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7A0000;">Culture</span>
-          <h3 style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#1A1A1A;margin:5px 0 0;line-height:1.4;">WAJ Magazine Culture</h3>
-        </div>
+
       </div>
 
     </div>
@@ -779,7 +645,7 @@
         <img src="assets/images/waj-red-logo.png" alt="WAJ Magazine" />
         <p>We Are Jersey Magazine — uniting creatives, community, and culture. Published independently from New Jersey.</p>
         <div class="social-links">
-          <a href="#" title="Instagram">IG</a><a href="#" title="Twitter/X">X</a><a href="#" title="Facebook">FB</a><a href="#" title="TikTok">TT</a>
+          <a href="https://www.instagram.com/wajmagazine" target="_blank" title="Instagram">IG</a><a href="https://twitter.com/wearejerseyent" target="_blank" title="Twitter/X">X</a><a href="https://www.facebook.com/wajmagazine/" target="_blank" title="Facebook">FB</a><a href="https://www.tiktok.com/@wajmagazine" target="_blank" title="TikTok">TT</a>
         </div>
       </div>
       <div class="footer-col">
@@ -796,7 +662,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
+      <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
       <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ WE ARE JERSEY ENT</a>
     </div>
   </footer>
