@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
+  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Blog — WAJ Magazine</title>
   <meta name="description" content="WAJ Magazine blog covering beauty, business, community, culture, fashion, food, health, music, and sports. Submit your post for review."/>
   <meta name="robots" content="index, follow"/>
   <meta property="og:title" content="Blog — WAJ Magazine | Beauty, Fashion, Music, Culture and More"/>
   <meta property="og:description" content="WAJ Magazine blog covering beauty, business, community, culture, fashion, food, health, music, and sports. Submit your post for review."/>
-  <meta property="og:image" content="../assets/images/Cover_2_.png"/>
+  <meta property="og:image" content="Cover_2_.png"/>
   <meta property="og:url" content="https://wajmagazine.com/pages/blog.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="WAJ Magazine"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Blog — WAJ Magazine | Beauty, Fashion, Music, Culture and More"/>
   <meta name="twitter:description" content="WAJ Magazine blog covering beauty, business, community, culture, fashion, food, health, music, and sports. Submit your post for review."/>
-  <meta name="twitter:image" content="../assets/images/Cover_2_.png"/>
+  <meta name="twitter:image" content="Cover_2_.png"/>
   <meta name="twitter:site" content="@wajmagazine"/>
   <link rel="canonical" href="https://wajmagazine.com/pages/blog.html"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -272,7 +272,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="/" class="nav-logo"><img src="waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/issues">Issues</a></li>
@@ -324,7 +324,7 @@
   <section class="featured-hero" data-cat="music">
     <div class="featured-hero-inner">
       <div class="featured-hero-img">
-        <img src="Cover_2_.png" alt="Featured Post"/>
+        <img src="../assets/images/Cover_2_.png" alt="Featured Post"/>
         <span class="cat-badge">Music</span>
       </div>
       <div class="featured-hero-body">
@@ -381,19 +381,19 @@
       <div class="sidebar-popular">
         <h3>Popular Posts</h3>
         <div class="popular-post">
-          <img src="Cover_2_.png" alt="Honey Bxby"/>
+          <img src="../assets/images/Cover_2_.png" alt="Honey Bxby"/>
           <div class="popular-post-info"><p class="cat">Music</p><h4>How NJ Artists Are Redefining the East Coast Sound</h4></div>
         </div>
         <div class="popular-post">
-          <img src="spring2025.png" alt="DJ Smallz"/>
+          <img src="../assets/images/spring2025.png" alt="DJ Smallz"/>
           <div class="popular-post-info"><p class="cat">Music</p><h4>DJ Smallz 732: Jersey Club Is a Lifestyle</h4></div>
         </div>
         <div class="popular-post">
-          <img src="Spring20252.png" alt="Qaysean"/>
+          <img src="../assets/images/Spring20252.png" alt="Qaysean"/>
           <div class="popular-post-info"><p class="cat">Community</p><h4>Qaysean Williams on Shattering Stereotypes</h4></div>
         </div>
         <div class="popular-post">
-          <img src="winterSpring2023.png" alt="Shakur"/>
+          <img src="../assets/images/winterSpring2023.png" alt="Shakur"/>
           <div class="popular-post-info"><p class="cat">Sports</p><h4>Shakur Stevenson: Newark's Champion</h4></div>
         </div>
       </div>
@@ -416,7 +416,10 @@
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,52px);letter-spacing:.04em;color:#fff;line-height:.95;margin-bottom:10px;">Have a Story to Tell?</h2>
       <p style="font-size:14px;color:#999;line-height:1.7;max-width:480px;">Submit your article, interview, or cultural piece for review by the WAJ editorial team. Creatives, entrepreneurs, and community voices welcome.</p>
     </div>
-    <a href="submit-post.html" style="display:inline-block;padding:16px 40px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='#9B0000'" onmouseout="this.style.background='#7A0000'">Submit a Post →</a>
+    <a href="/submit-post" style="display:inline-flex;align-items:center;gap:8px;padding:16px 40px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='#9B0000'" onmouseout="this.style.background='#7A0000'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17H8v-2h4v2zm4-4H8v-2h8v2z"/></svg>
+          Submit a Guest Post →
+        </a>
   </section>
 
   <!-- FOOTER -->
@@ -661,7 +664,7 @@
 
     function formatPost(post, index) {
       const cat = normalizeCategory(post.category);
-      const imgSrc = post.image || '/assets/images/Cover_2_.png';
+      const imgSrc = post.image || '/Cover_2_.png';
 
       const rawDesc = (post.summary || post.content || '').replace(/<[^>]+>/g,'').trim();
       const desc = rawDesc.length > 160
@@ -675,7 +678,7 @@
       return `
         <a href="/post?slug=${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
           <div class="blog-card-img">
-            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='/assets/images/Cover_2_.png'" loading="lazy"/>
+            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='/Cover_2_.png'" loading="lazy"/>
             <span class="blog-card-cat">${post.category || 'Community'}</span>
           </div>
           <div class="blog-card-body">
@@ -704,7 +707,7 @@
         posts.slice(0,4).forEach((p,i) => {
           if (pop[i]) {
             const img = pop[i].querySelector('img');
-            if (img) { img.src = p.image || '/assets/images/Cover_2_.png'; img.onerror = function(){ this.src='/assets/images/Cover_2_.png'; }; }
+            if (img) { img.src = p.image || '/Cover_2_.png'; img.onerror = function(){ this.src='/Cover_2_.png'; }; }
             const catEl = pop[i].querySelector('.cat');
             if (catEl) catEl.textContent = p.category || 'Community';
             const h4 = pop[i].querySelector('h4');
@@ -742,10 +745,22 @@
 
     // Fetch native posts — direct static file, no function call needed
     fetch('/content/posts.json?t=' + Date.now())
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) throw new Error('posts.json not found (HTTP ' + r.status + '). Upload content/posts.json to your GitHub repo.');
+        const ct = r.headers.get('content-type') || '';
+        if (!ct.includes('json') && !ct.includes('text')) throw new Error('posts.json returned unexpected content type: ' + ct);
+        return r.text(); // text first so we can show a meaningful parse error
+      })
+      .then(text => {
+        try { return JSON.parse(text); }
+        catch(e) { throw new Error('posts.json is not valid JSON. Check the file in your GitHub repo.'); }
+      })
       .then(data => {
-        allPosts = (data.posts || []).filter(p => p.status === 'published');
-        // Featured posts first, then by date descending
+        const now = new Date();
+        allPosts = (data.posts || []).filter(p =>
+          p.status === 'published' &&
+          (!p.publishDate || new Date(p.publishDate) <= now)
+        );
         allPosts.sort((a,b) => {
           if (a.featured && !b.featured) return -1;
           if (!a.featured && b.featured) return 1;
@@ -754,9 +769,11 @@
         renderPosts(allPosts);
       })
       .catch(err => {
-        console.warn('Posts load error:', err);
+        // Show friendly empty state — don't log a scary error
         document.getElementById('blogGrid').innerHTML =
-          '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:14px;">Unable to load posts right now. Please refresh the page.</div>';
+          '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;">' +
+          '<p style="font-size:13px;color:#999;margin-bottom:8px;">No posts yet — check back soon.</p>' +
+          '</div>';
       });
 
   })();

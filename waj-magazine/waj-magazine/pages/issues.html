@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="icon" href="/waj-red-logo.png" type="image/png"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>All Issues — WAJ Magazine</title>
   <meta name="description" content="Browse every WAJ Magazine issue from our complete archive. Digital downloads and print copies available."/>
   <meta name="robots" content="index, follow"/>
   <meta property="og:title" content="All Issues — WAJ Magazine Archive"/>
   <meta property="og:description" content="Browse every WAJ Magazine issue from our complete archive. Digital downloads and print copies available."/>
-  <meta property="og:image" content="../assets/images/Cover_2_.png"/>
+  <meta property="og:image" content="Cover_2_.png"/>
   <meta property="og:url" content="https://wajmagazine.com/pages/issues.html"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="WAJ Magazine"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="All Issues — WAJ Magazine Archive"/>
   <meta name="twitter:description" content="Browse every WAJ Magazine issue from our complete archive. Digital downloads and print copies available."/>
-  <meta name="twitter:image" content="../assets/images/Cover_2_.png"/>
+  <meta name="twitter:image" content="Cover_2_.png"/>
   <meta name="twitter:site" content="@wajmagazine"/>
   <link rel="canonical" href="https://wajmagazine.com/pages/issues.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet"/>
@@ -162,20 +162,12 @@
     .nav-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.active span:nth-child(2) { opacity: 0; }
     .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } #navCartBtn { display: flex !important; } }
+    @media(max-width:900px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } }
   </style>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MBG1ZXVMHE');
-  </script>
 </head>
 <body>
   <nav>
-    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/issues" class="active">Issues</a></li>
@@ -187,15 +179,9 @@
       <li><a href="/contact">Contact</a></li>
       <li><a href="https://www.wearejerseyent.com" target="_blank" class="nav-ent">We Are Jersey ENT ↗</a></li>
     </ul>
-    <div style="display:flex;align-items:center;gap:8px;">
-      <button id="navCartBtn" class="nav-cart-btn" onclick="document.getElementById('cartToggle') && document.getElementById('cartToggle').click()" aria-label="Cart" style="display:none;position:relative;background:none;border:1px solid #E0E0E0;color:#1A1A1A;padding:7px 12px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;align-items:center;gap:6px;border-radius:2px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A0000" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span id="navCartCount" style="background:#7A0000;color:#fff;width:16px;height:16px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;">0</span>
-      </button>
-      <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <div class="page-hero">
@@ -246,7 +232,7 @@
   </div>
 
 <footer>
-    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> · <a href="/terms" style="color:#888;text-decoration:underline;">Terms of Service</a></p>
+    <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. · <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a></p>
     <a href="https://www.wearejerseyent.com" target="_blank" class="ent-link">↗ We Are Jersey ENT</a>
   </footer>
 
