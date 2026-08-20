@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" href="/waj-red-logo.png" type="image/png"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Contact — WAJ Magazine</title>
   <meta name="description" content="Get in touch with WAJ Magazine for features, advertising, partnerships, and press inquiries."/>
   <meta name="robots" content="index, follow"/>
@@ -230,6 +230,11 @@
           </select>
         </div>
         <div class="form-group"><label>Message</label><textarea name="message" required placeholder="Tell us what's on your mind..." rows="6"></textarea></div>
+                <div class="captcha-row">
+          <span class="captcha-question">What is 3 + 4?</span>
+          <input type="text" class="captcha-input" placeholder="?" autocomplete="off" maxlength="3" inputmode="numeric"/>
+          <span class="captcha-label">Spam protection — please answer</span>
+        </div>
         <button type="submit" class="btn-submit">Send Message</button>
       </form>
     </div>
@@ -262,7 +267,7 @@
   <!-- MOBILE DRAWER -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">
@@ -298,6 +303,42 @@
     if (hamburger) hamburger.addEventListener('click', openMobileMenu);
     // Close on escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
+
+  <script>
+  // ── CAPTCHA HELPER ──
+  function generateCaptcha(formId) {
+    const a = Math.floor(Math.random()*10)+1;
+    const b = Math.floor(Math.random()*10)+1;
+    const form = document.getElementById(formId);
+    if (!form) return;
+    const row = form.querySelector('.captcha-row');
+    if (!row) return;
+    const q = row.querySelector('.captcha-question');
+    const input = row.querySelector('.captcha-input');
+    if (q) q.textContent = 'What is ' + a + ' + ' + b + '?';
+    if (input) { input.value=''; input.dataset.answer = String(a+b); }
+  }
+  function validateCaptcha(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return true;
+    const input = form.querySelector('.captcha-input');
+    if (!input) return true;
+    const correct = input.dataset.answer;
+    if (input.value.trim() !== correct) {
+      input.classList.add('error');
+      input.focus();
+      setTimeout(() => generateCaptcha(formId), 1500); // refresh question
+      return false;
+    }
+    return true;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    ['contact-form','advertise-form','feature-form','submitPostForm','submitForm'].forEach(id => {
+      const f = document.getElementById(id);
+      if (f) generateCaptcha(id);
+    });
+  });
   </script>
 </body>
 </html>

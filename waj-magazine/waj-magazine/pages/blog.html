@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Blog — WAJ Magazine</title>
   <meta name="description" content="WAJ Magazine blog covering beauty, business, community, culture, fashion, food, health, music, and sports. Submit your post for review."/>
@@ -272,7 +272,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="/" class="nav-logo"><img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/issues">Issues</a></li>
@@ -320,19 +320,20 @@
     <button class="cat-btn" data-cat="sports">Sports</button>
   </div>
 
-  <!-- FEATURED HERO POST -->
-  <section class="featured-hero" data-cat="music">
+  <!-- FEATURED HERO POST — loaded dynamically from most recent post -->
+  <section class="featured-hero" id="featuredHero" style="display:none;">
     <div class="featured-hero-inner">
       <div class="featured-hero-img">
-        <img src="../assets/images/Cover_2_.png" alt="Featured Post"/>
-        <span class="cat-badge">Music</span>
+        <img id="featuredImg" src="/assets/images/Cover_2_.png" alt="Featured Post"
+             onerror="this.src='/assets/images/Cover_2_.png'"/>
+        <span class="cat-badge" id="featuredCat">Community</span>
       </div>
       <div class="featured-hero-body">
-        <span class="eyebrow">Featured Post</span>
-        <h2>How New Jersey Artists Are Redefining the Sound of the East Coast</h2>
-        <p>From Jersey Club to R&amp;B to Hip-Hop, the Garden State has quietly become one of the most creative music ecosystems in the country. We break down the artists, the sounds, and the movement driving it all.</p>
-        <p class="meta">By <span>WAJ Editorial</span> &nbsp;·&nbsp; June 2025</p>
-        <a href="#" class="read-btn">Read Article</a>
+        <span class="eyebrow">Latest Post</span>
+        <h2 id="featuredTitle"></h2>
+        <p id="featuredSummary"></p>
+        <p class="meta">By <span id="featuredAuthor"></span> &nbsp;·&nbsp; <span id="featuredDate"></span></p>
+        <a id="featuredLink" href="#" class="read-btn">Read Article</a>
       </div>
     </div>
   </section>
@@ -696,9 +697,33 @@
       const grid = document.getElementById('blogGrid');
       if (!posts || !posts.length) {
         grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:14px;">No posts yet. Check back soon!</div>';
+        document.getElementById('featuredHero').style.display = 'none';
         return;
       }
-      grid.innerHTML = posts.map((p,i) => formatPost(p,i)).join('');
+
+      // Sort by most recent date
+      posts.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+      // Populate featured hero with newest post
+      const hero = posts[0];
+      document.getElementById('featuredImg').src = hero.image || '/assets/images/Cover_2_.png';
+      document.getElementById('featuredImg').alt = hero.title;
+      document.getElementById('featuredCat').textContent = hero.category || 'Community';
+      document.getElementById('featuredTitle').textContent = hero.title;
+      const rawDesc = (hero.summary || hero.content || '').replace(/<[^>]+>/g,'').trim();
+      document.getElementById('featuredSummary').textContent =
+        rawDesc.length > 200 ? rawDesc.slice(0,200).split(' ').slice(0,-1).join(' ') + '…' : rawDesc;
+      document.getElementById('featuredAuthor').textContent = hero.author || 'WAJ Editorial';
+      document.getElementById('featuredDate').textContent =
+        new Date(hero.date + 'T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});
+      document.getElementById('featuredLink').href = '/post?slug=' + hero.slug;
+      document.getElementById('featuredHero').style.display = 'block';
+
+      // Show remaining posts in grid (hero post excluded)
+      const gridPosts = posts.slice(1);
+      grid.innerHTML = gridPosts.length
+        ? gridPosts.map((p,i) => formatPost(p,i)).join('')
+        : '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:14px;">More posts coming soon.</div>';
 
       // Update sidebar popular posts
       const popular = document.querySelector('.sidebar-popular');
@@ -786,7 +811,7 @@
   <!-- MOBILE DRAWER -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">

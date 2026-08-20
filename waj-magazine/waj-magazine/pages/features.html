@@ -7,7 +7,7 @@
   <meta name="description" content="Submit yourself or your brand for consideration in WAJ Magazine. Our selection process is merit-based — no payment required. We feature creatives, entrepreneurs, athletes, and community voices from New Jersey and beyond."/>
   <meta property="og:title" content="Get Featured — WAJ Magazine"/>
   <meta property="og:description" content="Merit-based feature selection. No payment required. We amplify real stories from real people."/>
-  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MBG1ZXVMHE');</script>
@@ -152,6 +152,14 @@
     img[src*="jan2022.png"] { object-position: 50% 22% !important; }
     img[src*="jan2021.png"] { object-position: 50% 22% !important; }
     img[src*="Nov2020.png"] { object-position: 50% 18% !important; }
+  
+    /* ── CAPTCHA ── */
+    .captcha-row{display:flex;align-items:center;gap:14px;background:#F6F6F6;border:1px solid #E0E0E0;padding:14px 16px;margin-bottom:20px;flex-wrap:wrap;}
+    .captcha-question{font-size:13px;font-weight:700;color:#1A1A1A;white-space:nowrap;}
+    .captcha-input{width:80px;padding:8px 12px;border:2px solid #E0E0E0;font-size:14px;font-weight:700;text-align:center;font-family:var(--font-body,sans-serif);outline:none;}
+    .captcha-input:focus{border-color:#7A0000;}
+    .captcha-input.error{border-color:#cc0000;background:#FFF0F0;}
+    .captcha-label{font-size:11px;color:#888;margin-top:2px;}
   </style>
 </head>
 <body>
@@ -391,6 +399,11 @@
           </select>
         </div>
 
+                <div class="captcha-row">
+          <span class="captcha-question">What is 3 + 4?</span>
+          <input type="text" class="captcha-input" placeholder="?" autocomplete="off" maxlength="3" inputmode="numeric"/>
+          <span class="captcha-label">Spam protection — please answer</span>
+        </div>
         <button type="submit" class="btn-submit-feature" id="featureSubmitBtn">
           Submit for Consideration
         </button>
@@ -466,6 +479,7 @@
     // Form submission
     document.getElementById('feature-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!validateCaptcha('feature-form')) { alert('Please solve the math question correctly.'); return; }
       const form = this;
       const btn = document.getElementById('featureSubmitBtn');
       btn.disabled = true;
@@ -514,5 +528,41 @@
     .mobile-nav-links li a.mobile-ent{margin:16px 20px 0;display:block;text-align:center;padding:13px;background:#7A0000;color:#fff;border-bottom:none;}
   </style>
 
+
+  <script>
+  // ── CAPTCHA HELPER ──
+  function generateCaptcha(formId) {
+    const a = Math.floor(Math.random()*10)+1;
+    const b = Math.floor(Math.random()*10)+1;
+    const form = document.getElementById(formId);
+    if (!form) return;
+    const row = form.querySelector('.captcha-row');
+    if (!row) return;
+    const q = row.querySelector('.captcha-question');
+    const input = row.querySelector('.captcha-input');
+    if (q) q.textContent = 'What is ' + a + ' + ' + b + '?';
+    if (input) { input.value=''; input.dataset.answer = String(a+b); }
+  }
+  function validateCaptcha(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return true;
+    const input = form.querySelector('.captcha-input');
+    if (!input) return true;
+    const correct = input.dataset.answer;
+    if (input.value.trim() !== correct) {
+      input.classList.add('error');
+      input.focus();
+      setTimeout(() => generateCaptcha(formId), 1500); // refresh question
+      return false;
+    }
+    return true;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    ['contact-form','advertise-form','feature-form','submitPostForm','submitForm'].forEach(id => {
+      const f = document.getElementById(id);
+      if (f) generateCaptcha(id);
+    });
+  });
+  </script>
 </body>
 </html>

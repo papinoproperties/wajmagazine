@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Submit a Post — WAJ Magazine</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
@@ -344,7 +344,12 @@
             <label for="agreeCheck">I confirm this content is original, that I have rights to any included media, and I agree to WAJ Magazine's <a href="/contact">submission terms</a>. I understand the editorial team may edit my submission before publishing.</label>
           </div>
 
-          <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
+                  <div class="captcha-row">
+          <span class="captcha-question">What is 3 + 4?</span>
+          <input type="text" class="captcha-input" placeholder="?" autocomplete="off" maxlength="3" inputmode="numeric"/>
+          <span class="captcha-label">Spam protection — please answer</span>
+        </div>
+        <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
           <p style="font-size:11px;color:var(--text-light);margin-top:12px;text-align:center;">Your submission will be sent to the WAJ editorial team for review. We'll be in touch within 5–7 business days.</p>
         </form>
       </div>
@@ -438,6 +443,7 @@
     }
 
     function handleSubmit() {
+      if (!validateCaptcha('submitPostForm')) { alert('Please solve the math question correctly.'); return; }
       const firstName = document.getElementById('firstName').value.trim();
       const lastName  = document.getElementById('lastName').value.trim();
       const email     = document.getElementById('email').value.trim();
@@ -489,7 +495,7 @@
   <!-- MOBILE DRAWER -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">
@@ -525,6 +531,42 @@
     if (hamburger) hamburger.addEventListener('click', openMobileMenu);
     // Close on escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
+
+  <script>
+  // ── CAPTCHA HELPER ──
+  function generateCaptcha(formId) {
+    const a = Math.floor(Math.random()*10)+1;
+    const b = Math.floor(Math.random()*10)+1;
+    const form = document.getElementById(formId);
+    if (!form) return;
+    const row = form.querySelector('.captcha-row');
+    if (!row) return;
+    const q = row.querySelector('.captcha-question');
+    const input = row.querySelector('.captcha-input');
+    if (q) q.textContent = 'What is ' + a + ' + ' + b + '?';
+    if (input) { input.value=''; input.dataset.answer = String(a+b); }
+  }
+  function validateCaptcha(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return true;
+    const input = form.querySelector('.captcha-input');
+    if (!input) return true;
+    const correct = input.dataset.answer;
+    if (input.value.trim() !== correct) {
+      input.classList.add('error');
+      input.focus();
+      setTimeout(() => generateCaptcha(formId), 1500); // refresh question
+      return false;
+    }
+    return true;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    ['contact-form','advertise-form','feature-form','submitPostForm','submitForm'].forEach(id => {
+      const f = document.getElementById(id);
+      if (f) generateCaptcha(id);
+    });
+  });
   </script>
 </body>
 </html>
