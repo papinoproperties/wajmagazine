@@ -10,7 +10,7 @@
   <meta property="og:title" content="Blog — WAJ Magazine | Beauty, Fashion, Music, Culture and More"/>
   <meta property="og:description" content="WAJ Magazine blog covering beauty, business, community, culture, fashion, food, health, music, and sports. Submit your post for review."/>
   <meta property="og:image" content="Cover_2_.png"/>
-  <meta property="og:url" content="https://wajmagazine.com/pages/blog.html"/>
+  <meta property="og:url" content="https://wajmagazine.com/blog"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="WAJ Magazine"/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="WAJ Magazine blog covering beauty, business, community, culture, fashion, food, health, music, and sports. Submit your post for review."/>
   <meta name="twitter:image" content="Cover_2_.png"/>
   <meta name="twitter:site" content="@wajmagazine"/>
-  <link rel="canonical" href="https://wajmagazine.com/pages/blog.html"/>
+  <link rel="canonical" href="https://wajmagazine.com/blog"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
@@ -301,7 +301,7 @@
       <h1>The Blog</h1>
       <p>Beauty · Business · Community · Culture · Fashion · Food · Health · Music · Sports</p>
     </div>
-    <a href="submit-post.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#fff;color:#7A0000;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap;transition:background .2s;border:none;margin-bottom:4px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fff'">
+    <a href="/submit-post" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#fff;color:#7A0000;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap;transition:background .2s;border:none;margin-bottom:4px;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='#fff'">
       <span style="font-size:16px;line-height:1;">✍</span> Submit a Post
     </a>
   </div>
@@ -344,10 +344,10 @@
     <div>
       <div class="section-header"><h2>Latest Posts</h2><div class="line"></div></div>
       <div class="blog-grid" id="blogGrid">
-      <!-- Posts load dynamically from We Are Jersey ENT -->
+      <!-- Posts load dynamically from WAJ Magazine content/posts.json -->
       <div id="blog-loading" style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);">
         <div style="display:inline-block;width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--crimson);border-radius:50%;animation:blogSpin .8s linear infinite;margin-bottom:12px;"></div>
-        <p style="font-size:13px;">Loading latest posts from We Are Jersey ENT...</p>
+        <p style="font-size:13px;">Loading latest posts...</p>
       </div>
     </div><!-- end blog-grid -->
 
@@ -664,7 +664,7 @@
 
     function formatPost(post, index) {
       const cat = normalizeCategory(post.category);
-      const imgSrc = post.image || '/Cover_2_.png';
+      const imgSrc = post.image || '/assets/images/Cover_2_.png';
 
       const rawDesc = (post.summary || post.content || '').replace(/<[^>]+>/g,'').trim();
       const desc = rawDesc.length > 160
@@ -678,7 +678,7 @@
       return `
         <a href="/post?slug=${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
           <div class="blog-card-img">
-            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='/Cover_2_.png'" loading="lazy"/>
+            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='/assets/images/Cover_2_.png'" loading="lazy"/>
             <span class="blog-card-cat">${post.category || 'Community'}</span>
           </div>
           <div class="blog-card-body">
@@ -707,7 +707,7 @@
         posts.slice(0,4).forEach((p,i) => {
           if (pop[i]) {
             const img = pop[i].querySelector('img');
-            if (img) { img.src = p.image || '/Cover_2_.png'; img.onerror = function(){ this.src='/Cover_2_.png'; }; }
+            if (img) { img.src = p.image || '/assets/images/Cover_2_.png'; img.onerror = function(){ this.src='/assets/images/Cover_2_.png'; }; }
             const catEl = pop[i].querySelector('.cat');
             if (catEl) catEl.textContent = p.category || 'Community';
             const h4 = pop[i].querySelector('h4');
@@ -744,17 +744,19 @@
     });
 
     // Fetch native posts — direct static file, no function call needed
-    fetch('/content/posts.json?t=' + Date.now())
-      .then(r => {
-        if (!r.ok) throw new Error('posts.json not found (HTTP ' + r.status + '). Upload content/posts.json to your GitHub repo.');
-        const ct = r.headers.get('content-type') || '';
-        if (!ct.includes('json') && !ct.includes('text')) throw new Error('posts.json returned unexpected content type: ' + ct);
-        return r.text(); // text first so we can show a meaningful parse error
-      })
-      .then(text => {
-        try { return JSON.parse(text); }
-        catch(e) { throw new Error('posts.json is not valid JSON. Check the file in your GitHub repo.'); }
-      })
+    async function fetchPosts() {
+      try {
+        const r = await fetch('/.netlify/functions/get-posts');
+        if (r.ok) return JSON.parse(await r.text());
+      } catch(e) {}
+      try {
+        const r = await fetch('/content/posts.json?t=' + Date.now());
+        if (r.ok) return JSON.parse(await r.text());
+      } catch(e) {}
+      return { posts: [] };
+    }
+
+    fetchPosts()
       .then(data => {
         const now = new Date();
         allPosts = (data.posts || []).filter(p =>
@@ -768,8 +770,7 @@
         });
         renderPosts(allPosts);
       })
-      .catch(err => {
-        // Show friendly empty state — don't log a scary error
+      .catch(() => {
         document.getElementById('blogGrid').innerHTML =
           '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;">' +
           '<p style="font-size:13px;color:#999;margin-bottom:8px;">No posts yet — check back soon.</p>' +

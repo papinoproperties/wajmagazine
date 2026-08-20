@@ -222,18 +222,30 @@
     </div>
 
     <!-- PUBLISH MODE -->
-    <div class="publish-mode">
-      <h4>Publishing</h4>
-      <div class="radio-row">
-        <label><input type="radio" name="pubMode" value="now" checked onchange="toggleSchedule(this)"/> Publish immediately</label>
-        <label><input type="radio" name="pubMode" value="scheduled" onchange="toggleSchedule(this)"/> Schedule for later</label>
+    <div class="publish-mode" style="background:#fff;border:2px solid var(--crimson);padding:20px;">
+      <h4 style="color:var(--crimson);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;">📅 When should this go live?</h4>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+        <label id="modeNowLabel" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid var(--crimson);background:#FBF0F0;cursor:pointer;font-size:13px;font-weight:700;">
+          <input type="radio" name="pubMode" value="now" checked onchange="toggleSchedule(this)" style="accent-color:var(--crimson);width:16px;height:16px;"/>
+          🚀 Publish Now
+          <span style="font-size:10px;font-weight:400;color:#888;display:block;margin-top:2px;">Goes live immediately</span>
+        </label>
+        <label id="modeSchedLabel" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid var(--border);background:#fff;cursor:pointer;font-size:13px;font-weight:700;" onclick="document.querySelector('input[name=pubMode][value=scheduled]').checked=true;toggleSchedule({value:'scheduled'})">
+          <input type="radio" name="pubMode" value="scheduled" onchange="toggleSchedule(this)" style="accent-color:var(--crimson);width:16px;height:16px;"/>
+          🕐 Schedule for Later
+          <span style="font-size:10px;font-weight:400;color:#888;display:block;margin-top:2px;">Pick a future date &amp; time</span>
+        </label>
       </div>
-      <div id="schedulePicker">
-        <div class="sd-row">
-          <label style="font-size:12px;font-weight:600;">Go live on:</label>
-          <input type="datetime-local" id="scheduleDate" min=""/>
-          <span style="font-size:11px;color:#888;">Your local time</span>
+
+      <div id="schedulePicker" style="display:none;background:#FFF8E1;border:1px solid #FFD54F;padding:16px;border-radius:2px;">
+        <p style="font-size:11px;font-weight:700;color:#5D4037;margin-bottom:10px;">The post will automatically appear on the blog at the time you set below — no action needed from you on that day.</p>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <label style="font-size:12px;font-weight:700;color:#5D4037;">Go live on:</label>
+          <input type="datetime-local" id="scheduleDate" min="" style="padding:10px 13px;border:1px solid #FFD54F;font-size:14px;font-family:var(--fb);font-weight:600;background:#fff;"/>
+          <span style="font-size:11px;color:#888;">Your local time · Blog visitors see it automatically</span>
         </div>
+        <p id="schedPreview" style="font-size:12px;color:#E65100;margin-top:10px;font-weight:600;display:none;"></p>
       </div>
     </div>
 
@@ -310,14 +322,36 @@ document.addEventListener('DOMContentLoaded', () => {
 function toggleSchedule(radio) {
   const picker = document.getElementById('schedulePicker');
   const btn = document.getElementById('publishBtn');
+  const nowLabel = document.getElementById('modeNowLabel');
+  const schedLabel = document.getElementById('modeSchedLabel');
   if (radio.value === 'scheduled') {
     picker.style.display = 'block';
     btn.textContent = 'Schedule Post';
+    btn.style.background = '#E65100';
+    if (schedLabel) { schedLabel.style.border='2px solid #E65100'; schedLabel.style.background='#FFF3E0'; }
+    if (nowLabel) { nowLabel.style.border='2px solid var(--border)'; nowLabel.style.background='#fff'; }
   } else {
     picker.style.display = 'none';
+    btn.style.background = '';
     btn.textContent = document.getElementById('editOriginalSlug').value ? 'Save Changes' : 'Publish Now';
+    if (nowLabel) { nowLabel.style.border='2px solid var(--crimson)'; nowLabel.style.background='#FBF0F0'; }
+    if (schedLabel) { schedLabel.style.border='2px solid var(--border)'; schedLabel.style.background='#fff'; }
   }
 }
+
+// Show human-readable preview when date is picked
+document.addEventListener('DOMContentLoaded', () => {
+  const sd = document.getElementById('scheduleDate');
+  if (sd) {
+    sd.addEventListener('change', function() {
+      const preview = document.getElementById('schedPreview');
+      if (!this.value || !preview) return;
+      const d = new Date(this.value);
+      preview.textContent = '⏰ Will go live: ' + d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}) + ' at ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      preview.style.display = 'block';
+    });
+  }
+});
 
 // ── IMAGE UPLOAD ──
 function previewImg() {
@@ -600,15 +634,33 @@ function renderScheduled() {
   scheduled.sort((a,b) => new Date(a.publishDate||a.date) - new Date(b.publishDate||b.date));
   document.getElementById('scheduledCount').textContent = scheduled.length;
   const list = document.getElementById('scheduledList');
-  if (!scheduled.length) { list.innerHTML = '<div class="empty">No scheduled posts. Write a post and choose "Schedule for later."</div>'; return; }
+  if (!scheduled.length) {
+    list.innerHTML = '<div class="empty"><p style="margin-bottom:8px;">No scheduled posts yet.</p><p style="font-size:12px;color:#aaa;">In the Write/Edit Post tab, choose "🕐 Schedule for Later" before publishing.</p></div>';
+    return;
+  }
+  function countdown(dateStr) {
+    const diff = new Date(dateStr) - new Date();
+    if (diff <= 0) return '<span style="color:#2E7D32;font-weight:700;">Going live now...</span>';
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    if (d > 0) return `<span style="color:#E65100;font-weight:700;">In ${d}d ${h}h</span>`;
+    if (h > 0) return `<span style="color:#E65100;font-weight:700;">In ${h}h ${m}m</span>`;
+    return `<span style="color:#E65100;font-weight:700;">In ${m} minute${m!==1?'s':''}</span>`;
+  }
   list.innerHTML = scheduled.map(p => {
-    const goLive = p.publishDate ? new Date(p.publishDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}) : p.date;
-    return postRow(p, `<span class="sched-badge">Goes live ${goLive}</span>`, [
-      `<button onclick='publishNowFromScheduled("${p.slug}")'>Publish Now</button>`,
-      `<button onclick='editPost("${p.slug}")'>Edit</button>`,
-      `<button onclick='deletePost("${p.slug}")'>Delete</button>`,
+    const dt = p.publishDate || p.date;
+    const goLive = new Date(dt).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    const extra = `<span class="sched-badge">${goLive}</span>&nbsp;${countdown(dt)}`;
+    return postRow(p, extra, [
+      `<button onclick='publishNowFromScheduled("${p.slug}")' title="Release this post immediately">Publish Now</button>`,
+      `<button onclick='editPost("${p.slug}")' title="Change the scheduled date or content">Edit</button>`,
+      `<button onclick='deletePost("${p.slug}")' title="Delete this post permanently">Delete</button>`,
     ]);
   }).join('');
+  // Refresh countdowns every minute
+  clearTimeout(window._schedRefreshTimer);
+  window._schedRefreshTimer = setTimeout(renderScheduled, 60000);
 }
 
 function renderPublished() {

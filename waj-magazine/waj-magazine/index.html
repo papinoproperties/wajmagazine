@@ -67,13 +67,13 @@
     .hero-bg {
       position: absolute; inset: 0;
       background-image: url('assets/images/Cover_2_.png');
-      background-size: cover; background-position: 25% 45%;
-      filter: brightness(0.45); transform: scale(1.04); transition: transform 8s ease;
+      background-size: cover; background-position: 28% 30%;
+      filter: brightness(0.62); transform: scale(1.04); transition: transform 8s ease;
     }
     .hero:hover .hero-bg { transform: scale(1); }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.4) 50%, transparent 100%);
+      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.25) 45%, transparent 100%);
     }
     .hero-content { position: relative; z-index: 2; padding: 0 60px 70px; max-width: 900px; }
     .hero-issue-label {
@@ -257,7 +257,7 @@
   .feature-card img    { aspect-ratio: 3/4; object-fit: cover; }
   .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
   .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-  .hero-bg             { background-position: 25% 45% !important; }
+  .hero-bg             { background-position: 28% 30% !important; }
 
     /* ── MOBILE MENU ── */
     .mobile-backdrop {
@@ -456,37 +456,37 @@
       <!-- Video 1 -->
       <div>
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;border:1px solid #E0E0E0;">
-          <iframe src="https://www.youtube.com/embed/6jgNctw8wSs?rel=0&modestbranding=1"
-            title="Tripp Fontane Opens Up About His Creative Journey &amp; Culture" loading="lazy"
+          <iframe src="https://www.youtube.com/embed/6jgNctw8wSs?rel=0&origin=https://wajmagazine.com"
+            title="Tripp Fontane Opens Up About His Creative Journey &amp; Culture"
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen></iframe>
         </div>
-
       </div>
 
       <!-- Video 2 -->
       <div>
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;border:1px solid #E0E0E0;">
-          <iframe src="https://www.youtube.com/embed/FouXtxPQP-0?rel=0&modestbranding=1"
-            title="Chef Angel Rivera on Xperience Kitchen &amp; Cocktails: Elevating NJ's Dining Scene" loading="lazy"
+          <iframe src="https://www.youtube.com/embed/FouXtxPQP-0?rel=0&origin=https://wajmagazine.com"
+            title="Chef Angel Rivera on Xperience Kitchen &amp; Cocktails: Elevating NJ's Dining Scene"
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen></iframe>
         </div>
-
       </div>
 
       <!-- Video 3 -->
       <div>
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;border:1px solid #E0E0E0;">
-          <iframe src="https://www.youtube.com/embed/3fvEsHDjU6s?rel=0&modestbranding=1"
-            title="How To Empower At-Risk Youth: Jeffrey Osborne on Join Our Youth Inc." loading="lazy"
+          <iframe src="https://www.youtube.com/embed/3fvEsHDjU6s?rel=0&origin=https://wajmagazine.com"
+            title="How To Empower At-Risk Youth: Jeffrey Osborne on Join Our Youth Inc."
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen></iframe>
         </div>
-
       </div>
 
     </div>
@@ -563,68 +563,110 @@
 
     <!-- Category pills -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;">
-      <a href="/blog" class="pill">Beauty</a>
-      <a href="/blog" class="pill">Business</a>
-      <a href="/blog" class="pill">Community</a>
-      <a href="/blog" class="pill">Culture</a>
-      <a href="/blog" class="pill">Fashion</a>
-      <a href="/blog" class="pill">Food</a>
-      <a href="/blog" class="pill">Health</a>
-      <a href="/blog" class="pill">Music</a>
+      <a href="/blog" class="pill">Beauty</a><a href="/blog" class="pill">Business</a>
+      <a href="/blog" class="pill">Community</a><a href="/blog" class="pill">Culture</a>
+      <a href="/blog" class="pill">Fashion</a><a href="/blog" class="pill">Food</a>
+      <a href="/blog" class="pill">Health</a><a href="/blog" class="pill">Music</a>
       <a href="/blog" class="pill">Sports</a>
     </div>
 
-    <!-- Featured post + 3 smaller posts -->
-    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start;">
-
-      <!-- Big featured post -->
-      <a href="/blog" style="display:block;overflow:hidden;border:1px solid var(--border);">
-        <div style="position:relative;overflow:hidden;">
-          <img src="assets/images/Cover_2_.png" alt="Featured" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:25% 45%;"/>
-          <span style="position:absolute;top:14px;left:14px;background:#7A0000;color:#fff;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;">Music</span>
-        </div>
-        <div style="padding:24px;background:#fff;">
-          <h3 style="font-family:'Playfair Display',serif;font-size:20px;line-height:1.35;color:#1A1A1A;margin-bottom:10px;">How New Jersey Artists Are Redefining the Sound of the East Coast</h3>
-          <p style="font-size:12px;line-height:1.7;color:#555;margin-bottom:12px;">From Jersey Club to R&B to Hip-Hop, the Garden State has quietly become one of the most creative music ecosystems in the country.</p>
-          <span style="font-size:10px;color:#888;">WAJ Editorial &nbsp;·&nbsp; June 2025</span>
-        </div>
-      </a>
-
-      <!-- 3 smaller posts stacked -->
-      <div style="display:flex;flex-direction:column;border:1px solid var(--border);overflow:hidden;">
-
-        <a href="/blog" style="display:grid;grid-template-columns:90px 1fr;background:#fff;border-bottom:1px solid var(--border);overflow:hidden;">
-          <img src="assets/images/spring2025.png" alt="DJ Smallz" style="width:90px;height:110px;object-fit:cover;object-position:top;"/>
-          <div style="padding:14px 16px;">
-            <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">Music</span>
-            <h4 style="font-size:12px;line-height:1.4;color:#1A1A1A;margin:5px 0 6px;font-weight:700;">DJ Smallz 732: Jersey Club Is a Lifestyle, Not Just a Genre</h4>
-            <span style="font-size:10px;color:#888;">May 2025</span>
-          </div>
-        </a>
-
-        <a href="/blog" style="display:grid;grid-template-columns:90px 1fr;background:#fff;border-bottom:1px solid var(--border);overflow:hidden;">
-          <img src="assets/images/Spring20252.png" alt="Qaysean" style="width:90px;height:110px;object-fit:cover;object-position:top;"/>
-          <div style="padding:14px 16px;">
-            <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">Community</span>
-            <h4 style="font-size:12px;line-height:1.4;color:#1A1A1A;margin:5px 0 6px;font-weight:700;">Qaysean Williams on Shattering Stereotypes and Building Dreams</h4>
-            <span style="font-size:10px;color:#888;">Apr 2025</span>
-          </div>
-        </a>
-
-        <a href="/blog" style="display:grid;grid-template-columns:90px 1fr;background:#fff;overflow:hidden;">
-          <img src="assets/images/winterSpring2023.png" alt="Shakur" style="width:90px;height:110px;object-fit:cover;object-position:top;"/>
-          <div style="padding:14px 16px;">
-            <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">Sports</span>
-            <h4 style="font-size:12px;line-height:1.4;color:#1A1A1A;margin:5px 0 6px;font-weight:700;">Shakur Stevenson: Newark's Champion and What Comes Next</h4>
-            <span style="font-size:10px;color:#888;">Mar 2025</span>
-          </div>
-        </a>
-
+    <!-- Dynamic posts loaded from posts.json -->
+    <div id="homeBlogGrid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start;">
+      <!-- Loading state -->
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#999;">
+        <div style="display:inline-block;width:28px;height:28px;border:3px solid #E0E0E0;border-top-color:#7A0000;border-radius:50%;animation:spin .8s linear infinite;"></div>
       </div>
     </div>
   </section>
 
-    <section class="mission-section">
+  <script>
+  (function(){
+    function fmtDate(str) {
+      if (!str) return '';
+      return new Date(str + 'T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    }
+    function truncate(str, n) {
+      if (!str) return '';
+      const t = str.replace(/<[^>]+>/g,'').trim();
+      return t.length > n ? t.slice(0,n).replace(/\s+\S*$/,'') + '…' : t;
+    }
+
+        async function fetchPosts() {
+      // Try the Netlify function first (most reliable)
+      try {
+        const r = await fetch('/.netlify/functions/get-posts');
+        if (r.ok) {
+          const text = await r.text();
+          return JSON.parse(text);
+        }
+      } catch(e) {}
+
+      // Fallback: try the static file directly
+      try {
+        const r = await fetch('/content/posts.json?t=' + Date.now());
+        if (r.ok) {
+          const text = await r.text();
+          return JSON.parse(text);
+        }
+      } catch(e) {}
+
+      return { posts: [] };
+    }
+
+    fetchPosts().then(data => {
+        const now = new Date();
+        const posts = (data.posts || [])
+          .filter(p => p.status === 'published' && (!p.publishDate || new Date(p.publishDate) <= now))
+          .sort((a,b) => new Date(b.date) - new Date(a.date));
+
+        const grid = document.getElementById('homeBlogGrid');
+        if (!posts.length) {
+          grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;"><a href="/blog" style="color:#7A0000;font-weight:700;">Visit the Blog →</a></div>';
+          return;
+        }
+
+        const featured = posts[0];
+        const rest = posts.slice(1, 4);
+
+        const featuredHtml = `
+          <a href="/post?slug=${featured.slug}" style="display:block;overflow:hidden;border:1px solid #E0E0E0;text-decoration:none;">
+            <div style="position:relative;overflow:hidden;">
+              <img src="${featured.image || 'assets/images/Cover_2_.png'}"
+                   alt="${featured.title}"
+                   onerror="this.src='assets/images/Cover_2_.png'"
+                   style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center 20%;"/>
+              <span style="position:absolute;top:14px;left:14px;background:#7A0000;color:#fff;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;">${featured.category || 'Community'}</span>
+            </div>
+            <div style="padding:24px;background:#fff;">
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;line-height:1.35;color:#1A1A1A;margin-bottom:10px;">${featured.title}</h3>
+              <p style="font-size:12px;line-height:1.7;color:#555;margin-bottom:12px;">${truncate(featured.summary || featured.content, 160)}</p>
+              <span style="font-size:10px;color:#888;">${featured.author || 'WAJ Editorial'} &nbsp;·&nbsp; ${fmtDate(featured.date)}</span>
+            </div>
+          </a>`;
+
+        const smallHtml = rest.map((p, i) => `
+          <a href="/post?slug=${p.slug}" style="display:grid;grid-template-columns:90px 1fr;background:#fff;${i < rest.length-1 ? 'border-bottom:1px solid #E0E0E0;' : ''}overflow:hidden;text-decoration:none;">
+            <img src="${p.image || 'assets/images/Cover_2_.png'}"
+                 alt="${p.title}"
+                 onerror="this.src='assets/images/Cover_2_.png'"
+                 style="width:90px;height:110px;object-fit:cover;object-position:center 20%;"/>
+            <div style="padding:14px 16px;">
+              <span style="font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;">${p.category || 'Community'}</span>
+              <h4 style="font-size:12px;line-height:1.4;color:#1A1A1A;margin:5px 0 6px;font-weight:700;">${p.title}</h4>
+              <span style="font-size:10px;color:#888;">${fmtDate(p.date)}</span>
+            </div>
+          </a>`).join('');
+
+        grid.innerHTML = featuredHtml + (rest.length ? `<div style="display:flex;flex-direction:column;border:1px solid #E0E0E0;overflow:hidden;">${smallHtml}</div>` : '');
+      })
+    }).catch(() => {
+        document.getElementById('homeBlogGrid').innerHTML =
+          '<div style="grid-column:1/-1;text-align:center;padding:32px;"><a href="/blog" style="color:#7A0000;font-weight:700;font-size:14px;">Read the Latest Posts →</a></div>';
+      });
+  })();
+  </script>
+
+<section class="mission-section">
     <p class="waj-big">WAJ</p>
     <blockquote>"Uniting creatives, community, and culture — from New Jersey to everywhere."</blockquote>
     <cite>— We Are Jersey Magazine</cite>
