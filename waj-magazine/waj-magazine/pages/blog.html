@@ -788,11 +788,7 @@
           p.status === 'published' &&
           (!p.publishDate || new Date(p.publishDate) <= now)
         );
-        allPosts.sort((a,b) => {
-          if (a.featured && !b.featured) return -1;
-          if (!a.featured && b.featured) return 1;
-          return new Date(b.date) - new Date(a.date);
-        });
+        allPosts.sort((a,b) => new Date(b.date) - new Date(a.date));
         renderPosts(allPosts);
       })
       .catch(() => {

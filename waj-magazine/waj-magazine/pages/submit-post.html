@@ -262,7 +262,7 @@
       <div id="formState">
         <span class="eyebrow">Contribute to WAJ Magazine</span>
         <h1>SUBMIT<br>A POST</h1>
-        <p class="intro">Have a story, interview, opinion, or cultural piece you'd like to share? Submit it here and our editorial team will review it for publication on WAJ Magazine. All submissions are reviewed within 5–7 business days.</p>
+        <p class="intro">Share your story with the WAJ community. Submit an article, interview, opinion piece, or cultural feature for review by our editorial team. We welcome creatives, entrepreneurs, and community voices from across New Jersey and beyond. All submissions are reviewed within 5–7 business days.</p>
 
         <form name="submit-post" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="submitPostForm" enctype="multipart/form-data">
           <input type="hidden" name="form-name" value="submit-post"/>
@@ -312,6 +312,15 @@
           </div>
           <div class="form-group"><label>Short Summary *<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">1–2 sentences describing your post (shown as preview)</span></label><textarea class="short" id="summary" name="summary" placeholder="Brief description of your article..." maxlength="280" oninput="updateCount('sumCount',this.value,280)" required></textarea><p class="char-hint"><span id="sumCount">0</span>/280</p></div>
           <div class="form-group"><label>Full Article Content *</label><textarea id="content" name="content" placeholder="Paste or write your full article here. Minimum 300 words." oninput="updateWordCount(this)" required></textarea><p class="char-hint" id="wordCountDisplay">0 words</p></div>
+
+          <!-- DESIRED PUBLISH DATE -->
+          <p class="form-section-title">Scheduling (Optional)</p>
+          <div class="form-group">
+            <label>Preferred Publish Date<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">Suggest a date you'd like this post to go live. Final scheduling is at editorial discretion.</span></label>
+            <input type="date" name="preferred-date" id="preferredDate"
+              min="" style="max-width:240px;"/>
+            <p style="font-size:10px;color:#888;margin-top:6px;">Leave blank if you have no preference.</p>
+          </div>
 
           <!-- MEDIA -->
           <p class="form-section-title">Media (Optional)</p>
@@ -441,6 +450,12 @@
         el.textContent = '✓ ' + input.files[0].name;
       }
     }
+
+    // Set min date on publish date field to today
+    document.addEventListener('DOMContentLoaded', () => {
+      const pd = document.getElementById('preferredDate');
+      if (pd) pd.min = new Date().toISOString().split('T')[0];
+    });
 
     function handleSubmit() {
       if (!validateCaptcha('submitPostForm')) { alert('Please solve the math question correctly.'); return; }
