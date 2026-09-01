@@ -231,31 +231,86 @@
     </div>
 
     <!-- PUBLISH MODE -->
-    <div class="publish-mode" style="background:#fff;border:2px solid var(--crimson);padding:20px;">
-      <h4 style="color:var(--crimson);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;">📅 When should this go live?</h4>
+    <div style="background:#fff;border:2px solid var(--crimson);padding:22px;margin-bottom:18px;">
+      <h4 style="color:var(--crimson);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;">📅 Publishing</h4>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
-        <label id="modeNowLabel" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid var(--crimson);background:#FBF0F0;cursor:pointer;font-size:13px;font-weight:700;">
-          <input type="radio" name="pubMode" value="now" checked onchange="toggleSchedule(this)" style="accent-color:var(--crimson);width:16px;height:16px;"/>
-          🚀 Publish Now
-          <span style="font-size:10px;font-weight:400;color:#888;display:block;margin-top:2px;">Goes live immediately</span>
+      <!-- Mode toggle -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+        <label id="modeNowLabel" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid var(--crimson);background:#FBF0F0;cursor:pointer;border-radius:4px;">
+          <input type="radio" name="pubMode" value="now" checked onchange="toggleSchedule(this)" style="accent-color:var(--crimson);width:17px;height:17px;flex-shrink:0;"/>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1A1A1A;">🚀 Publish Now</div>
+            <div style="font-size:10px;color:#888;margin-top:2px;">Goes live immediately after saving</div>
+          </div>
         </label>
-        <label id="modeSchedLabel" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid var(--border);background:#fff;cursor:pointer;font-size:13px;font-weight:700;" onclick="document.querySelector('input[name=pubMode][value=scheduled]').checked=true;toggleSchedule({value:'scheduled'})">
-          <input type="radio" name="pubMode" value="scheduled" onchange="toggleSchedule(this)" style="accent-color:var(--crimson);width:16px;height:16px;"/>
-          🕐 Schedule for Later
-          <span style="font-size:10px;font-weight:400;color:#888;display:block;margin-top:2px;">Pick a future date &amp; time</span>
+        <label id="modeSchedLabel" style="display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid var(--border);background:#fff;cursor:pointer;border-radius:4px;" onclick="document.querySelector('input[name=pubMode][value=scheduled]').checked=true;toggleSchedule({value:'scheduled'})">
+          <input type="radio" name="pubMode" value="scheduled" onchange="toggleSchedule(this)" style="accent-color:var(--crimson);width:17px;height:17px;flex-shrink:0;"/>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1A1A1A;">🕐 Schedule for Later</div>
+            <div style="font-size:10px;color:#888;margin-top:2px;">Auto-publishes at your chosen time</div>
+          </div>
         </label>
       </div>
 
-      <div id="schedulePicker" style="display:none;background:#FFF8E1;border:1px solid #FFD54F;padding:16px;border-radius:2px;">
-        <p style="font-size:11px;font-weight:700;color:#5D4037;margin-bottom:10px;">The post will automatically appear on the blog at the time you set below — no action needed from you on that day.</p>
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <label style="font-size:12px;font-weight:700;color:#5D4037;">Go live on:</label>
-          <input type="datetime-local" id="scheduleDate" min="" style="padding:10px 13px;border:1px solid #FFD54F;font-size:14px;font-family:var(--fb);font-weight:600;background:#fff;"/>
-          <span style="font-size:11px;color:#888;">Your local time · Blog visitors see it automatically</span>
+      <!-- Scheduler (hidden until Schedule selected) -->
+      <div id="schedulePicker" style="display:none;">
+        <div style="background:#F6F6F6;border:1px solid #E0E0E0;padding:18px;border-radius:4px;margin-bottom:14px;">
+
+          <!-- Quick-pick buttons -->
+          <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:10px;">Quick Schedule</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
+            <button type="button" class="btn-outline" style="padding:7px 14px;font-size:11px;" onclick="quickSchedule(1,9)">Tomorrow 9am</button>
+            <button type="button" class="btn-outline" style="padding:7px 14px;font-size:11px;" onclick="quickSchedule(1,15)">Tomorrow 3pm</button>
+            <button type="button" class="btn-outline" style="padding:7px 14px;font-size:11px;" onclick="quickSchedule(7,9)">Next Week 9am</button>
+            <button type="button" class="btn-outline" style="padding:7px 14px;font-size:11px;" onclick="quickScheduleMonday(9)">Next Monday 9am</button>
+          </div>
+
+          <!-- Manual date + time pickers -->
+          <p style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:10px;">Or Choose a Specific Date &amp; Time</p>
+          <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
+            <div>
+              <label style="font-size:10px;font-weight:700;color:#888;display:block;margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase;">Date</label>
+              <input type="date" id="schedDate" style="padding:10px 13px;border:1px solid #E0E0E0;font-size:14px;font-family:var(--fb);font-weight:600;background:#fff;" onchange="updateSchedulePreview()"/>
+            </div>
+            <div>
+              <label style="font-size:10px;font-weight:700;color:#888;display:block;margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase;">Time</label>
+              <select id="schedTime" style="padding:10px 13px;border:1px solid #E0E0E0;font-size:14px;font-family:var(--fb);font-weight:600;background:#fff;cursor:pointer;" onchange="updateSchedulePreview()">
+                <option value="06:00">6:00 AM</option>
+                <option value="07:00">7:00 AM</option>
+                <option value="08:00">8:00 AM</option>
+                <option value="09:00" selected>9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="20:00">8:00 PM</option>
+              </select>
+            </div>
+            <div style="padding-bottom:2px;">
+              <span id="tzLabel" style="font-size:11px;color:#888;"></span>
+            </div>
+          </div>
         </div>
-        <p id="schedPreview" style="font-size:12px;color:#E65100;margin-top:10px;font-weight:600;display:none;"></p>
+
+        <!-- Live preview -->
+        <div id="schedPreviewBox" style="display:none;background:#E8F5E9;border:1px solid #A5D6A7;padding:14px 16px;border-radius:4px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">✅</span>
+          <div>
+            <p style="font-size:12px;font-weight:700;color:#2E7D32;margin-bottom:2px;">Scheduled to go live:</p>
+            <p id="schedPreview" style="font-size:14px;font-weight:700;color:#1B5E20;"></p>
+            <p style="font-size:10px;color:#4CAF50;margin-top:3px;">The post will appear on the blog automatically — no action needed on that day.</p>
+          </div>
+        </div>
       </div>
+
+      <!-- Hidden field used by submitPost() -->
+      <input type="hidden" id="scheduleDate" value=""/>
     </div>
 
     <input type="hidden" id="editOriginalSlug"/>
@@ -299,7 +354,11 @@ async function showDash(user) {
   document.getElementById('userEmail').textContent = user.email;
   // Set min date for scheduler to now
   const now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-  document.getElementById('scheduleDate').min = now.toISOString().slice(0,16);
+  document.getElementById('scheduleDate').value = '';
+      const dateEl = document.getElementById('schedDate');
+      if (dateEl) dateEl.min = now.toISOString().split('T')[0];
+      const tzEl = document.getElementById('tzLabel');
+      if (tzEl) { const tzShort = new Date().toLocaleTimeString('en-US',{timeZoneName:'short'}).split(' ').pop(); tzEl.textContent = tzShort + ' — ' + Intl.DateTimeFormat().resolvedOptions().timeZone; }
   loadSubmissions();
   loadPosts();
 }
@@ -533,8 +592,14 @@ async function submitPost() {
   let publishDate = null;
   if (mode === 'scheduled') {
     publishDate = document.getElementById('scheduleDate').value;
+    // If hidden field is empty, try to build from date+time fields
+    if (!publishDate) {
+      const d = document.getElementById('schedDate') ? document.getElementById('schedDate').value : '';
+      const t = document.getElementById('schedTime') ? document.getElementById('schedTime').value : '09:00';
+      if (d) publishDate = d + 'T' + t + ':00';
+    }
     if (!publishDate) { showToast('Please pick a date and time to schedule', true); return; }
-    if (new Date(publishDate) <= new Date()) { showToast('Scheduled date must be in the future', true); return; }
+    if (new Date(publishDate) <= new Date()) { showToast('Scheduled date must be in the future — please pick a later time', true); return; }
   }
 
   const originalSlug = document.getElementById('editOriginalSlug').value;
@@ -719,6 +784,18 @@ function editPost(slug) {
     document.querySelector('input[name=pubMode][value=scheduled]').checked = true;
     document.getElementById('schedulePicker').style.display = 'block';
     document.getElementById('scheduleDate').value = p.publishDate.slice(0,16);
+    if (document.getElementById('schedDate')) {
+      document.getElementById('schedDate').value = p.publishDate.slice(0,10);
+      const timePart = p.publishDate.slice(11,16);
+      const timeHour = timePart.slice(0,5);
+      const sel = document.getElementById('schedTime');
+      if (sel) {
+        // Find closest option
+        for (let opt of sel.options) { if (opt.value === timeHour) { sel.value = timeHour; break; } }
+      }
+      updateSchedulePreview();
+    }
+    toggleSchedule({value:'scheduled'});
     document.getElementById('publishBtn').textContent = 'Save Schedule';
   } else {
     document.querySelector('input[name=pubMode][value=now]').checked = true;
