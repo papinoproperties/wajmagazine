@@ -1,4 +1,21 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+
+# Allow major AI crawlers explicitly
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
 
 Sitemap: https://wajmagazine.com/sitemap.xml
