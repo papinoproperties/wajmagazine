@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://www.googletagmanager.com"/>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title id="pageTitle">Loading… — WAJ Magazine</title>
   <meta name="description" id="pageDesc" content="WAJ Magazine"/>
   <meta property="og:title" id="ogTitle" content="WAJ Magazine"/>
   <meta property="og:description" id="ogDesc" content="WAJ Magazine"/>
-  <meta property="og:image" id="ogImage" content="/assets/images/waj-red-logo.png"/>
-  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
+  <meta property="og:image" id="ogImage" content="/waj-red-logo.png"/>
+  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MBG1ZXVMHE');</script>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -72,11 +75,37 @@
       footer{padding:32px 24px;flex-direction:column;align-items:flex-start;}
     }
   </style>
+
+  <script>
+  // Inject BlogPosting schema dynamically after post loads
+  function injectPostSchema(post) {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.summary || post.title,
+      "image": post.image ? "https://wajmagazine.com" + post.image : "https://wajmagazine.com/assets/images/waj-red-logo.png",
+      "author": { "@type": "Person", "name": post.author || "WAJ Editorial" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WAJ Magazine",
+        "logo": { "@type": "ImageObject", "url": "https://wajmagazine.com/assets/images/waj-red-logo.png" }
+      },
+      "datePublished": post.date,
+      "mainEntityOfPage": { "@type": "WebPage", "@id": window.location.href },
+      "keywords": post.category + ", New Jersey, NJ culture, WAJ Magazine"
+    };
+    const el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.text = JSON.stringify(schema);
+    document.head.appendChild(el);
+  }
+  </script>
 </head>
 <body>
 
   <nav>
-    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/issues">Issues</a></li>
@@ -106,7 +135,7 @@
   <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="/waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">
@@ -165,7 +194,7 @@
       document.getElementById('pageDesc').setAttribute('content', post.summary || '');
       document.getElementById('ogTitle').setAttribute('content', post.title);
       document.getElementById('ogDesc').setAttribute('content', post.summary || '');
-      document.getElementById('ogImage').setAttribute('content', post.image || '/assets/images/waj-red-logo.png');
+      document.getElementById('ogImage').setAttribute('content', post.image || '/waj-red-logo.png');
 
       const related = allPosts.filter(p => p.slug !== post.slug && p.category === post.category).slice(0,3);
       const relatedHtml = related.length ? `

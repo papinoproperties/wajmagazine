@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://www.googletagmanager.com"/>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
-  <title>Order Confirmed — WAJ Magazine</title>
+  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
+  <title>Order Confirmed | Thank You — WAJ Magazine</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root{--crimson:#7A0000;--text:#1A1A1A;--bg:#FFFFFF;--black:#0A0A0A;--white:#FFFFFF;--font-display:'Bebas Neue',sans-serif;--font-body:'Montserrat',sans-serif;}
@@ -143,10 +146,40 @@
     gtag('js', new Date());
     gtag('config', 'G-MBG1ZXVMHE');
   </script>
+  <meta name="description" content="Your WAJ Magazine order is confirmed. Digital issues are delivered by email within 24 hours. Print copies ship within 5-7 business days."/>
+  <link rel="canonical" href="https://wajmagazine.com/order-success"/>
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "WAJ Magazine",
+    "url": "https://wajmagazine.com",
+    "logo": "https://wajmagazine.com/assets/images/waj-red-logo.png",
+    "foundingDate": "2014",
+    "description": "New Jersey's leading independent culture magazine featuring creatives, entrepreneurs, athletes, and community voices since 2014.",
+    "address": { "@type": "PostalAddress", "addressRegion": "NJ", "addressCountry": "US" },
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q141242119",
+      "https://www.instagram.com/wajmagazine",
+      "https://www.facebook.com/wajmagazine/",
+      "https://twitter.com/wearejerseyent",
+      "https://www.tiktok.com/@wajmagazine",
+      "https://www.youtube.com/wearejersey"
+    ],
+    "contactPoint": { "@type": "ContactPoint", "email": "magazine@wearejerseyent.com", "contactType": "editorial" },
+    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com" }
+  }]
+  </script>
+  <meta property="og:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
+  <meta property="og:image:width" content="800"/>
+  <meta property="og:image:height" content="1067"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
+  <meta name="twitter:site" content="@wearejerseyent"/>
 </head>
 <body>
   <nav>
-    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <div style="display:flex;align-items:center;gap:8px;">
       <button id="navCartBtn" class="nav-cart-btn" onclick="document.getElementById('cartToggle') && document.getElementById('cartToggle').click()" aria-label="Cart" style="display:none;position:relative;background:none;border:1px solid #E0E0E0;color:#1A1A1A;padding:7px 12px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.08em;align-items:center;gap:6px;border-radius:2px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7A0000" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -187,7 +220,7 @@
   <!-- MOBILE DRAWER -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">

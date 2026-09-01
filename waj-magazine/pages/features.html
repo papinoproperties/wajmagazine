@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://www.googletagmanager.com"/>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Get Featured — WAJ Magazine</title>
-  <meta name="description" content="Submit yourself or your brand for consideration in WAJ Magazine. Our selection process is merit-based — no payment required. We feature creatives, entrepreneurs, athletes, and community voices from New Jersey and beyond."/>
-  <meta property="og:title" content="Get Featured — WAJ Magazine"/>
-  <meta property="og:description" content="Merit-based feature selection. No payment required. We amplify real stories from real people."/>
+  <title>Get Featured in WAJ Magazine | Submit Your Story</title>
+  <meta name="description" content="Apply to be featured in WAJ Magazine. Merit-based selection, no payment required. We feature NJ artists, entrepreneurs, athletes, and community leaders."/>
+  <meta property="og:title" content="Get Featured in WAJ Magazine | Submit Your Story"/>
+  <meta property="og:description" content="Apply to be featured in WAJ Magazine. Merit-based selection, no payment required. We feature NJ artists, entrepreneurs, athletes, and community leaders."/>
   <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
@@ -152,7 +155,123 @@
     img[src*="jan2022.png"] { object-position: 50% 22% !important; }
     img[src*="jan2021.png"] { object-position: 50% 22% !important; }
     img[src*="Nov2020.png"] { object-position: 50% 18% !important; }
+  
+    /* ── CAPTCHA SPAM PROTECTION ── */
+    .captcha-row {
+      display: flex !important;
+      align-items: center;
+      gap: 14px;
+      background: #FBF5F5;
+      border: 1px solid #E0C0C0;
+      border-left: 4px solid #7A0000;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .captcha-question { font-size: 14px; font-weight: 700; color: #1A1A1A; white-space: nowrap; }
+    .captcha-input {
+      width: 80px; padding: 9px 12px;
+      border: 2px solid #7A0000; font-size: 16px; font-weight: 700;
+      text-align: center; font-family: inherit; outline: none; background: #fff;
+    }
+    .captcha-input.error { border-color: #cc0000; background: #FFF0F0; animation: shake .3s; }
+    .captcha-label { font-size: 11px; color: #7A0000; font-weight: 600; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+    .captcha-question{font-size:13px;font-weight:700;color:#1A1A1A;white-space:nowrap;}
+    .captcha-input{width:80px;padding:8px 12px;border:2px solid #E0E0E0;font-size:14px;font-weight:700;text-align:center;font-family:var(--font-body,sans-serif);outline:none;}
+    .captcha-input:focus{border-color:#7A0000;}
+    .captcha-input.error{border-color:#cc0000;background:#FFF0F0;}
+    .captcha-label{font-size:11px;color:#888;margin-top:2px;}
   </style>
+  <link rel="canonical" href="https://wajmagazine.com/features"/>
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "WAJ Magazine",
+    "url": "https://wajmagazine.com",
+    "logo": "https://wajmagazine.com/assets/images/waj-red-logo.png",
+    "foundingDate": "2014",
+    "description": "New Jersey's leading independent culture magazine featuring creatives, entrepreneurs, athletes, and community voices since 2014.",
+    "address": { "@type": "PostalAddress", "addressRegion": "NJ", "addressCountry": "US" },
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q141242119",
+      "https://www.instagram.com/wajmagazine",
+      "https://www.facebook.com/wajmagazine/",
+      "https://twitter.com/wearejerseyent",
+      "https://www.tiktok.com/@wajmagazine",
+      "https://www.youtube.com/wearejersey"
+    ],
+    "contactPoint": { "@type": "ContactPoint", "email": "magazine@wearejerseyent.com", "contactType": "editorial" },
+    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com" }
+  }]
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is there a fee to be featured in WAJ Magazine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. WAJ Magazine's feature selection is entirely merit-based. There is no fee to submit and no payment required to be featured. Our editorial team selects features based on your story, your impact, and your connection to the culture and community we cover."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I apply to be featured in WAJ Magazine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fill out the submission form at wajmagazine.com/features with your background, your story, and why you feel your voice belongs in WAJ Magazine. Our editorial team reviews every submission and responds within 30 days if you are selected."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who does WAJ Magazine feature?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WAJ Magazine features New Jersey creatives, musicians, entrepreneurs, athletes, community leaders, fashion professionals, and food industry personalities. We cover anyone doing meaningful work who has a connection to New Jersey culture."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to hear back after submitting?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our editorial team reviews all submissions and responds within 30 days if you have been selected for a feature."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wajmagazine.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Get Featured",
+      "item": "https://wajmagazine.com/features"
+    }
+  ]
+}
+  </script>
+  <meta property="og:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
+  <meta property="og:image:width" content="800"/>
+  <meta property="og:image:height" content="1067"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
+  <meta name="twitter:site" content="@wearejerseyent"/>
 </head>
 <body>
 
@@ -391,6 +510,11 @@
           </select>
         </div>
 
+                <div class="captcha-row">
+          <span class="captcha-question">What is 3 + 4?</span>
+          <input type="text" class="captcha-input" placeholder="?" autocomplete="off" maxlength="3" inputmode="numeric"/>
+          <span class="captcha-label">Spam protection — please answer</span>
+        </div>
         <button type="submit" class="btn-submit-feature" id="featureSubmitBtn">
           Submit for Consideration
         </button>
@@ -408,21 +532,33 @@
     </div>
     <p style="font-size:14px;color:var(--text-muted);margin-bottom:32px;max-width:600px;">Over 10 years and 42+ issues, we have had the privilege of featuring some of New Jersey's most inspiring voices on our cover.</p>
     <div class="covers-strip">
-      <img src="../assets/images/Cover_2_.png" alt="Honey Bxby"/>
-      <img src="../assets/images/Magazine_Cover.png" alt="DJ Taj"/>
-      <img src="../assets/images/spring2025.png" alt="DJ Smallz 732"/>
-      <img src="../assets/images/Spring20252.png" alt="Qaysean Williams"/>
-      <img src="../assets/images/winterSpring2023.png" alt="Shakur Stevenson"/>
-      <img src="../assets/images/fall2023.png" alt="Malcolm Jenkins Foundation"/>
-      <img src="../assets/images/fall2022.png" alt="Frankie Edgar x Tobias Eats"/>
-      <img src="../assets/images/Spring2023.png" alt="Mapy"/>
-      <img src="../assets/images/summer_2022.png" alt="Pilar Scratch and River Mason"/>
-      <img src="../assets/images/jan2022.png" alt="Uniiqu3"/>
-      <img src="../assets/images/jan2021.png" alt="Kertasy"/>
-      <img src="../assets/images/Nov2020.png" alt="Reggie Couz"/>
+      <img src="../assets/images/Cover_2_.png" alt="Honey Bxby WAJ Magazine Issue 042 Cover"/>
+      <img src="../assets/images/Magazine_Cover.png" alt="DJ Taj WAJ Magazine Issue 042 Cover"/>
+      <img src="../assets/images/spring2025.png" alt="DJ Smallz 732 WAJ Magazine Issue 041 Cover"/>
+      <img src="../assets/images/Spring20252.png" alt="Qaysean Williams WAJ Magazine Issue 041 Cover"/>
+      <img src="../assets/images/winterSpring2023.png" alt="Shakur Stevenson WAJ Magazine Issue 039 Cover"/>
+      <img src="../assets/images/fall2023.png" alt="Malcolm Jenkins Foundation WAJ Magazine Issue 037 Cover"/>
+      <img src="../assets/images/fall2022.png" alt="Frankie Edgar x Tobias Eats WAJ Magazine Issue 036 Cover"/>
+      <img src="../assets/images/Spring2023.png" alt="Mapy WAJ Magazine Issue 038 Cover"/>
+      <img src="../assets/images/summer_2022.png" alt="Pilar Scratch and River Mason WAJ Magazine Issue 035 Cover"/>
+      <img src="../assets/images/jan2022.png" alt="Uniiqu3 WAJ Magazine Issue 033 Cover"/>
+      <img src="../assets/images/jan2021.png" alt="Kertasy WAJ Magazine January 2021 Cover"/>
+      <img src="../assets/images/Nov2020.png" alt="Reggie Couz WAJ Magazine November 2020 Cover"/>
     </div>
   </section>
 
+  
+  <!-- Advertise CTA -->
+  <section style="background:#F6F6F6;border-top:1px solid #E0E0E0;border-bottom:1px solid #E0E0E0;padding:40px 60px;">
+    <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;" id="advertise-cta-strip">
+      <div>
+        <p style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A0000;margin-bottom:6px;">For Brands & Businesses</p>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;color:#1A1A1A;margin-bottom:6px;">Want to Advertise in WAJ Magazine?</h3>
+        <p style="font-size:13px;color:#555;">Reach New Jersey's most engaged community of creatives and tastemakers. Packages from $199.</p>
+      </div>
+      <a href="/advertise" style="display:inline-block;padding:14px 36px;background:#7A0000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap;text-decoration:none;">Advertise With Us →</a>
+    </div>
+  </section>
   <footer>
     <p>© 2025 WAJ Magazine / We Are Jersey ENT LLC. All rights reserved. ·
       <a href="/privacy" style="color:#888;text-decoration:underline;">Privacy Policy</a> ·
@@ -466,6 +602,7 @@
     // Form submission
     document.getElementById('feature-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      if (!validateCaptcha('feature-form')) { alert('Please solve the math question correctly.'); return; }
       const form = this;
       const btn = document.getElementById('featureSubmitBtn');
       btn.disabled = true;
@@ -514,5 +651,41 @@
     .mobile-nav-links li a.mobile-ent{margin:16px 20px 0;display:block;text-align:center;padding:13px;background:#7A0000;color:#fff;border-bottom:none;}
   </style>
 
+
+  <script>
+  // ── CAPTCHA HELPER ──
+  function generateCaptcha(formId) {
+    const a = Math.floor(Math.random()*10)+1;
+    const b = Math.floor(Math.random()*10)+1;
+    const form = document.getElementById(formId);
+    if (!form) return;
+    const row = form.querySelector('.captcha-row');
+    if (!row) return;
+    const q = row.querySelector('.captcha-question');
+    const input = row.querySelector('.captcha-input');
+    if (q) q.textContent = 'What is ' + a + ' + ' + b + '?';
+    if (input) { input.value=''; input.dataset.answer = String(a+b); }
+  }
+  function validateCaptcha(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return true;
+    const input = form.querySelector('.captcha-input');
+    if (!input) return true;
+    const correct = input.dataset.answer;
+    if (input.value.trim() !== correct) {
+      input.classList.add('error');
+      input.focus();
+      setTimeout(() => generateCaptcha(formId), 1500); // refresh question
+      return false;
+    }
+    return true;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    ['contact-form','advertise-form','feature-form','submitPostForm','submitForm'].forEach(id => {
+      const f = document.getElementById(id);
+      if (f) generateCaptcha(id);
+    });
+  });
+  </script>
 </body>
 </html>

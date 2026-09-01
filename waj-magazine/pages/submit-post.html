@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://www.googletagmanager.com"/>
   <meta charset="UTF-8"/>
   <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Submit a Post — WAJ Magazine</title>
+  <title>Submit a Post | Contribute to WAJ Magazine Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
     :root{
@@ -226,6 +229,98 @@
     gtag('js', new Date());
     gtag('config', 'G-MBG1ZXVMHE');
   </script>
+  <meta name="description" content="Submit your article, interview, or cultural piece to WAJ Magazine. Share your story with a community of New Jersey creatives, entrepreneurs, and culture lovers."/>
+  <link rel="canonical" href="https://wajmagazine.com/submit-post"/>
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "WAJ Magazine",
+    "url": "https://wajmagazine.com",
+    "logo": "https://wajmagazine.com/assets/images/waj-red-logo.png",
+    "foundingDate": "2014",
+    "description": "New Jersey's leading independent culture magazine featuring creatives, entrepreneurs, athletes, and community voices since 2014.",
+    "address": { "@type": "PostalAddress", "addressRegion": "NJ", "addressCountry": "US" },
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q141242119",
+      "https://www.instagram.com/wajmagazine",
+      "https://www.facebook.com/wajmagazine/",
+      "https://twitter.com/wearejerseyent",
+      "https://www.tiktok.com/@wajmagazine",
+      "https://www.youtube.com/wearejersey"
+    ],
+    "contactPoint": { "@type": "ContactPoint", "email": "magazine@wearejerseyent.com", "contactType": "editorial" },
+    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com" }
+  }]
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Submit a Guest Post to WAJ Magazine",
+  "description": "Steps to submit an article, interview, or cultural piece for publication on WAJ Magazine's blog.",
+  "totalTime": "PT10M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Write your article",
+      "text": "Write your full article, interview, or cultural piece \u2014 minimum 300 words. Content should be original and not published elsewhere."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Fill out the submission form",
+      "text": "Go to wajmagazine.com/submit-post and complete the form with your name, email, category, title, summary, and full content."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Upload a cover image (optional)",
+      "text": "Upload a high-quality cover image (JPG or PNG, under 4MB, recommended 1200x800px) to accompany your post."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Select a preferred publish date",
+      "text": "Optionally suggest a date you'd like your post to go live. Final scheduling is at editorial discretion."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Submit for review",
+      "text": "Submit your post. Our editorial team reviews submissions within 5\u20137 business days and will contact you if your post is approved for publication."
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://wajmagazine.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://wajmagazine.com/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Submit a Post",
+      "item": "https://wajmagazine.com/submit-post"
+    }
+  ]
+}
+  </script>
+  <meta property="og:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
+  <meta property="og:image:width" content="800"/>
+  <meta property="og:image:height" content="1067"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
+  <meta name="twitter:site" content="@wearejerseyent"/>
 </head>
 <body>
 
@@ -262,7 +357,7 @@
       <div id="formState">
         <span class="eyebrow">Contribute to WAJ Magazine</span>
         <h1>SUBMIT<br>A POST</h1>
-        <p class="intro">Have a story, interview, opinion, or cultural piece you'd like to share? Submit it here and our editorial team will review it for publication on WAJ Magazine. All submissions are reviewed within 5–7 business days.</p>
+        <p class="intro">Share your story with the WAJ community. Submit an article, interview, opinion piece, or cultural feature for review by our editorial team. We welcome creatives, entrepreneurs, and community voices from across New Jersey and beyond. All submissions are reviewed within 5–7 business days.</p>
 
         <form name="submit-post" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="submitPostForm" enctype="multipart/form-data">
           <input type="hidden" name="form-name" value="submit-post"/>
@@ -313,6 +408,15 @@
           <div class="form-group"><label>Short Summary *<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">1–2 sentences describing your post (shown as preview)</span></label><textarea class="short" id="summary" name="summary" placeholder="Brief description of your article..." maxlength="280" oninput="updateCount('sumCount',this.value,280)" required></textarea><p class="char-hint"><span id="sumCount">0</span>/280</p></div>
           <div class="form-group"><label>Full Article Content *</label><textarea id="content" name="content" placeholder="Paste or write your full article here. Minimum 300 words." oninput="updateWordCount(this)" required></textarea><p class="char-hint" id="wordCountDisplay">0 words</p></div>
 
+          <!-- DESIRED PUBLISH DATE -->
+          <p class="form-section-title">Scheduling (Optional)</p>
+          <div class="form-group">
+            <label>Preferred Publish Date<br><span style="font-weight:400;font-size:9px;text-transform:none;letter-spacing:0;">Suggest a date you'd like this post to go live. Final scheduling is at editorial discretion.</span></label>
+            <input type="date" name="preferred-date" id="preferredDate"
+              min="" style="max-width:240px;"/>
+            <p style="font-size:10px;color:#888;margin-top:6px;">Leave blank if you have no preference.</p>
+          </div>
+
           <!-- MEDIA -->
           <p class="form-section-title">Media (Optional)</p>
           <div class="form-group">
@@ -344,7 +448,12 @@
             <label for="agreeCheck">I confirm this content is original, that I have rights to any included media, and I agree to WAJ Magazine's <a href="/contact">submission terms</a>. I understand the editorial team may edit my submission before publishing.</label>
           </div>
 
-          <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
+                  <div class="captcha-row">
+          <span class="captcha-question">What is 3 + 4?</span>
+          <input type="text" class="captcha-input" placeholder="?" autocomplete="off" maxlength="3" inputmode="numeric"/>
+          <span class="captcha-label">Spam protection — please answer</span>
+        </div>
+        <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">Submit for Review</button>
           <p style="font-size:11px;color:var(--text-light);margin-top:12px;text-align:center;">Your submission will be sent to the WAJ editorial team for review. We'll be in touch within 5–7 business days.</p>
         </form>
       </div>
@@ -437,7 +546,14 @@
       }
     }
 
+    // Set min date on publish date field to today
+    document.addEventListener('DOMContentLoaded', () => {
+      const pd = document.getElementById('preferredDate');
+      if (pd) pd.min = new Date().toISOString().split('T')[0];
+    });
+
     function handleSubmit() {
+      if (!validateCaptcha('submitPostForm')) { alert('Please solve the math question correctly.'); return; }
       const firstName = document.getElementById('firstName').value.trim();
       const lastName  = document.getElementById('lastName').value.trim();
       const email     = document.getElementById('email').value.trim();
@@ -489,7 +605,7 @@
   <!-- MOBILE DRAWER -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="../assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">
@@ -525,6 +641,42 @@
     if (hamburger) hamburger.addEventListener('click', openMobileMenu);
     // Close on escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
+
+  <script>
+  // ── CAPTCHA HELPER ──
+  function generateCaptcha(formId) {
+    const a = Math.floor(Math.random()*10)+1;
+    const b = Math.floor(Math.random()*10)+1;
+    const form = document.getElementById(formId);
+    if (!form) return;
+    const row = form.querySelector('.captcha-row');
+    if (!row) return;
+    const q = row.querySelector('.captcha-question');
+    const input = row.querySelector('.captcha-input');
+    if (q) q.textContent = 'What is ' + a + ' + ' + b + '?';
+    if (input) { input.value=''; input.dataset.answer = String(a+b); }
+  }
+  function validateCaptcha(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return true;
+    const input = form.querySelector('.captcha-input');
+    if (!input) return true;
+    const correct = input.dataset.answer;
+    if (input.value.trim() !== correct) {
+      input.classList.add('error');
+      input.focus();
+      setTimeout(() => generateCaptcha(formId), 1500); // refresh question
+      return false;
+    }
+    return true;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    ['contact-form','advertise-form','feature-form','submitPostForm','submitForm'].forEach(id => {
+      const f = document.getElementById(id);
+      if (f) generateCaptcha(id);
+    });
+  });
   </script>
 </body>
 </html>
