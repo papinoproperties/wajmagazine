@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Guaranteed Magazine Placement | WAJ Magazine</title>
+  <meta name="description" content="Guaranteed paid placement packages in WAJ Magazine. Digital spotlights from $199, full print and digital features from $499, and custom brand partnerships. Reach New Jersey's most engaged creative audience."/>
+  <link rel="canonical" href="https://wajmagazine.com/paid-placement"/>
+  <meta property="og:title" content="Guaranteed Magazine Placement | WAJ Magazine"/>
+  <meta property="og:description" content="Guaranteed paid placement packages in WAJ Magazine. Digital spotlights, full print and digital features, and custom brand partnerships."/>
+  <meta property="og:image" content="https://wajmagazine.com/assets/images/waj-red-logo.png"/>
+  <meta property="og:url" content="https://wajmagazine.com/paid-placement"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "WAJ Magazine Paid Placement",
+    "description": "Guaranteed editorial placement packages in WAJ Magazine — digital, print, and custom brand partnerships.",
+    "brand": { "@type": "Brand", "name": "WAJ Magazine" },
+    "offers": [
+      { "@type": "Offer", "name": "Digital Spotlight", "price": "199", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Full Feature", "price": "499", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Brand Partner", "price": "0", "description": "Custom pricing" }
+    ]
+  }
+  </script>
+  <style>
+    :root { --crimson:#7A0000; --dark:#0A0A0A; --light:#F6F6F6; --border:#E0E0E0; --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:var(--fb); color:var(--dark); background:#fff; }
+
+    /* NAV */
+    nav { background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; }
+    .nav-inner { max-width:1200px; margin:0 auto; padding:0 40px; display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .nav-logo img { height:36px; }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--dark); text-decoration:none; }
+    .nav-links a:hover { color:var(--crimson); }
+    .nav-cta { background:var(--crimson); color:#fff!important; padding:9px 20px; }
+    .nav-cta:hover { background:#5a0000!important; color:#fff!important; }
+    .hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--dark); margin:5px 0; transition:.3s; }
+    .mobile-menu { display:none; position:fixed; inset:0; background:#fff; z-index:999; padding:80px 40px 40px; }
+    .mobile-menu.open { display:flex; flex-direction:column; gap:24px; }
+    .mobile-menu a { font-size:20px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--dark); text-decoration:none; border-bottom:1px solid var(--border); padding-bottom:16px; }
+    .mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; font-size:28px; cursor:pointer; }
+
+    /* HERO */
+    .hero { background:var(--dark); padding:80px 40px; text-align:center; border-bottom:4px solid var(--crimson); }
+    .hero-eyebrow { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--crimson); margin-bottom:16px; }
+    .hero h1 { font-family:var(--fh); font-size:clamp(44px,6vw,80px); letter-spacing:.04em; color:#fff; line-height:1; margin-bottom:20px; }
+    .hero p { font-size:16px; color:rgba(255,255,255,.75); line-height:1.7; max-width:600px; margin:0 auto 32px; }
+    .hero-note { display:inline-block; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); padding:12px 28px; font-size:12px; color:rgba(255,255,255,.65); letter-spacing:.05em; }
+    .hero-note strong { color:#fff; }
+
+    /* COMPARISON NOTE */
+    .comparison-bar { background:var(--light); border-bottom:1px solid var(--border); padding:20px 40px; text-align:center; }
+    .comparison-bar p { font-size:13px; color:#555; }
+    .comparison-bar a { color:var(--crimson); font-weight:700; text-decoration:none; }
+
+    /* PACKAGES */
+    .packages { padding:80px 40px; max-width:1100px; margin:0 auto; }
+    .packages-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
+    .pkg { border:1px solid var(--border); padding:36px 32px; position:relative; }
+    .pkg.featured { border:2px solid var(--crimson); }
+    .pkg-badge { position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--crimson); color:#fff; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:5px 18px; white-space:nowrap; }
+    .pkg-name { font-family:var(--fh); font-size:28px; letter-spacing:.06em; color:var(--dark); margin-bottom:8px; }
+    .pkg-price { font-size:42px; font-weight:900; color:var(--crimson); line-height:1; }
+    .pkg-price-unit { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#888; margin-bottom:20px; }
+    .pkg-desc { font-size:13px; color:#555; line-height:1.65; margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .pkg-list { list-style:none; margin-bottom:32px; }
+    .pkg-list li { font-size:13px; color:#333; padding:7px 0; border-bottom:1px solid #F0F0F0; display:flex; align-items:flex-start; gap:10px; }
+    .pkg-list li::before { content:"✓"; color:var(--crimson); font-weight:700; flex-shrink:0; margin-top:1px; }
+    .pkg-btn { display:block; width:100%; padding:14px 24px; text-align:center; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; text-decoration:none; cursor:pointer; border:none; font-family:var(--fb); transition:background .2s; }
+    .pkg-btn-outline { background:transparent; border:2px solid var(--crimson); color:var(--crimson); }
+    .pkg-btn-outline:hover { background:var(--crimson); color:#fff; }
+    .pkg-btn-filled { background:var(--crimson); color:#fff; }
+    .pkg-btn-filled:hover { background:#5a0000; }
+
+    /* IN-MAGAZINE ADS */
+    .ads-section { background:var(--light); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:64px 40px; }
+    .ads-inner { max-width:900px; margin:0 auto; }
+    .ads-inner h2 { font-family:var(--fh); font-size:clamp(32px,4vw,48px); letter-spacing:.04em; margin-bottom:8px; }
+    .ads-inner .ads-sub { font-size:14px; color:#555; margin-bottom:40px; }
+    .ad-options { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .ad-opt { background:#fff; border:1px solid var(--border); padding:28px 28px; }
+    .ad-opt-name { font-family:var(--fh); font-size:22px; letter-spacing:.06em; margin-bottom:6px; }
+    .ad-opt-price { font-size:28px; font-weight:900; color:var(--crimson); margin-bottom:6px; }
+    .ad-opt-desc { font-size:12px; color:#777; line-height:1.6; }
+
+    /* FAQ */
+    .faq { padding:64px 40px; max-width:760px; margin:0 auto; }
+    .faq h2 { font-family:var(--fh); font-size:36px; letter-spacing:.04em; margin-bottom:32px; }
+    details { border-top:1px solid var(--border); padding:18px 0; }
+    details:last-child { border-bottom:1px solid var(--border); }
+    summary { font-size:14px; font-weight:700; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+    summary::after { content:"+"; color:var(--crimson); font-size:20px; }
+    details[open] summary::after { content:"−"; }
+    details p { font-size:13px; color:#555; line-height:1.75; margin-top:12px; }
+
+    /* CTA STRIP */
+    .cta-strip { background:var(--crimson); padding:64px 40px; text-align:center; }
+    .cta-strip h2 { font-family:var(--fh); font-size:clamp(36px,5vw,60px); letter-spacing:.04em; color:#fff; margin-bottom:14px; }
+    .cta-strip p { font-size:15px; color:rgba(255,255,255,.8); max-width:500px; margin:0 auto 28px; line-height:1.6; }
+    .cta-strip a { display:inline-block; padding:16px 48px; background:#fff; color:var(--crimson); font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; text-decoration:none; }
+
+    /* FOOTER */
+    footer { background:var(--dark); padding:40px; text-align:center; }
+    footer p { font-size:11px; color:rgba(255,255,255,.4); letter-spacing:.06em; }
+    footer a { color:rgba(255,255,255,.5); text-decoration:none; margin:0 8px; }
+
+    @media(max-width:900px) {
+      .packages-grid { grid-template-columns:1fr; }
+      .ad-options { grid-template-columns:1fr; }
+      .hamburger { display:block; }
+      .nav-links { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/issues">Issues</a></li>
+      <li><a href="/features">Get Featured</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/shop">Shop</a></li>
+      <li><a href="/advertise">Advertise</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/paid-placement" class="nav-cta">Get Placed →</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <button class="mobile-close" onclick="document.querySelector('.mobile-menu').classList.remove('open')">✕</button>
+  <a href="/">Home</a><a href="/issues">Issues</a><a href="/features">Get Featured</a>
+  <a href="/blog">Blog</a><a href="/shop">Shop</a><a href="/advertise">Advertise</a>
+  <a href="/paid-placement">Paid Placement</a><a href="/contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Guaranteed Placement · WAJ Magazine</p>
+  <h1>Be Seen.<br/>Be Featured.<br/>Be Remembered.</h1>
+  <p>Guaranteed editorial placement packages in WAJ Magazine — reaching New Jersey's most engaged community of creatives, entrepreneurs, and tastemakers across print, digital, and web.</p>
+  <div class="hero-note"><strong>Note:</strong> These are paid, guaranteed placements. Looking for merit-based features? Visit our <a href="/features" style="color:var(--crimson);font-weight:700;">free submission page →</a></div>
+</section>
+
+<!-- COMPARISON NOTE -->
+<div class="comparison-bar">
+  <p>Paid placements are guaranteed and scheduled at your convenience. <a href="/features">Free merit-based submissions</a> are reviewed editorially — no payment required, no guarantee of placement.</p>
+</div>
+
+<!-- PACKAGES -->
+<section class="packages">
+  <div class="packages-grid">
+
+    <!-- Digital Spotlight -->
+    <div class="pkg">
+      <div class="pkg-name">Digital Spotlight</div>
+      <div class="pkg-price">$199</div>
+      <div class="pkg-price-unit">/ feature</div>
+      <div class="pkg-desc">Get your brand featured in our digital edition and on our website — fast, affordable, and effective.</div>
+      <ul class="pkg-list">
+        <li>Digital editorial placement</li>
+        <li>Social media shoutout (1 platform)</li>
+        <li>Website feature listing</li>
+        <li>Bio + logo + link</li>
+      </ul>
+      <a href="/contact" class="pkg-btn pkg-btn-outline">Get Started</a>
+    </div>
+
+    <!-- Full Feature (Most Popular) -->
+    <div class="pkg featured">
+      <div class="pkg-badge">Most Popular</div>
+      <div class="pkg-name">Full Feature</div>
+      <div class="pkg-price">$499</div>
+      <div class="pkg-price-unit">/ issue</div>
+      <div class="pkg-desc">A complete editorial feature in our print and digital magazine with full social promotion across all platforms.</div>
+      <ul class="pkg-list">
+        <li>Print + digital magazine feature</li>
+        <li>Dedicated article (500–800 words)</li>
+        <li>Professional photo spread</li>
+        <li>Social media campaign (all platforms)</li>
+        <li>Website blog post</li>
+        <li>Newsletter mention</li>
+      </ul>
+      <a href="/contact" class="pkg-btn pkg-btn-filled">Get Started</a>
+    </div>
+
+    <!-- Brand Partner -->
+    <div class="pkg">
+      <div class="pkg-name">Brand Partner</div>
+      <div class="pkg-price">Custom</div>
+      <div class="pkg-price-unit">/ partnership</div>
+      <div class="pkg-desc">Ongoing partnership for brands building long-term visibility across WAJ Magazine and We Are Jersey ENT.</div>
+      <ul class="pkg-list">
+        <li>Multiple issue features</li>
+        <li>Event sponsorship opportunities</li>
+        <li>Co-branded content</li>
+        <li>Cross-promotion on wearejerseyent.com</li>
+        <li>Custom marketing strategy</li>
+        <li>Priority placement</li>
+      </ul>
+      <a href="/contact" class="pkg-btn pkg-btn-outline">Contact Us</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- IN-MAGAZINE ADS -->
+<section class="ads-section">
+  <div class="ads-inner">
+    <h2>In-Magazine Advertising</h2>
+    <p class="ads-sub">Place your brand directly inside WAJ Magazine — seen by thousands of readers in digital and print.</p>
+    <div class="ad-options">
+      <div class="ad-opt">
+        <div class="ad-opt-name">Ad Placement</div>
+        <div class="ad-opt-price">From $200</div>
+        <div class="ad-opt-desc">Standard in-magazine ad placement in our digital and print edition. Includes full-page or half-page options with your provided artwork.</div>
+      </div>
+      <div class="ad-opt">
+        <div class="ad-opt-name">Ad + Blog Interview</div>
+        <div class="ad-opt-price">From $350</div>
+        <div class="ad-opt-desc">In-magazine ad placement plus a dedicated blog interview and post on wajmagazine.com — maximizing your reach across print, digital, and web audiences.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Questions</h2>
+  <details open>
+    <summary>What is the difference between paid placement and a free feature?</summary>
+    <p>Paid placements are guaranteed — you select your package, pay, and we schedule your feature. Free merit-based submissions at <a href="/features" style="color:var(--crimson);">wajmagazine.com/features</a> are reviewed editorially by our team and selected based on story, impact, and fit. Free submissions are not guaranteed placement.</p>
+  </details>
+  <details>
+    <summary>How quickly will my placement go live?</summary>
+    <p>Digital Spotlight placements typically go live within 7–10 business days. Full Feature placements are scheduled with our editorial calendar and typically run within the next available issue cycle. Contact us for current availability.</p>
+  </details>
+  <details>
+    <summary>Can I provide my own photos and content?</summary>
+    <p>Yes. You can provide your own photos, bio, and content for review. Our editorial team will review and professionally format everything to match WAJ Magazine's standards before publication.</p>
+  </details>
+  <details>
+    <summary>Do you offer refunds?</summary>
+    <p>All paid placements are non-refundable once confirmed and scheduled. We work closely with you to ensure the final placement meets your expectations before publication.</p>
+  </details>
+  <details>
+    <summary>How do I get started?</summary>
+    <p>Click "Get Started" on your chosen package above or email us at <a href="mailto:magazine@wearejerseyent.com" style="color:var(--crimson);">magazine@wearejerseyent.com</a> with your name, business, and the package you're interested in. Our team will follow up within 48 hours.</p>
+  </details>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <h2>Ready to Get Placed?</h2>
+  <p>Reach New Jersey's most engaged community of creatives, entrepreneurs, and tastemakers — guaranteed.</p>
+  <a href="/contact">Contact Us to Book →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 WAJ Magazine / We Are Jersey ENT LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+</footer>
+
+</body>
+</html>
