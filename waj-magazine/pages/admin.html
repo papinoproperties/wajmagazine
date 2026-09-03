@@ -339,13 +339,13 @@
 let allPosts = [], allSubmissions = [], authToken = null;
 
 // ── IDENTITY ──
-netlifyIdentity.on('init', u => { if (u) showDash(u); });
+netlifyIdentity.on('init', user => { if (user) showDash(user); else netlifyIdentity.open(); });
 netlifyIdentity.on('login', u => { showDash(u); netlifyIdentity.close(); });
 netlifyIdentity.on('logout', () => {
   document.getElementById('loginGate').style.display = 'flex';
   document.getElementById('dashboard').style.display = 'none';
 });
-netlifyIdentity.init();
+netlifyIdentity.init({ logo: false });
 
 async function showDash(user) {
   authToken = await user.jwt();
