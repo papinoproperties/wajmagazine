@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0D0520"/>
+  <g opacity="0.12" transform="translate(700,70) scale(1.05)"><circle cx="110" cy="95" r="65" fill="#FFFFFF"/><path d="M5 310 Q5 195 110 195 Q215 195 215 310 L215 365 L5 365 Z" fill="#FFFFFF"/><circle cx="295" cy="115" r="58" fill="#FFFFFF" opacity="0.65"/><path d="M195 330 Q195 228 295 228 Q395 228 395 330 L395 375 L195 375 Z" fill="#FFFFFF" opacity="0.65"/></g>
+  <rect x="0" y="0" width="10" height="630" fill="#7B1FA2"/>
+  <rect x="0" y="600" width="1200" height="30" fill="#7B1FA2" opacity="0.85"/>
+  <rect x="80" y="58" width="127" height="36" rx="3" fill="#7B1FA2"/>
+  <text x="94" y="82" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="2">COMMUNITY</text>
+  <text x="1118" y="48" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#7B1FA2" letter-spacing="3" text-anchor="end" opacity="0.9">WAJ MAGAZINE</text>
+  <text x="80" y="316" font-family="Georgia,serif" font-size="64" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="-1">YDC Fest</text>
+  <text x="80" y="388" font-family="Georgia,serif" font-size="64" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="-1">August 21</text>
+  <text x="80" y="468" font-family="Arial,sans-serif" font-size="19" fill="#FFFFFF" opacity="0.65">CEB celebrates the Youth Development Center grand opening</text>
+  <text x="80" y="620" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="3" opacity="0.8">WAJMAGAZINE.COM</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0d0015"/>
+  <g opacity="0.12" transform="translate(700,70) scale(1.05)"><path d="M200 55 Q200 95 245 115 L395 220 Q440 242 390 270 Q370 282 345 270 L55 270 Q30 282 10 270 Q-35 242 10 220 L160 115 Q205 95 200 55 Z" stroke="#FFFFFF" stroke-width="22" fill="none" stroke-linecap="round"/><circle cx="200" cy="42" r="32" fill="none" stroke="#FFFFFF" stroke-width="20"/></g>
+  <rect x="0" y="0" width="10" height="630" fill="#E91E63"/>
+  <rect x="0" y="600" width="1200" height="30" fill="#E91E63" opacity="0.85"/>
+  <rect x="80" y="58" width="105" height="36" rx="3" fill="#E91E63"/>
+  <text x="94" y="82" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="2">FASHION</text>
+  <text x="1118" y="48" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#E91E63" letter-spacing="3" text-anchor="end" opacity="0.9">WAJ MAGAZINE</text>
+  <text x="80" y="316" font-family="Georgia,serif" font-size="64" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="-1">Black Fashion</text>
+  <text x="80" y="388" font-family="Georgia,serif" font-size="64" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="-1">in 2026</text>
+  <text x="80" y="468" font-family="Arial,sans-serif" font-size="19" fill="#FFFFFF" opacity="0.65">The designers, trends & creatives setting the agenda</text>
+  <text x="80" y="620" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="3" opacity="0.8">WAJMAGAZINE.COM</text>
+</svg>

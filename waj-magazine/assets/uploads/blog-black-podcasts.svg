@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0a0015"/>
+  <g opacity="0.12" transform="translate(700,70) scale(1.05)"><circle cx="200" cy="185" r="120" fill="none" stroke="#FFFFFF" stroke-width="26"/><ellipse cx="200" cy="185" rx="55" ry="85" fill="#FFFFFF"/><path d="M80 230 Q80 360 200 360 Q320 360 320 230" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/><rect x="186" y="360" width="28" height="55" fill="#FFFFFF"/><rect x="140" y="402" width="120" height="18" rx="9" fill="#FFFFFF"/></g>
+  <rect x="0" y="0" width="10" height="630" fill="#9C27B0"/>
+  <rect x="0" y="600" width="1200" height="30" fill="#9C27B0" opacity="0.85"/>
+  <rect x="80" y="58" width="105" height="36" rx="3" fill="#9C27B0"/>
+  <text x="94" y="82" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="2">CULTURE</text>
+  <text x="1118" y="48" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#9C27B0" letter-spacing="3" text-anchor="end" opacity="0.9">WAJ MAGAZINE</text>
+  <text x="80" y="316" font-family="Georgia,serif" font-size="64" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="-1">Best Podcasts</text>
+  <text x="80" y="388" font-family="Georgia,serif" font-size="64" font-weight="700" font-style="italic" fill="#FFFFFF" letter-spacing="-1">by Black Creators</text>
+  <text x="80" y="468" font-family="Arial,sans-serif" font-size="19" fill="#FFFFFF" opacity="0.65">The shows you need in your rotation right now</text>
+  <text x="80" y="620" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" letter-spacing="3" opacity="0.8">WAJMAGAZINE.COM</text>
+</svg>
