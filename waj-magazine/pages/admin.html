@@ -147,7 +147,7 @@
     <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
     <h1>Admin Dashboard</h1>
     <p>Log in with your invited Netlify Identity account to continue.</p>
-    <button onclick="netlifyIdentity.open()">Log In</button>
+    <button id="loginBtn" onclick="netlifyIdentity.open()" style="padding:14px 36px;background:var(--crimson);color:#fff;border:none;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;">Log In</button>
   </div>
 </div>
 
@@ -338,14 +338,35 @@
 <script>
 let allPosts = [], allSubmissions = [], authToken = null;
 
-// ── IDENTITY ──
-netlifyIdentity.on('init', user => { if (user) showDash(user); else netlifyIdentity.open(); });
-netlifyIdentity.on('login', u => { showDash(u); netlifyIdentity.close(); });
-netlifyIdentity.on('logout', () => {
-  document.getElementById('loginGate').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'none';
+// ── IDENTITY — clean single-registration ──
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Show loading state while identity initializes
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn) { loginBtn.textContent = 'Checking...'; loginBtn.disabled = true; }
+
+  netlifyIdentity.on('init', user => {
+    // Re-enable button whether or not user is logged in
+    if (loginBtn) { loginBtn.textContent = 'Log In'; loginBtn.disabled = false; }
+    if (user) {
+      showDash(user);    // Already authenticated — go straight to dashboard
+    }
+    // If no user: loginGate is already visible (display:flex in CSS), button is ready
+  });
+
+  netlifyIdentity.on('login', user => {
+    showDash(user);
+    netlifyIdentity.close();
+  });
+
+  netlifyIdentity.on('logout', () => {
+    document.getElementById('loginGate').style.display = 'flex';
+    document.getElementById('dashboard').style.display  = 'none';
+    authToken = null;
+  });
+
+  netlifyIdentity.init({ logo: false });
 });
-netlifyIdentity.init({ logo: false });
 
 async function showDash(user) {
   authToken = await user.jwt();
