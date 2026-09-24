@@ -41,6 +41,17 @@
     .article-body{max-width:680px;margin:0 auto;padding:48px 24px 60px;}
     .article-body p{font-size:17px;line-height:1.85;color:#2a2a2a;margin-bottom:22px;}
     .article-body p:first-of-type{font-size:19px;}
+    .article-body h2{font-family:var(--font-serif);font-weight:700;font-size:clamp(24px,3vw,30px);line-height:1.25;color:var(--text);margin:40px 0 14px;}
+    .article-body h3{font-family:var(--font-serif);font-weight:700;font-size:clamp(20px,2.4vw,23px);line-height:1.3;color:var(--text);margin:32px 0 12px;}
+    .article-body h4{font-size:15px;font-weight:700;letter-spacing:.02em;color:var(--text);margin:26px 0 10px;}
+    .article-body ul,.article-body ol{margin:0 0 22px 26px;font-size:17px;line-height:1.8;color:#2a2a2a;}
+    .article-body li{margin-bottom:8px;padding-left:4px;}
+    .article-body li p{margin:0;font-size:inherit;}
+    .article-body blockquote{border-left:3px solid var(--crimson);margin:30px 0;padding:4px 0 4px 22px;font-family:var(--font-serif);font-style:italic;font-size:20px;line-height:1.6;color:var(--text);}
+    .article-body blockquote p{font-size:inherit;margin-bottom:10px;}
+    .article-body a{color:var(--crimson);text-decoration:underline;text-underline-offset:3px;}
+    .article-body a:hover{text-decoration-thickness:2px;}
+    .article-body strong{font-weight:700;color:var(--text);}
 
     .share-row{display:flex;align-items:center;gap:14px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:32px 0;}
     .share-row span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;}
@@ -176,7 +187,97 @@
       return new Date(str + 'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     }
 
+/* ── WAJ rich-text helpers: shared by admin editor and post page ── */
+var WAJ_ALLOWED = { P:1, H2:1, H3:1, H4:1, STRONG:1, EM:1, U:1, A:1, UL:1, OL:1, LI:1, BLOCKQUOTE:1, BR:1 };
+var WAJ_RENAME = { B:'STRONG', I:'EM', H1:'H2', H5:'H4', H6:'H4', DIV:'P' };
+var WAJ_DROP = { SCRIPT:1, STYLE:1, IFRAME:1, OBJECT:1, EMBED:1, META:1, LINK:1, TITLE:1, HEAD:1, NOSCRIPT:1, SVG:1, FORM:1, INPUT:1, BUTTON:1, TEXTAREA:1, SELECT:1 };
+
+function wajIsHtml(str) {
+  return /<\/?(p|h[1-6]|ul|ol|li|blockquote|strong|b|em|i|u|a|br|div)\b[^>]*>/i.test(str || '');
+}
+function wajEscape(t) {
+  return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function wajPlainToHtml(text) {
+  return String(text || '').split(/\n\s*\n/).map(function (b) { return b.trim(); }).filter(Boolean)
+    .map(function (b) { return '<p>' + wajEscape(b).replace(/\n/g, '<br>') + '</p>'; }).join('');
+}
+function wajSafeHref(href) {
+  href = (href || '').trim();
+  if (/^(https?:|mailto:|tel:|\/|#)/i.test(href)) return href;
+  if (/^[\w.-]+\.[a-z]{2,}(\/|$)/i.test(href)) return 'https://' + href;
+  return '';
+}
+function wajSanitize(html) {
+  var doc = new DOMParser().parseFromString('<body>' + (html || '') + '</body>', 'text/html');
+  // Google Docs wraps everything in <b style="font-weight:normal"> — unwrap it so the whole post isn't bold
+  doc.querySelectorAll('b[id^="docs-internal-guid"]').forEach(function (el) { el.replaceWith.apply(el, Array.from(el.childNodes)); });
+  // Google Docs/Word express bold & italic as inline styles on spans
+  doc.querySelectorAll('span[style]').forEach(function (el) {
+    var st = el.getAttribute('style') || '', inner = el;
+    if (/font-weight\s*:\s*(bold|[6-9]00)/i.test(st)) { var s = doc.createElement('strong'); while (inner.firstChild) s.appendChild(inner.firstChild); inner.appendChild(s); inner = s; }
+    if (/font-style\s*:\s*italic/i.test(st)) { var e = doc.createElement('em'); while (inner.firstChild) e.appendChild(inner.firstChild); inner.appendChild(e); }
+  });
+  function clean(node, insideBlock) {
+    Array.from(node.childNodes).forEach(function (child) {
+      if (child.nodeType === 3) return;
+      if (child.nodeType !== 1) { child.remove(); return; }
+      var tag = child.tagName;
+      if (WAJ_DROP[tag]) { child.remove(); return; }
+      var target = WAJ_RENAME[tag] || tag;
+      if (target === 'P' && insideBlock) target = null; // a div inside a li/p: just unwrap
+      if (target && WAJ_ALLOWED[target]) {
+        var el = child;
+        if (target !== tag) {
+          el = doc.createElement(target);
+          while (child.firstChild) el.appendChild(child.firstChild);
+          child.replaceWith(el);
+        }
+        var href = target === 'A' ? wajSafeHref(el.getAttribute('href')) : '';
+        Array.from(el.attributes).forEach(function (a) { el.removeAttribute(a.name); });
+        if (target === 'A') {
+          if (!href) { el.replaceWith.apply(el, Array.from(el.childNodes)); return; }
+          el.setAttribute('href', href);
+          if (/^https?:/i.test(href) && href.indexOf(location.host) === -1) {
+            el.setAttribute('target', '_blank');
+            el.setAttribute('rel', 'noopener');
+          }
+        }
+        clean(el, insideBlock || /^(P|LI|H2|H3|H4|BLOCKQUOTE)$/.test(target));
+      } else {
+        clean(child, insideBlock);
+        child.replaceWith.apply(child, Array.from(child.childNodes));
+      }
+    });
+  }
+  clean(doc.body, false);
+  // Wrap stray top-level text/inline runs in paragraphs
+  var out = doc.createElement('div'), run = null;
+  Array.from(doc.body.childNodes).forEach(function (n) {
+    var isBlock = n.nodeType === 1 && /^(P|H2|H3|H4|UL|OL|BLOCKQUOTE)$/.test(n.tagName);
+    if (isBlock) { run = null; out.appendChild(n); return; }
+    if (n.nodeType === 3 && !n.textContent.trim()) { if (run) run.appendChild(n); return; }
+    if (n.nodeType === 1 && n.tagName === 'BR' && !run) return;
+    if (!run) { run = doc.createElement('p'); out.appendChild(run); }
+    run.appendChild(n);
+  });
+  // Drop empty paragraphs/headings
+  out.querySelectorAll('p,h2,h3,h4,li,blockquote').forEach(function (el) {
+    if (!el.textContent.trim() && !el.querySelector('br') ) el.remove();
+  });
+  return out.innerHTML.replace(/<p><br><\/p>/g, '').trim();
+}
+function wajToHtml(content) {
+  return wajIsHtml(content) ? wajSanitize(content) : wajPlainToHtml(content);
+}
+function wajWordCount(content) {
+  var d = document.createElement('div');
+  d.innerHTML = wajToHtml(content).replace(/<\/(p|h[1-6]|li|blockquote)>|<br>/gi, ' $&');
+  return (d.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+}
+
     function paragraphs(content){
+      if (wajIsHtml(content)) return wajSanitize(content);
       return content.split(/\n\s*\n/).filter(p=>p.trim()).map(p=>`<p>${p.trim()}</p>`).join('');
     }
 

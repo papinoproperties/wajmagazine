@@ -87,6 +87,27 @@
     .field textarea{resize:vertical;line-height:1.7;}
     .field .hint{font-size:10px;color:#999;margin-top:4px;}
 
+
+    /* ── RICH TEXT EDITOR ── */
+    .rte{background:#fff;border:1px solid var(--border);}
+    .rte:focus-within{border-color:var(--crimson);}
+    .rte-bar{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px;border-bottom:1px solid var(--border);background:#FAFAFA;position:sticky;top:0;z-index:5;}
+    .rte-bar button,.rte-bar select{font-family:var(--fb);font-size:12px;font-weight:600;color:var(--text);background:#fff;border:1px solid var(--border);padding:6px 10px;cursor:pointer;min-height:32px;}
+    .rte-bar button:hover{border-color:var(--crimson);color:var(--crimson);}
+    .rte-bar button.on{background:var(--crimson);border-color:var(--crimson);color:#fff;}
+    .rte-bar button:focus-visible,.rte-bar select:focus-visible{outline:2px solid var(--crimson);outline-offset:1px;}
+    .rte-bar select{width:auto;padding:6px 8px;}
+    .rte-sep{width:1px;height:22px;background:var(--border);margin:0 4px;}
+    .rte-body{min-height:420px;max-height:70vh;overflow-y:auto;padding:18px 22px;font-size:15px;line-height:1.8;outline:none;}
+    .rte-body:empty::before{content:attr(data-placeholder);color:#aaa;}
+    .rte-body p{margin:0 0 14px;}
+    .rte-body h2{font-size:24px;font-weight:700;margin:24px 0 10px;line-height:1.3;}
+    .rte-body h3{font-size:19px;font-weight:700;margin:20px 0 8px;line-height:1.35;}
+    .rte-body h4{font-size:16px;font-weight:700;margin:18px 0 6px;}
+    .rte-body ul,.rte-body ol{margin:0 0 14px 24px;}
+    .rte-body li{margin-bottom:6px;}
+    .rte-body blockquote{border-left:3px solid var(--crimson);padding:4px 0 4px 16px;margin:0 0 14px;color:#444;font-style:italic;}
+    .rte-body a{color:var(--crimson);text-decoration:underline;}
     /* ── SCHEDULE UI in editor ── */
     .publish-mode{background:#fff;border:1px solid var(--border);padding:18px;margin-bottom:18px;}
     .publish-mode h4{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:14px;}
@@ -220,7 +241,33 @@
     </div>
 
     <div class="field"><label>Full Content *</label>
-      <textarea id="editContent" rows="16" placeholder="Write the full article here. Separate paragraphs with a blank line.&#10;&#10;The blog renders each paragraph automatically."></textarea>
+      <div class="rte" id="rteWrap">
+        <div class="rte-bar" role="toolbar" aria-label="Text formatting">
+          <select id="rteBlock" title="Text style" aria-label="Text style">
+            <option value="p">Paragraph</option>
+            <option value="h2">Heading (H2)</option>
+            <option value="h3">Subheading (H3)</option>
+            <option value="h4">Small heading (H4)</option>
+          </select>
+          <span class="rte-sep"></span>
+          <button type="button" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+          <button type="button" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+          <span class="rte-sep"></span>
+          <button type="button" data-act="link" title="Add link (Ctrl+K)">Link</button>
+          <button type="button" data-cmd="unlink" title="Remove link">Unlink</button>
+          <span class="rte-sep"></span>
+          <button type="button" data-cmd="insertUnorderedList" title="Bulleted list">&bull; List</button>
+          <button type="button" data-cmd="insertOrderedList" title="Numbered list">1. List</button>
+          <button type="button" data-act="quote" title="Quote">&ldquo; Quote</button>
+          <span class="rte-sep"></span>
+          <button type="button" data-act="clear" title="Remove formatting from selection">Clear</button>
+          <button type="button" data-cmd="undo" title="Undo (Ctrl+Z)">&#8630;</button>
+          <button type="button" data-cmd="redo" title="Redo (Ctrl+Y)">&#8631;</button>
+        </div>
+        <div id="richEditor" class="rte-body" contenteditable="true" spellcheck="true" aria-label="Full content" data-placeholder="Write the full article here. Paste from Google Docs or Word and the formatting carries over."></div>
+      </div>
+      <textarea id="editContent" rows="16" style="display:none;" aria-hidden="true"></textarea>
       <p class="hint" id="wordCountHint">0 words</p>
     </div>
 
@@ -401,9 +448,8 @@ function switchTab(tab) {
 
 // ── CONTENT WORD COUNT ──
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('editContent').addEventListener('input', function() {
-    const words = this.value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById('wordCountHint').textContent = words + ' words';
+  document.getElementById('richEditor').addEventListener('input', function() {
+    document.getElementById('wordCountHint').textContent = wajWordCount(this.innerHTML) + ' words';
   });
 });
 
@@ -585,7 +631,7 @@ function prefillEditor(i, submissionId, scheduledDate) {
   document.getElementById('editApprovingId').value = sid;
   document.getElementById('cancelEditBtn').style.display = 'none';
   previewImg();
-  const words = (d.content || '').trim().split(/\s+/).filter(Boolean).length;
+  const words = wajWordCount(d.content || '');
   document.getElementById('wordCountHint').textContent = words + ' words';
 }
 
@@ -797,7 +843,7 @@ function editPost(slug) {
   document.getElementById('editOriginalSlug').value = p.slug;
   document.getElementById('editApprovingId').value = '';
   previewImg();
-  const words = (p.content||'').trim().split(/\s+/).filter(Boolean).length;
+  const words = wajWordCount(p.content || '');
   document.getElementById('wordCountHint').textContent = words + ' words';
 
   // Restore scheduled state if editing a scheduled post
@@ -865,6 +911,204 @@ async function deletePost(slug) {
     loadPosts();
   } catch(err) { showToast('Error: ' + err.message, true); }
 }
+</script>
+<script>
+/* ── WAJ rich-text helpers: shared by admin editor and post page ── */
+var WAJ_ALLOWED = { P:1, H2:1, H3:1, H4:1, STRONG:1, EM:1, U:1, A:1, UL:1, OL:1, LI:1, BLOCKQUOTE:1, BR:1 };
+var WAJ_RENAME = { B:'STRONG', I:'EM', H1:'H2', H5:'H4', H6:'H4', DIV:'P' };
+var WAJ_DROP = { SCRIPT:1, STYLE:1, IFRAME:1, OBJECT:1, EMBED:1, META:1, LINK:1, TITLE:1, HEAD:1, NOSCRIPT:1, SVG:1, FORM:1, INPUT:1, BUTTON:1, TEXTAREA:1, SELECT:1 };
+
+function wajIsHtml(str) {
+  return /<\/?(p|h[1-6]|ul|ol|li|blockquote|strong|b|em|i|u|a|br|div)\b[^>]*>/i.test(str || '');
+}
+function wajEscape(t) {
+  return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function wajPlainToHtml(text) {
+  return String(text || '').split(/\n\s*\n/).map(function (b) { return b.trim(); }).filter(Boolean)
+    .map(function (b) { return '<p>' + wajEscape(b).replace(/\n/g, '<br>') + '</p>'; }).join('');
+}
+function wajSafeHref(href) {
+  href = (href || '').trim();
+  if (/^(https?:|mailto:|tel:|\/|#)/i.test(href)) return href;
+  if (/^[\w.-]+\.[a-z]{2,}(\/|$)/i.test(href)) return 'https://' + href;
+  return '';
+}
+function wajSanitize(html) {
+  var doc = new DOMParser().parseFromString('<body>' + (html || '') + '</body>', 'text/html');
+  // Google Docs wraps everything in <b style="font-weight:normal"> — unwrap it so the whole post isn't bold
+  doc.querySelectorAll('b[id^="docs-internal-guid"]').forEach(function (el) { el.replaceWith.apply(el, Array.from(el.childNodes)); });
+  // Google Docs/Word express bold & italic as inline styles on spans
+  doc.querySelectorAll('span[style]').forEach(function (el) {
+    var st = el.getAttribute('style') || '', inner = el;
+    if (/font-weight\s*:\s*(bold|[6-9]00)/i.test(st)) { var s = doc.createElement('strong'); while (inner.firstChild) s.appendChild(inner.firstChild); inner.appendChild(s); inner = s; }
+    if (/font-style\s*:\s*italic/i.test(st)) { var e = doc.createElement('em'); while (inner.firstChild) e.appendChild(inner.firstChild); inner.appendChild(e); }
+  });
+  function clean(node, insideBlock) {
+    Array.from(node.childNodes).forEach(function (child) {
+      if (child.nodeType === 3) return;
+      if (child.nodeType !== 1) { child.remove(); return; }
+      var tag = child.tagName;
+      if (WAJ_DROP[tag]) { child.remove(); return; }
+      var target = WAJ_RENAME[tag] || tag;
+      if (target === 'P' && insideBlock) target = null; // a div inside a li/p: just unwrap
+      if (target && WAJ_ALLOWED[target]) {
+        var el = child;
+        if (target !== tag) {
+          el = doc.createElement(target);
+          while (child.firstChild) el.appendChild(child.firstChild);
+          child.replaceWith(el);
+        }
+        var href = target === 'A' ? wajSafeHref(el.getAttribute('href')) : '';
+        Array.from(el.attributes).forEach(function (a) { el.removeAttribute(a.name); });
+        if (target === 'A') {
+          if (!href) { el.replaceWith.apply(el, Array.from(el.childNodes)); return; }
+          el.setAttribute('href', href);
+          if (/^https?:/i.test(href) && href.indexOf(location.host) === -1) {
+            el.setAttribute('target', '_blank');
+            el.setAttribute('rel', 'noopener');
+          }
+        }
+        clean(el, insideBlock || /^(P|LI|H2|H3|H4|BLOCKQUOTE)$/.test(target));
+      } else {
+        clean(child, insideBlock);
+        child.replaceWith.apply(child, Array.from(child.childNodes));
+      }
+    });
+  }
+  clean(doc.body, false);
+  // Wrap stray top-level text/inline runs in paragraphs
+  var out = doc.createElement('div'), run = null;
+  Array.from(doc.body.childNodes).forEach(function (n) {
+    var isBlock = n.nodeType === 1 && /^(P|H2|H3|H4|UL|OL|BLOCKQUOTE)$/.test(n.tagName);
+    if (isBlock) { run = null; out.appendChild(n); return; }
+    if (n.nodeType === 3 && !n.textContent.trim()) { if (run) run.appendChild(n); return; }
+    if (n.nodeType === 1 && n.tagName === 'BR' && !run) return;
+    if (!run) { run = doc.createElement('p'); out.appendChild(run); }
+    run.appendChild(n);
+  });
+  // Drop empty paragraphs/headings
+  out.querySelectorAll('p,h2,h3,h4,li,blockquote').forEach(function (el) {
+    if (!el.textContent.trim() && !el.querySelector('br') ) el.remove();
+  });
+  return out.innerHTML.replace(/<p><br><\/p>/g, '').trim();
+}
+function wajToHtml(content) {
+  return wajIsHtml(content) ? wajSanitize(content) : wajPlainToHtml(content);
+}
+function wajWordCount(content) {
+  var d = document.createElement('div');
+  d.innerHTML = wajToHtml(content).replace(/<\/(p|h[1-6]|li|blockquote)>|<br>/gi, ' $&');
+  return (d.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+}
+
+/* ── Rich text editor wiring ── */
+(function () {
+  var ed = document.getElementById('richEditor');
+  var ta = document.getElementById('editContent');
+  var blockSel = document.getElementById('rteBlock');
+  if (!ed || !ta) return;
+  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
+
+  // Existing dashboard code reads/writes #editContent.value — route that through the editor
+  Object.defineProperty(ta, 'value', {
+    configurable: true,
+    get: function () { return ed.textContent.trim() ? wajSanitize(ed.innerHTML) : ''; },
+    set: function (v) {
+      ed.innerHTML = wajToHtml(v || '');
+      document.getElementById('wordCountHint').textContent = wajWordCount(ed.innerHTML) + ' words';
+    }
+  });
+
+  function exec(cmd, val) { ed.focus(); document.execCommand(cmd, false, val || null); refresh(); }
+
+  function currentBlock() {
+    var sel = window.getSelection();
+    if (!sel.rangeCount) return null;
+    var n = sel.anchorNode;
+    while (n && n !== ed) {
+      if (n.nodeType === 1 && /^(P|H2|H3|H4|BLOCKQUOTE|LI)$/.test(n.tagName)) return n;
+      n = n.parentNode;
+    }
+    return null;
+  }
+
+  function inLink() {
+    var n = window.getSelection().anchorNode;
+    return !!(n && (n.nodeType === 1 ? n : n.parentElement).closest('a'));
+  }
+
+  function refresh() {
+    document.querySelectorAll('.rte-bar [data-cmd]').forEach(function (b) {
+      var c = b.getAttribute('data-cmd');
+      if (/^(bold|italic|underline|insertUnorderedList|insertOrderedList)$/.test(c)) {
+        var on = false; try { on = document.queryCommandState(c); } catch (e) {}
+        if (c === 'underline' && inLink()) on = false; // links are underlined by style, not by the U button
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
+      }
+    });
+    var blk = currentBlock();
+    var t = blk ? blk.tagName.toLowerCase() : 'p';
+    blockSel.value = /^h[234]$/.test(t) ? t : 'p';
+    var q = document.querySelector('.rte-bar [data-act="quote"]');
+    var inQuote = !!(blk && blk.closest && blk.closest('blockquote'));
+    q.classList.toggle('on', inQuote);
+  }
+
+  document.querySelectorAll('.rte-bar button').forEach(function (b) {
+    b.addEventListener('mousedown', function (e) { e.preventDefault(); }); // keep the text selection
+    b.addEventListener('click', function () {
+      var cmd = b.getAttribute('data-cmd'), act = b.getAttribute('data-act');
+      if (cmd) return exec(cmd);
+      if (act === 'link') return addLink();
+      if (act === 'quote') {
+        var blk = currentBlock();
+        return exec('formatBlock', blk && blk.closest('blockquote') ? '<p>' : '<blockquote>');
+      }
+      if (act === 'clear') { exec('removeFormat'); exec('formatBlock', '<p>'); }
+    });
+  });
+
+  blockSel.addEventListener('change', function () { exec('formatBlock', '<' + blockSel.value + '>'); });
+
+  function addLink() {
+    var sel = window.getSelection();
+    var range = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+    var existing = sel.anchorNode && sel.anchorNode.parentElement && sel.anchorNode.parentElement.closest('a');
+    var url = prompt('Link address (e.g. https://wearejerseyent.com/events)', existing ? existing.getAttribute('href') : 'https://');
+    if (!url || url === 'https://') return;
+    var safe = wajSafeHref(url);
+    if (!safe) { showToast('That link address isn\'t valid — start it with https://', true); return; }
+    ed.focus();
+    if (range) { sel.removeAllRanges(); sel.addRange(range); }
+    if (sel.isCollapsed && !existing) {
+      var text = prompt('Text to show for the link', '') || safe;
+      exec('insertHTML', '<a href="' + safe.replace(/"/g, '&quot;') + '">' + wajEscape(text) + '</a>&nbsp;');
+    } else {
+      exec('createLink', safe);
+    }
+  }
+
+  ed.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); addLink(); }
+  });
+
+  // Paste: keep headings, bold, links and lists from Docs/Word; strip their styling
+  ed.addEventListener('paste', function (e) {
+    var cd = e.clipboardData || window.clipboardData;
+    if (!cd) return;
+    e.preventDefault();
+    var html = cd.getData('text/html');
+    var clean = html ? wajSanitize(html) : wajPlainToHtml(cd.getData('text/plain'));
+    document.execCommand('insertHTML', false, clean);
+  });
+
+  ed.addEventListener('keyup', refresh);
+  ed.addEventListener('mouseup', refresh);
+  document.addEventListener('selectionchange', function () {
+    if (document.activeElement === ed) refresh();
+  });
+})();
 </script>
 </body>
 </html>
