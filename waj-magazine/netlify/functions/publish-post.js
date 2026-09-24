@@ -22,6 +22,15 @@ function slugify(str) {
     .replace(/^-|-$/g, '');
 }
 
+function stripTags(html) {
+  return String(html || '')
+    .replace(/<\/(p|h[1-6]|li|blockquote)>/gi, ' ')
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ').trim();
+}
+
 async function rehostImageIfNeeded(imageUrl, GH_HEADERS) {
   if (!imageUrl) return null;
   if (imageUrl.startsWith('/assets/')) return imageUrl;
@@ -107,7 +116,7 @@ exports.handler = async (event, context) => {
         date: new Date().toISOString().split('T')[0],
         publishDate: post.publishDate || null,
         image: permanentImage || '/assets/images/Cover_2_.png',
-        summary: post.summary || post.content.slice(0, 160).replace(/\s+\S*$/, '') + '…',
+        summary: post.summary || stripTags(post.content).slice(0, 160).replace(/\s+\S*$/, '') + '…',
         content: post.content,
         featured: !!post.featured,
         status: isScheduled ? 'scheduled' : 'published',
