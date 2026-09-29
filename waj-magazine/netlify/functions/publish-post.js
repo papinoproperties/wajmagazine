@@ -1,192 +1,137 @@
-// netlify/functions/publish-post.js
-// Publishes, schedules, updates, or deletes a post in content/posts.json
-// by committing directly to GitHub. Requires GITHUB_TOKEN env var (repo scope).
-// Protected by Netlify Identity — only logged-in invited users can call this.
+const https = require('https');
 
-const REPO = 'papinoproperties/wajmagazine';
-const FILE_PATH = 'waj-magazine/content/posts.json';
-const BRANCH = 'main';
-
-const CORS = {
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const OWNER = 'papinoproperties';
+const REPO  = 'wajmagazine';
+const PATH  = 'waj-magazine/content/posts.json';
+const BRANCH= 'main';
+const CORS  = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Content-Type': 'application/json',
 };
 
-function slugify(str) {
-  return str.toLowerCase().trim()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
-function stripTags(html) {
-  return String(html || '')
-    .replace(/<\/(p|h[1-6]|li|blockquote)>/gi, ' ')
-    .replace(/<br\s*\/?>/gi, ' ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ').trim();
-}
-
-async function rehostImageIfNeeded(imageUrl, GH_HEADERS) {
-  if (!imageUrl) return null;
-  if (imageUrl.startsWith('/assets/')) return imageUrl;
-  if (!imageUrl.startsWith('http')) return imageUrl;
-  try {
-    const imgRes = await fetch(imageUrl);
-    if (!imgRes.ok) return imageUrl;
-    const buffer = await imgRes.arrayBuffer();
-    const base64 = Buffer.from(buffer).toString('base64');
-    const ct = imgRes.headers.get('content-type') || '';
-    const ext = ct.includes('png') ? 'png' : ct.includes('webp') ? 'webp' : ct.includes('gif') ? 'gif' : 'jpg';
-    const filename = `post-${Date.now()}.${ext}`;
-    const uploadPath = `waj-magazine/assets/uploads/${filename}`;
-    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${uploadPath}`, {
-      method: 'PUT',
-      headers: { ...GH_HEADERS, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Upload post image: ${filename}`, content: base64, branch: BRANCH }),
+function ghRequest(method, path, body) {
+  return new Promise((resolve, reject) => {
+    const data = body ? JSON.stringify(body) : null;
+    const options = {
+      hostname: 'api.github.com',
+      path,
+      method,
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'User-Agent': 'WAJ-Admin',
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+        ...(data ? { 'Content-Length': Buffer.byteLength(data) } : {}),
+      },
+    };
+    const req = https.request(options, res => {
+      let buf = '';
+      res.on('data', c => buf += c);
+      res.on('end', () => {
+        try { resolve({ status: res.statusCode, body: JSON.parse(buf) }); }
+        catch { resolve({ status: res.statusCode, body: buf }); }
+      });
     });
-    if (!putRes.ok) return imageUrl;
-    return `/assets/uploads/${filename}`;
-  } catch { return imageUrl; }
+    req.on('error', reject);
+    if (data) req.write(data);
+    req.end();
+  });
+}
+
+async function getFile() {
+  const r = await ghRequest('GET', `/repos/${OWNER}/${REPO}/contents/${PATH}?ref=${BRANCH}`);
+  if (r.status !== 200) throw new Error(`GitHub read failed: ${r.status}`);
+  return { sha: r.body.sha, data: JSON.parse(Buffer.from(r.body.content, 'base64').toString()) };
+}
+
+async function saveFile(data, sha, message) {
+  const content = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');
+  const r = await ghRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${PATH}`, {
+    message, content, sha, branch: BRANCH,
+  });
+  if (r.status !== 200 && r.status !== 201) throw new Error(`GitHub write failed: ${r.status} ${JSON.stringify(r.body)}`);
+  return r.body;
 }
 
 exports.handler = async (event, context) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: CORS, body: '' };
-  if (event.httpMethod !== 'POST') return { statusCode: 405, headers: CORS, body: JSON.stringify({ error: 'Method not allowed' }) };
 
   const user = context.clientContext && context.clientContext.user;
   if (!user) return { statusCode: 401, headers: CORS, body: JSON.stringify({ error: 'Not authenticated' }) };
 
-  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-  if (!GITHUB_TOKEN) return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: 'GITHUB_TOKEN not configured' }) };
-
   let body;
   try { body = JSON.parse(event.body); }
-  catch { return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Invalid request body' }) }; }
+  catch { return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
 
-  const { action, post, originalSlug } = body;
-  if (!action || !['create','update','delete'].includes(action)) {
-    return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'action must be create, update, or delete' }) };
-  }
-
-  const GH_API = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
-  const GH_HEADERS = {
-    'Authorization': `Bearer ${GITHUB_TOKEN}`,
-    'Accept': 'application/vnd.github+json',
-    'User-Agent': 'WAJ-Magazine-Publisher',
-  };
+  if (!GITHUB_TOKEN) return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: 'GITHUB_TOKEN not configured' }) };
 
   try {
-    // 1. Read current posts.json
-    const getRes = await fetch(`${GH_API}?ref=${BRANCH}`, { headers: GH_HEADERS });
-    if (!getRes.ok) {
-      const errText = await getRes.text();
-      throw new Error(`Failed to read posts.json (${getRes.status}): ${errText}`);
-    }
-    const fileData = await getRes.json();
-    const sha = fileData.sha;
-    let data = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf-8'));
-    if (!Array.isArray(data.posts)) data.posts = [];
+    const { sha, data } = await getFile();
 
-    let resultPost = null;
-    let commitMessage = '';
-
-    if (action === 'create') {
-      if (!post || !post.title || !post.content) {
-        return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'title and content are required' }) };
-      }
-      let slug = slugify(post.slug || post.title) || ('post-' + Date.now());
-      const used = new Set(data.posts.map(p => p.slug));
-      let final = slug, n = 2;
-      while (used.has(final)) { final = `${slug}-${n}`; n++; }
-
-      // Determine status based on publishDate
-      const isScheduled = post.publishDate && new Date(post.publishDate) > new Date();
-      const permanentImage = await rehostImageIfNeeded(post.image, GH_HEADERS);
-
-      resultPost = {
-        slug: final,
-        title: post.title,
-        author: post.author || 'WAJ Editorial',
-        category: post.category || 'Community',
-        date: new Date().toISOString().split('T')[0],
-        publishDate: post.publishDate || null,
-        image: permanentImage || '/assets/images/Cover_2_.png',
-        summary: post.summary || stripTags(post.content).slice(0, 160).replace(/\s+\S*$/, '') + '…',
-        content: post.content,
-        featured: !!post.featured,
-        status: isScheduled ? 'scheduled' : 'published',
-      };
-      data.posts.unshift(resultPost);
-      commitMessage = isScheduled
-        ? `Schedule post: ${resultPost.title} (${post.publishDate})`
-        : `Publish post: ${resultPost.title}`;
-
-    } else if (action === 'update') {
-      if (!originalSlug) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'originalSlug required for update' }) };
-      const idx = data.posts.findIndex(p => p.slug === originalSlug);
-      if (idx === -1) return { statusCode: 404, headers: CORS, body: JSON.stringify({ error: 'Post not found: ' + originalSlug }) };
-      const existing = data.posts[idx];
-
-      let newSlug = existing.slug;
-      if (post.slug && slugify(post.slug) !== existing.slug) {
-        const candidate = slugify(post.slug);
-        const used = new Set(data.posts.filter((_,i) => i !== idx).map(p => p.slug));
-        let final = candidate, n = 2;
-        while (used.has(final)) { final = `${candidate}-${n}`; n++; }
-        newSlug = final;
-      }
-
-      const isScheduled = post.publishDate && new Date(post.publishDate) > new Date();
-      const permanentImage = post.image ? await rehostImageIfNeeded(post.image, GH_HEADERS) : existing.image;
-
-      resultPost = {
-        ...existing,
-        slug: newSlug,
-        title: post.title || existing.title,
-        author: post.author || existing.author,
-        category: post.category || existing.category,
-        image: permanentImage || existing.image,
-        summary: post.summary || existing.summary,
-        content: post.content || existing.content,
-        featured: post.featured !== undefined ? !!post.featured : existing.featured,
-        publishDate: post.publishDate !== undefined ? (post.publishDate || null) : existing.publishDate,
-        status: isScheduled ? 'scheduled' : 'published',
-      };
-      data.posts[idx] = resultPost;
-      commitMessage = `Update post: ${resultPost.title}`;
-
-    } else if (action === 'delete') {
-      if (!originalSlug) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'originalSlug required for delete' }) };
-      const before = data.posts.length;
-      data.posts = data.posts.filter(p => p.slug !== originalSlug);
-      if (data.posts.length === before) return { statusCode: 404, headers: CORS, body: JSON.stringify({ error: 'Post not found: ' + originalSlug }) };
-      commitMessage = `Delete post: ${originalSlug}`;
+    // ── SAVE ALL (admin bulk save) ──
+    if (body.saveAll && Array.isArray(body.posts)) {
+      const newData = { posts: body.posts };
+      await saveFile(newData, sha, `Bulk save via WAJ Admin (${body.posts.length} posts) by ${user.email}`);
+      return { statusCode: 200, headers: CORS, body: JSON.stringify({ success: true }) };
     }
 
-    // 2. Commit updated file to GitHub
-    const newBase64 = Buffer.from(JSON.stringify(data, null, 2), 'utf-8').toString('base64');
-    const putRes = await fetch(GH_API, {
-      method: 'PUT',
-      headers: { ...GH_HEADERS, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: `${commitMessage} (via WAJ admin — ${user.email || 'unknown'})`,
-        content: newBase64, sha, branch: BRANCH,
-      }),
-    });
-    if (!putRes.ok) {
-      const errText = await putRes.text();
-      throw new Error(`GitHub commit failed (${putRes.status}): ${errText}`);
+    // ── SINGLE POST SAVE ──
+    const { post, originalSlug } = body;
+    if (!post || !post.slug) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'post.slug required' }) };
+
+    // Host external image locally
+    if (post.image && post.image.startsWith('http')) {
+      try {
+        const imgData = await hostImage(post.image);
+        if (imgData) post.image = imgData;
+      } catch(e) { /* keep original if hosting fails */ }
     }
 
-    return { statusCode: 200, headers: CORS, body: JSON.stringify({ success: true, action, post: resultPost }) };
+    let posts = data.posts || [];
 
-  } catch(err) {
-    console.error('publish-post error:', err.message);
-    return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: err.message }) };
+    if (originalSlug && originalSlug !== post.slug) {
+      // Slug changed — remove old entry
+      posts = posts.filter(p => p.slug !== originalSlug);
+    }
+
+    const existingIdx = posts.findIndex(p => p.slug === post.slug);
+    if (existingIdx >= 0) {
+      posts[existingIdx] = post;
+    } else {
+      posts.unshift(post);
+    }
+
+    await saveFile({ posts }, sha, `${originalSlug ? 'Update' : 'Create'} post: ${post.slug} by ${user.email}`);
+    return { statusCode: 200, headers: CORS, body: JSON.stringify({ success: true, slug: post.slug }) };
+
+  } catch(e) {
+    return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: e.message }) };
   }
 };
+
+async function hostImage(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, res => {
+      const chunks = [];
+      res.on('data', c => chunks.push(c));
+      res.on('end', async () => {
+        const buf = Buffer.concat(chunks);
+        const ext = url.split('.').pop().split('?')[0].toLowerCase() || 'jpg';
+        const fname = `post-${Date.now()}.${ext}`;
+        const content = buf.toString('base64');
+        try {
+          const r = await ghRequest('PUT', `/repos/${OWNER}/${REPO}/contents/waj-magazine/assets/uploads/${fname}`, {
+            message: `Permanently host post image: ${fname}`,
+            content,
+            branch: BRANCH,
+          });
+          if (r.status === 201 || r.status === 200) resolve(`/assets/uploads/${fname}`);
+          else resolve(null);
+        } catch { resolve(null); }
+      });
+    }).on('error', reject);
+  });
+}
