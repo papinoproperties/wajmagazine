@@ -172,6 +172,60 @@
               "done": false
             }
           ]
+        },
+        {
+          "id": "mupznageplny",
+          "name": "LesbiVeggies",
+          "type": "feature",
+          "priority": "medium",
+          "subject": "",
+          "writer": "Bridget Papino",
+          "photographer": "",
+          "dueDate": "",
+          "status": "writing",
+          "notes": "",
+          "checklist": [
+            {
+              "id": "mupzn0fa0b33",
+              "label": "Topic / angle confirmed",
+              "done": false
+            },
+            {
+              "id": "mupzn0faitfb",
+              "label": "Writer assigned",
+              "done": false
+            },
+            {
+              "id": "mupzn0faxt8t",
+              "label": "Interview scheduled",
+              "done": false
+            },
+            {
+              "id": "mupzn0faegdw",
+              "label": "Interview completed",
+              "done": false
+            },
+            {
+              "id": "mupzn0fammdr",
+              "label": "First draft submitted",
+              "done": false
+            },
+            {
+              "id": "mupzn0fazfff",
+              "label": "Photos received",
+              "done": false
+            },
+            {
+              "id": "mupzn0fao6q0",
+              "label": "Editor review complete",
+              "done": false
+            },
+            {
+              "id": "mupzn0fam2ee",
+              "label": "Final approval",
+              "done": false
+            }
+          ]
         }
       ],
       "checklist": [
