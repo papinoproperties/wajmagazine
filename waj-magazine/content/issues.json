@@ -10,7 +10,62 @@
       "coverPhotographer": "",
       "status": "planning",
       "notes": "",
-      "features": [],
+      "features": [
+        {
+          "id": "mupzlq3jjy10",
+          "name": "Cover Story - Connie Diamond",
+          "type": "feature",
+          "priority": "high",
+          "subject": "Connie Diamond",
+          "writer": "Minnee Martinez",
+          "photographer": "",
+          "dueDate": "",
+          "status": "writing",
+          "notes": "",
+          "checklist": [
+            {
+              "id": "mupzl92z8eef",
+              "label": "Topic / angle confirmed",
+              "done": false
+            },
+            {
+              "id": "mupzl92zknp2",
+              "label": "Writer assigned",
+              "done": false
+            },
+            {
+              "id": "mupzl92z6ch4",
+              "label": "Interview scheduled",
+              "done": false
+            },
+            {
+              "id": "mupzl92zh8gr",
+              "label": "Interview completed",
+              "done": false
+            },
+            {
+              "id": "mupzl92zm4dr",
+              "label": "First draft submitted",
+              "done": false
+            },
+            {
+              "id": "mupzl92zvzcq",
+              "label": "Photos received",
+              "done": false
+            },
+            {
+              "id": "mupzl92zbc97",
+              "label": "Editor review complete",
+              "done": false
+            },
+            {
+              "id": "mupzl92za6f5",
+              "label": "Final approval",
+              "done": false
+            }
+          ]
+        }
+      ],
       "checklist": [
         {
           "id": "mupzl4s391op",
