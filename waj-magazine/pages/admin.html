@@ -146,6 +146,54 @@ select:focus{border-color:var(--cr);}
 #dashboard{display:none;width:100%;}
 .settings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
 .status-guide{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+
+/* ── ISSUE MANAGEMENT ── */
+.issue-board{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:20px;}
+.issue-card{background:#fff;border:1px solid var(--bd);border-top:4px solid var(--cr);padding:20px;cursor:pointer;transition:box-shadow .15s;position:relative;}
+.issue-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.issue-num{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cr);margin-bottom:4px;}
+.issue-title{font-family:var(--fh);font-size:22px;letter-spacing:.04em;margin-bottom:4px;}
+.issue-theme{font-size:12px;color:#888;margin-bottom:12px;}
+.progress-bar{background:#F0F0F4;height:8px;border-radius:4px;overflow:hidden;margin:10px 0 4px;}
+.progress-fill{height:100%;background:var(--cr);border-radius:4px;transition:width .3s;}
+.progress-label{font-size:10px;color:#888;font-weight:600;}
+.issue-meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);}
+.issue-meta{font-size:11px;color:#888;}
+.issue-meta strong{color:var(--dk);}
+.feat-table{width:100%;border-collapse:collapse;}
+.feat-table th{background:var(--lt);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#666;padding:9px 12px;text-align:left;border-bottom:2px solid var(--bd);}
+.feat-table td{padding:10px 12px;border-bottom:1px solid #F0F0F0;font-size:13px;vertical-align:middle;}
+.feat-table tr:hover td{background:#FAFAFA;}
+.feat-table tr:last-child td{border-bottom:none;}
+.priority-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;}
+.p-high{background:#EF4444;}.p-medium{background:#F59E0B;}.p-low{background:#10B981;}
+.checklist-wrap{display:flex;flex-direction:column;gap:5px;margin-top:6px;}
+.chk-item{display:flex;align-items:center;gap:8px;font-size:12px;color:#555;padding:3px 0;}
+.chk-item input[type=checkbox]{accent-color:var(--cr);width:14px;height:14px;cursor:pointer;flex-shrink:0;}
+.chk-item.done span{text-decoration:line-through;color:#aaa;}
+.issue-detail-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.back-btn{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--cr);cursor:pointer;margin-bottom:16px;padding:0;}
+.back-btn:hover{opacity:.8;}
+.two-col{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start;}
+.issue-checklist-panel{}
+.modal-lg{max-width:680px;}
+.feat-type-badge{display:inline-block;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;}
+.ft-cover{background:#FEE2E2;color:#7A0000;}.ft-feature{background:#DBEAFE;color:#1D4ED8;}
+.ft-column{background:#D1FAE5;color:#065F46;}.ft-ad{background:#FEF3C7;color:#D97706;}
+.ft-editorial{background:#EDE9FE;color:#7C3AED;}.ft-spotlight{background:#F3F4F6;color:#374151;}
+.feat-status-sel{padding:4px 8px;font-size:11px;border:1px solid var(--bd);font-family:var(--fb);cursor:pointer;outline:none;}
+.feat-status-sel:focus{border-color:var(--cr);}
+.add-chk-row{display:flex;gap:7px;margin-top:8px;}
+.add-chk-row input{flex:1;padding:7px 10px;border:1px solid var(--bd);font-size:12px;font-family:var(--fb);outline:none;}
+.add-chk-row input:focus{border-color:var(--cr);}
+.issue-status-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px;}
+.is-badge{padding:5px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--bd);cursor:pointer;font-family:var(--fb);}
+.is-badge.active-planning{border-color:#6C63FF;background:#EDE9FE;color:#6C63FF;}
+.is-badge.active-in-progress{border-color:#F59E0B;background:#FEF3C7;color:#D97706;}
+.is-badge.active-final-review{border-color:#3B82F6;background:#DBEAFE;color:#1D4ED8;}
+.is-badge.active-ready{border-color:#10B981;background:#D1FAE5;color:#065F46;}
+.is-badge.active-published{border-color:#7A0000;background:#FEE2E2;color:#7A0000;}
+
 </style>
 </head>
 <body>
@@ -172,6 +220,7 @@ select:focus{border-color:var(--cr);}
     <div class="sb-sect">Manage</div>
     <div class="sb-item" id="nav-scheduled" onclick="showSec('s-scheduled')"><span>🗓</span> Scheduled <span class="sb-badge" id="b-sched">0</span></div>
     <div class="sb-item" id="nav-trash" onclick="showSec('s-trash')"><span>🗑</span> Trash <span class="sb-badge" id="b-trash">0</span></div>
+    <div class="sb-item" id="nav-issues" onclick="showSec('s-issues')"><span>📋</span> Magazine Issues <span class="sb-badge" id="b-issues">0</span></div>
     <div class="sb-sect">System</div>
     <div class="sb-item" id="nav-settings" onclick="showSec('s-settings')"><span>⚙️</span> Settings</div>
   </nav>
@@ -433,6 +482,210 @@ select:focus{border-color:var(--cr);}
 </div><!-- main -->
 </div><!-- dashboard -->
 
+
+<!-- ISSUES -->
+<section id="s-issues" style="display:none;">
+  <div id="issues-board-view">
+    <div class="sl">Magazine Issues</div>
+    <div class="sl-sub">Plan, track, and manage upcoming magazine issues and their features.</div>
+    <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="openNewIssue()">+ New Issue</button>
+      <select id="issue-filter-status" onchange="renderIssueBoard()" style="padding:8px 12px;border:1px solid var(--bd);font-size:12px;font-family:var(--fb);background:#fff;">
+        <option value="">All Issues</option>
+        <option value="planning">Planning</option>
+        <option value="in-progress">In Progress</option>
+        <option value="final-review">Final Review</option>
+        <option value="ready">Ready to Print</option>
+        <option value="published">Published</option>
+      </select>
+    </div>
+    <div class="issue-board" id="issue-board"></div>
+    <div id="issue-board-empty" class="empty-state" style="display:none;">
+      <div class="ei">📋</div>
+      <p>No issues yet. Click <strong>+ New Issue</strong> to start planning your next magazine.</p>
+    </div>
+  </div>
+
+  <!-- ISSUE DETAIL VIEW -->
+  <div id="issue-detail-view" style="display:none;">
+    <div class="back-btn" onclick="showIssueBoard()">← Back to All Issues</div>
+
+    <!-- Issue header -->
+    <div class="issue-detail-header">
+      <div>
+        <div class="issue-num" id="det-num">ISSUE —</div>
+        <div style="font-family:var(--fh);font-size:38px;letter-spacing:.04em;" id="det-title">Issue Title</div>
+        <div style="font-size:14px;color:#888;margin-top:2px;" id="det-theme">Theme</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-secondary btn-sm" onclick="editIssue(currentIssueId)">✏️ Edit Issue</button>
+        <button class="btn btn-primary btn-sm" onclick="openNewFeature(currentIssueId)">+ Add Feature</button>
+        <button class="btn btn-danger btn-sm" onclick="confirmDeleteIssue(currentIssueId)">Delete Issue</button>
+      </div>
+    </div>
+
+    <!-- Issue status selector -->
+    <div class="issue-status-bar" id="det-status-bar"></div>
+
+    <div class="two-col">
+      <!-- Features table -->
+      <div>
+        <div class="panel" style="padding:0;">
+          <div class="panel-header">
+            <span class="panel-title">Features & Content</span>
+            <span id="det-feat-count" style="font-size:11px;color:#888;"></span>
+          </div>
+          <table class="feat-table" id="feat-table">
+            <thead>
+              <tr>
+                <th style="width:16px;"></th>
+                <th>Feature / Content</th>
+                <th>Type</th>
+                <th>Writer</th>
+                <th>Status</th>
+                <th>Due</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="feat-tbody"></tbody>
+          </table>
+          <div id="feat-empty" class="empty-state" style="display:none;"><div class="ei">📄</div><p>No features added yet.</p></div>
+        </div>
+      </div>
+
+      <!-- Issue sidebar -->
+      <div>
+        <!-- Progress -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">Issue Progress</span></div>
+          <div class="panel-body">
+            <div class="progress-bar"><div class="progress-fill" id="det-progress" style="width:0%"></div></div>
+            <div class="progress-label" id="det-progress-label">0% complete</div>
+            <div style="margin-top:14px;font-size:11px;color:#888;">
+              <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #F0F0F0;"><span>Publication Date</span><strong id="det-pubdate">—</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #F0F0F0;"><span>Features Ready</span><strong id="det-feat-ready">0 / 0</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:4px 0;"><span>Checklist</span><strong id="det-chk-done">0 / 0</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication Checklist -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Publication Checklist</span>
+            <button class="btn btn-secondary btn-sm" onclick="addIssueChecklistItem(currentIssueId)" style="font-size:9px;padding:3px 8px;">+ Add</button>
+          </div>
+          <div class="panel-body">
+            <div class="checklist-wrap" id="issue-checklist"></div>
+            <div class="add-chk-row" id="new-chk-row" style="display:none;">
+              <input type="text" id="new-chk-input" placeholder="Add checklist item…" onkeydown="if(event.key==='Enter')saveNewIssueChk()"/>
+              <button class="btn btn-primary btn-sm" onclick="saveNewIssueChk()">Add</button>
+              <button class="btn btn-secondary btn-sm" onclick="cancelNewIssueChk()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Internal Notes -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">Issue Notes</span></div>
+          <div class="panel-body">
+            <textarea id="issue-notes-field" rows="4" style="width:100%;padding:8px;border:1px solid var(--bd);font-family:var(--fb);font-size:12px;outline:none;resize:vertical;" placeholder="Internal notes about this issue…" oninput="scheduleIssueNotesSave()"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ISSUE MODAL (new/edit issue) -->
+<div class="modal-overlay" id="issue-modal">
+  <div class="modal modal-lg">
+    <h3 id="issue-modal-title">New Magazine Issue</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+      <div class="field"><label>Issue Number *</label><input type="text" id="im-num" placeholder="e.g. 043"/></div>
+      <div class="field"><label>Issue Title *</label><input type="text" id="im-title" placeholder="e.g. Spring 2027"/></div>
+      <div class="field"><label>Theme / Focus</label><input type="text" id="im-theme" placeholder="e.g. Community Voices"/></div>
+      <div class="field"><label>Publication Date</label><input type="date" id="im-pubdate"/></div>
+      <div class="field"><label>Cover Subject</label><input type="text" id="im-cover" placeholder="e.g. DJ Smallz 732"/></div>
+      <div class="field"><label>Cover Photographer</label><input type="text" id="im-photo" placeholder="Photographer name"/></div>
+    </div>
+    <div class="field"><label>Status</label>
+      <select id="im-status">
+        <option value="planning">📋 Planning</option>
+        <option value="in-progress">🔄 In Progress</option>
+        <option value="final-review">🔍 Final Review</option>
+        <option value="ready">✅ Ready to Print</option>
+        <option value="published">🟢 Published</option>
+      </select>
+    </div>
+    <div class="field"><label>Internal Notes</label><textarea id="im-notes" rows="2" style="width:100%;padding:8px;border:1px solid var(--bd);font-family:var(--fb);font-size:13px;outline:none;" placeholder="Any notes about this issue…"></textarea></div>
+    <input type="hidden" id="im-id"/>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeIssueModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveIssue()">Save Issue</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURE MODAL (new/edit feature) -->
+<div class="modal-overlay" id="feat-modal">
+  <div class="modal modal-lg">
+    <h3 id="feat-modal-title">Add Feature</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+      <div class="field" style="grid-column:1/-1;"><label>Feature Name *</label><input type="text" id="fm-name" placeholder="e.g. Cover Story: DJ Smallz 732 — The Evolution"/></div>
+      <div class="field"><label>Content Type</label>
+        <select id="fm-type">
+          <option value="cover">Cover Story</option>
+          <option value="feature">Feature Article</option>
+          <option value="spotlight">Spotlight</option>
+          <option value="column">Column</option>
+          <option value="editorial">Editorial</option>
+          <option value="ad">Advertisement</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field"><label>Priority</label>
+        <select id="fm-priority">
+          <option value="high">🔴 High</option>
+          <option value="medium" selected>🟡 Medium</option>
+          <option value="low">🟢 Low</option>
+        </select>
+      </div>
+      <div class="field"><label>Subject / Person</label><input type="text" id="fm-subject" placeholder="Name or topic"/></div>
+      <div class="field"><label>Writer / Author</label><input type="text" id="fm-writer" placeholder="Assigned writer"/></div>
+      <div class="field"><label>Photographer</label><input type="text" id="fm-photographer" placeholder="Photographer (if applicable)"/></div>
+      <div class="field"><label>Due Date</label><input type="date" id="fm-due"/></div>
+      <div class="field"><label>Status</label>
+        <select id="fm-status">
+          <option value="idea">💡 Idea</option>
+          <option value="assigned">📌 Assigned</option>
+          <option value="writing" selected>✏️ Writing</option>
+          <option value="photography">📸 Photography</option>
+          <option value="editing">👁 Editing</option>
+          <option value="design">🎨 Design/Layout</option>
+          <option value="approved">✅ Approved</option>
+          <option value="ready">🟢 Ready</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="fm-notes" rows="2" style="width:100%;padding:8px;border:1px solid var(--bd);font-family:var(--fb);font-size:13px;outline:none;" placeholder="Any notes about this feature…"></textarea></div>
+
+    <!-- Feature checklist -->
+    <div style="margin-top:6px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-bottom:8px;">Feature Checklist</div>
+      <div class="checklist-wrap" id="fm-checklist"></div>
+      <button class="btn btn-secondary btn-sm" onclick="addFeatChkItem()" style="margin-top:8px;">+ Add Checklist Item</button>
+    </div>
+
+    <input type="hidden" id="fm-id"/>
+    <input type="hidden" id="fm-issue-id"/>
+    <div class="modal-actions" style="margin-top:18px;">
+      <button class="btn btn-secondary" onclick="closeFeatModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveFeature()">Save Feature</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <h3 id="m-title">Confirm</h3>
@@ -476,6 +729,7 @@ async function boot(user){
   initQuill();
   await loadPosts();
   loadSubs();
+  loadIssues();
   restoreAS();
   const dateEl = document.getElementById('s-date');
   if(dateEl) dateEl.min = new Date().toISOString().split('T')[0];
@@ -940,6 +1194,491 @@ async function loadSubs(){
 function updStage(id,stage,btn){btn.closest('.sub-card').querySelectorAll('.st-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');showToast(`Stage: "${stage}"`);}
 function convDraft(id){showSec('s-editor');resetEditor();document.getElementById('p-status').value='draft';showToast('Opened as new draft — fill in details and save','success');}
 async function delSub(id){try{await fetch('/.netlify/functions/delete-submission',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},body:JSON.stringify({id})});document.getElementById('sub-'+id)?.remove();showToast('Submission deleted','success');}catch(e){showToast('Delete failed','error');}}
+
+
+// ═══════════════════════════════════════════
+// ISSUE MANAGEMENT
+// ═══════════════════════════════════════════
+let allIssues = [], currentIssueId = null, notesSaveTimer = null;
+
+const ISSUE_STATUSES = [
+  { v:'planning',     l:'📋 Planning',       cls:'active-planning' },
+  { v:'in-progress',  l:'🔄 In Progress',    cls:'active-in-progress' },
+  { v:'final-review', l:'🔍 Final Review',   cls:'active-final-review' },
+  { v:'ready',        l:'✅ Ready to Print', cls:'active-ready' },
+  { v:'published',    l:'🟢 Published',      cls:'active-published' },
+];
+
+const FEAT_STATUSES = {
+  idea:'💡 Idea', assigned:'📌 Assigned', writing:'✏️ Writing',
+  photography:'📸 Photography', editing:'👁 Editing',
+  design:'🎨 Design', approved:'✅ Approved', ready:'🟢 Ready',
+};
+
+const FEAT_TYPES = {
+  cover:'cover', feature:'feature', spotlight:'spotlight',
+  column:'column', editorial:'editorial', ad:'ad', other:'spotlight',
+};
+
+const DEFAULT_FEAT_CHECKLIST = [
+  'Topic / angle confirmed',
+  'Writer assigned',
+  'Interview scheduled',
+  'Interview completed',
+  'First draft submitted',
+  'Photos received',
+  'Editor review complete',
+  'Final approval',
+];
+
+const DEFAULT_ISSUE_CHECKLIST = [
+  'Cover concept approved',
+  'All features submitted',
+  'Photography complete',
+  'Copy editing complete',
+  'Layout / design complete',
+  'Print proof reviewed',
+  'Digital PDF ready',
+  'Sent to printer',
+];
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+// ── LOAD ──
+async function loadIssues() {
+  try {
+    const r = await fetch('/.netlify/functions/manage-issues', {
+      headers: { 'Authorization': `Bearer ${authToken}` }
+    });
+    const d = await r.json();
+    allIssues = d.issues || [];
+    document.getElementById('b-issues').textContent = allIssues.filter(i => i.status !== 'published').length;
+    renderIssueBoard();
+  } catch(e) {
+    showToast('Could not load issues', 'error');
+  }
+}
+
+// ── SAVE ALL ──
+async function saveIssues(silent) {
+  try {
+    const r = await fetch('/.netlify/functions/manage-issues', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+      body: JSON.stringify({ saveAll: true, issues: allIssues })
+    });
+    if (!r.ok) throw new Error('Save failed');
+    if (!silent) showToast('Issue saved ✓', 'success');
+    document.getElementById('b-issues').textContent = allIssues.filter(i => i.status !== 'published').length;
+  } catch(e) {
+    showToast('Could not save issues — check connection', 'error');
+  }
+}
+
+// ── BOARD VIEW ──
+function renderIssueBoard() {
+  const filter = document.getElementById('issue-filter-status')?.value || '';
+  const shown  = filter ? allIssues.filter(i => i.status === filter) : allIssues;
+  const board  = document.getElementById('issue-board');
+  const empty  = document.getElementById('issue-board-empty');
+  if (!shown.length) { board.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  board.innerHTML = shown.map(issue => {
+    const total = issue.features?.length || 0;
+    const ready = issue.features?.filter(f => f.status === 'ready' || f.status === 'approved').length || 0;
+    const chkTotal = issue.checklist?.length || 0;
+    const chkDone  = issue.checklist?.filter(c => c.done).length || 0;
+    const pct = total + chkTotal > 0 ? Math.round(((ready + chkDone) / (total + chkTotal)) * 100) : 0;
+    const statusLabel = ISSUE_STATUSES.find(s => s.v === issue.status)?.l || issue.status;
+
+    return `<div class="issue-card" onclick="openIssueDetail('${issue.id}')">
+      <div style="position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;color:#888;">${statusLabel}</div>
+      <div class="issue-num">ISSUE ${issue.number || '—'}</div>
+      <div class="issue-title">${issue.title}</div>
+      <div class="issue-theme">${issue.theme || 'No theme set'}</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${pct}% complete · ${ready}/${total} features ready</div>
+      <div class="issue-meta-row">
+        ${issue.pubDate ? `<div class="issue-meta">📅 <strong>${new Date(issue.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</strong></div>` : ''}
+        ${issue.coverSubject ? `<div class="issue-meta">⭐ <strong>${issue.coverSubject}</strong></div>` : ''}
+        <div class="issue-meta">✅ ${chkDone}/${chkTotal} checklist</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── ISSUE DETAIL ──
+function openIssueDetail(id) {
+  currentIssueId = id;
+  const issue = allIssues.find(i => i.id === id);
+  if (!issue) return;
+
+  document.getElementById('issues-board-view').style.display = 'none';
+  document.getElementById('issue-detail-view').style.display = 'block';
+
+  document.getElementById('det-num').textContent = `ISSUE ${issue.number || '—'}`;
+  document.getElementById('det-title').textContent = issue.title;
+  document.getElementById('det-theme').textContent = issue.theme || '';
+  document.getElementById('det-pubdate').textContent = issue.pubDate
+    ? new Date(issue.pubDate).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})
+    : '—';
+
+  // Notes
+  document.getElementById('issue-notes-field').value = issue.notes || '';
+
+  // Status bar
+  renderIssueStatusBar(issue);
+
+  // Features
+  renderFeatTable(issue);
+
+  // Checklist
+  renderIssueChecklist(issue);
+
+  // Progress
+  updateIssueProgress(issue);
+}
+
+function showIssueBoard() {
+  document.getElementById('issues-board-view').style.display = 'block';
+  document.getElementById('issue-detail-view').style.display = 'none';
+  currentIssueId = null;
+  renderIssueBoard();
+}
+
+function renderIssueStatusBar(issue) {
+  const bar = document.getElementById('det-status-bar');
+  bar.innerHTML = '<span style="font-size:11px;font-weight:700;color:#888;margin-right:4px;">STATUS:</span>' +
+    ISSUE_STATUSES.map(s => {
+      const active = issue.status === s.v ? ` ${s.cls}` : '';
+      return `<button class="is-badge${active}" onclick="setIssueStatus('${issue.id}','${s.v}')">${s.l}</button>`;
+    }).join('');
+}
+
+function setIssueStatus(id, status) {
+  const issue = allIssues.find(i => i.id === id); if (!issue) return;
+  issue.status = status;
+  renderIssueStatusBar(issue);
+  renderIssueBoard();
+  saveIssues(true);
+}
+
+// ── FEATURE TABLE ──
+function renderFeatTable(issue) {
+  const feats = issue.features || [];
+  const tbody = document.getElementById('feat-tbody');
+  const empty = document.getElementById('feat-empty');
+  document.getElementById('det-feat-count').textContent = `${feats.length} item${feats.length!==1?'s':''}`;
+  const ready = feats.filter(f=>f.status==='ready'||f.status==='approved').length;
+  document.getElementById('det-feat-ready').textContent = `${ready} / ${feats.length}`;
+
+  if (!feats.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  tbody.innerHTML = feats.map(f => {
+    const prCls = {high:'p-high',medium:'p-medium',low:'p-low'}[f.priority]||'p-medium';
+    const typeCls = `ft-${FEAT_TYPES[f.type]||'spotlight'}`;
+    const typeLabel = {cover:'Cover',feature:'Feature',spotlight:'Spotlight',column:'Column',editorial:'Editorial',ad:'Ad',other:'Other'}[f.type]||f.type;
+    const chkDone = f.checklist?.filter(c=>c.done).length||0;
+    const chkTotal = f.checklist?.length||0;
+    return `<tr>
+      <td><span class="priority-dot ${prCls}" title="${f.priority} priority"></span></td>
+      <td>
+        <div style="font-weight:600;">${f.name}</div>
+        ${f.subject ? `<div style="font-size:11px;color:#888;">${f.subject}</div>` : ''}
+        ${chkTotal ? `<div style="font-size:10px;color:#aaa;margin-top:2px;">${chkDone}/${chkTotal} checklist</div>` : ''}
+      </td>
+      <td><span class="feat-type-badge ${typeCls}">${typeLabel}</span></td>
+      <td style="font-size:12px;">${f.writer||'—'}</td>
+      <td>
+        <select class="feat-status-sel" onchange="updateFeatStatus('${issue.id}','${f.id}',this.value)">
+          ${Object.entries(FEAT_STATUSES).map(([v,l])=>`<option value="${v}" ${f.status===v?'selected':''}>${l}</option>`).join('')}
+        </select>
+      </td>
+      <td style="font-size:11px;color:${f.dueDate&&new Date(f.dueDate)<new Date()&&f.status!=='ready'&&f.status!=='approved'?'#EF4444':'#888'};">
+        ${f.dueDate ? new Date(f.dueDate).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—'}
+      </td>
+      <td>
+        <div class="post-actions">
+          <button class="act-btn" onclick="editFeature('${issue.id}','${f.id}')">Edit</button>
+          <button class="act-btn danger" onclick="deleteFeature('${issue.id}','${f.id}')">Remove</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function updateFeatStatus(issueId, featId, status) {
+  const issue = allIssues.find(i => i.id === issueId); if (!issue) return;
+  const feat  = issue.features?.find(f => f.id === featId); if (!feat) return;
+  feat.status = status;
+  updateIssueProgress(issue);
+  renderIssueBoard();
+  saveIssues(true);
+}
+
+// ── ISSUE CHECKLIST ──
+function renderIssueChecklist(issue) {
+  const wrap = document.getElementById('issue-checklist');
+  const chks = issue.checklist || [];
+  if (!chks.length) { wrap.innerHTML='<p style="font-size:12px;color:#aaa;">No checklist items. Click + Add.</p>'; return; }
+
+  wrap.innerHTML = chks.map((c,i) => `
+    <div class="chk-item ${c.done?'done':''}">
+      <input type="checkbox" ${c.done?'checked':''} onchange="toggleIssueChk('${issue.id}',${i},this.checked)"/>
+      <span>${c.label}</span>
+      <button onclick="removeIssueChk('${issue.id}',${i})" style="background:none;border:none;color:#ccc;cursor:pointer;margin-left:auto;font-size:14px;" title="Remove">×</button>
+    </div>`).join('');
+
+  const done  = chks.filter(c=>c.done).length;
+  document.getElementById('det-chk-done').textContent = `${done} / ${chks.length}`;
+}
+
+function toggleIssueChk(issueId, idx, val) {
+  const issue = allIssues.find(i=>i.id===issueId); if(!issue) return;
+  issue.checklist[idx].done = val;
+  renderIssueChecklist(issue);
+  updateIssueProgress(issue);
+  renderIssueBoard();
+  saveIssues(true);
+}
+
+function removeIssueChk(issueId, idx) {
+  const issue = allIssues.find(i=>i.id===issueId); if(!issue) return;
+  issue.checklist.splice(idx,1);
+  renderIssueChecklist(issue);
+  updateIssueProgress(issue);
+  saveIssues(true);
+}
+
+function addIssueChecklistItem() {
+  document.getElementById('new-chk-row').style.display='flex';
+  document.getElementById('new-chk-input').focus();
+}
+function cancelNewIssueChk() { document.getElementById('new-chk-row').style.display='none'; document.getElementById('new-chk-input').value=''; }
+function saveNewIssueChk() {
+  const val = document.getElementById('new-chk-input').value.trim(); if(!val) return;
+  const issue = allIssues.find(i=>i.id===currentIssueId); if(!issue) return;
+  if(!issue.checklist) issue.checklist=[];
+  issue.checklist.push({id:uid(),label:val,done:false});
+  cancelNewIssueChk();
+  renderIssueChecklist(issue);
+  updateIssueProgress(issue);
+  renderIssueBoard();
+  saveIssues(true);
+}
+
+// ── PROGRESS ──
+function updateIssueProgress(issue) {
+  const feats = issue.features||[];
+  const chks  = issue.checklist||[];
+  const total = feats.length + chks.length;
+  const ready = feats.filter(f=>f.status==='ready'||f.status==='approved').length;
+  const done  = chks.filter(c=>c.done).length;
+  const pct   = total>0 ? Math.round(((ready+done)/total)*100) : 0;
+  const bar   = document.getElementById('det-progress');
+  const lbl   = document.getElementById('det-progress-label');
+  if(bar) bar.style.width=pct+'%';
+  if(lbl) lbl.textContent=`${pct}% complete`;
+}
+
+// ── NOTES AUTOSAVE ──
+function scheduleIssueNotesSave() {
+  clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    const issue = allIssues.find(i=>i.id===currentIssueId); if(!issue) return;
+    issue.notes = document.getElementById('issue-notes-field').value;
+    saveIssues(true);
+  }, 2000);
+}
+
+// ── NEW / EDIT ISSUE MODAL ──
+function openNewIssue() {
+  document.getElementById('issue-modal-title').textContent = 'New Magazine Issue';
+  document.getElementById('im-id').value = '';
+  ['im-num','im-title','im-theme','im-cover','im-photo','im-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('im-pubdate').value='';
+  document.getElementById('im-status').value='planning';
+  document.getElementById('issue-modal').classList.add('open');
+}
+
+function editIssue(id) {
+  const issue = allIssues.find(i=>i.id===id); if(!issue) return;
+  document.getElementById('issue-modal-title').textContent = 'Edit Issue';
+  document.getElementById('im-id').value     = issue.id;
+  document.getElementById('im-num').value    = issue.number||'';
+  document.getElementById('im-title').value  = issue.title||'';
+  document.getElementById('im-theme').value  = issue.theme||'';
+  document.getElementById('im-pubdate').value= issue.pubDate||'';
+  document.getElementById('im-cover').value  = issue.coverSubject||'';
+  document.getElementById('im-photo').value  = issue.coverPhotographer||'';
+  document.getElementById('im-status').value = issue.status||'planning';
+  document.getElementById('im-notes').value  = issue.notes||'';
+  document.getElementById('issue-modal').classList.add('open');
+}
+
+function closeIssueModal() { document.getElementById('issue-modal').classList.remove('open'); }
+
+function saveIssue() {
+  const title = document.getElementById('im-title').value.trim();
+  if(!title){showToast('Issue title is required','error');return;}
+  const existingId = document.getElementById('im-id').value;
+
+  if(existingId) {
+    const issue = allIssues.find(i=>i.id===existingId); if(!issue) return;
+    issue.number           = document.getElementById('im-num').value.trim();
+    issue.title            = title;
+    issue.theme            = document.getElementById('im-theme').value.trim();
+    issue.pubDate          = document.getElementById('im-pubdate').value;
+    issue.coverSubject     = document.getElementById('im-cover').value.trim();
+    issue.coverPhotographer= document.getElementById('im-photo').value.trim();
+    issue.status           = document.getElementById('im-status').value;
+    issue.notes            = document.getElementById('im-notes').value.trim();
+    issue.updatedAt        = new Date().toISOString();
+    if(currentIssueId===existingId) openIssueDetail(existingId);
+  } else {
+    const newIssue = {
+      id: uid(),
+      number: document.getElementById('im-num').value.trim(),
+      title,
+      theme:            document.getElementById('im-theme').value.trim(),
+      pubDate:          document.getElementById('im-pubdate').value,
+      coverSubject:     document.getElementById('im-cover').value.trim(),
+      coverPhotographer:document.getElementById('im-photo').value.trim(),
+      status:           document.getElementById('im-status').value,
+      notes:            document.getElementById('im-notes').value.trim(),
+      features:         [],
+      checklist:        DEFAULT_ISSUE_CHECKLIST.map(l=>({id:uid(),label:l,done:false})),
+      createdAt:        new Date().toISOString(),
+      updatedAt:        new Date().toISOString(),
+    };
+    allIssues.unshift(newIssue);
+  }
+
+  closeIssueModal();
+  renderIssueBoard();
+  saveIssues(false);
+}
+
+function confirmDeleteIssue(id) {
+  const issue = allIssues.find(i=>i.id===id); if(!issue) return;
+  document.getElementById('m-title').textContent='Delete Issue?';
+  document.getElementById('m-body').innerHTML=`"<span class="modal-hl">${issue.title}</span>" and all its features will be permanently removed.`;
+  document.getElementById('m-ok').textContent='Delete Issue';
+  document.getElementById('m-ok').onclick=()=>{closeModal();deleteIssue(id);};
+  document.getElementById('modal').classList.add('open');
+}
+
+function deleteIssue(id) {
+  allIssues = allIssues.filter(i=>i.id!==id);
+  showIssueBoard();
+  saveIssues(false);
+}
+
+// ── NEW / EDIT FEATURE MODAL ──
+let fmChecklist = [];
+
+function openNewFeature(issueId) {
+  document.getElementById('feat-modal-title').textContent='Add Feature';
+  document.getElementById('fm-id').value='';
+  document.getElementById('fm-issue-id').value=issueId;
+  ['fm-name','fm-subject','fm-writer','fm-photographer','fm-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fm-due').value='';
+  document.getElementById('fm-type').value='feature';
+  document.getElementById('fm-priority').value='medium';
+  document.getElementById('fm-status').value='writing';
+  fmChecklist = DEFAULT_FEAT_CHECKLIST.map(l=>({id:uid(),label:l,done:false}));
+  renderFmChecklist();
+  document.getElementById('feat-modal').classList.add('open');
+}
+
+function editFeature(issueId, featId) {
+  const issue = allIssues.find(i=>i.id===issueId); if(!issue) return;
+  const feat  = issue.features?.find(f=>f.id===featId); if(!feat) return;
+  document.getElementById('feat-modal-title').textContent='Edit Feature';
+  document.getElementById('fm-id').value       = featId;
+  document.getElementById('fm-issue-id').value = issueId;
+  document.getElementById('fm-name').value     = feat.name||'';
+  document.getElementById('fm-type').value     = feat.type||'feature';
+  document.getElementById('fm-priority').value = feat.priority||'medium';
+  document.getElementById('fm-subject').value  = feat.subject||'';
+  document.getElementById('fm-writer').value   = feat.writer||'';
+  document.getElementById('fm-photographer').value=feat.photographer||'';
+  document.getElementById('fm-due').value      = feat.dueDate||'';
+  document.getElementById('fm-status').value   = feat.status||'writing';
+  document.getElementById('fm-notes').value    = feat.notes||'';
+  fmChecklist = feat.checklist ? [...feat.checklist] : [];
+  renderFmChecklist();
+  document.getElementById('feat-modal').classList.add('open');
+}
+
+function closeFeatModal() { document.getElementById('feat-modal').classList.remove('open'); fmChecklist=[]; }
+
+function renderFmChecklist() {
+  const wrap = document.getElementById('fm-checklist');
+  wrap.innerHTML = fmChecklist.map((c,i) => `
+    <div class="chk-item ${c.done?'done':''}">
+      <input type="checkbox" ${c.done?'checked':''} onchange="fmChecklist[${i}].done=this.checked;renderFmChecklist()"/>
+      <span contenteditable="true" onblur="fmChecklist[${i}].label=this.textContent.trim()" style="flex:1;outline:none;min-width:100px;">${c.label}</span>
+      <button onclick="fmChecklist.splice(${i},1);renderFmChecklist()" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:14px;">×</button>
+    </div>`).join('');
+}
+
+function addFeatChkItem() {
+  fmChecklist.push({id:uid(),label:'New checklist item',done:false});
+  renderFmChecklist();
+  // Focus the new item
+  setTimeout(()=>{
+    const items=document.querySelectorAll('#fm-checklist .chk-item span');
+    if(items.length){
+      const last=items[items.length-1];
+      last.focus();
+      const range=document.createRange();range.selectNodeContents(last);
+      const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);
+    }
+  },50);
+}
+
+function saveFeature() {
+  const name = document.getElementById('fm-name').value.trim();
+  if(!name){showToast('Feature name is required','error');return;}
+  const issueId  = document.getElementById('fm-issue-id').value;
+  const existId  = document.getElementById('fm-id').value;
+  const issue    = allIssues.find(i=>i.id===issueId); if(!issue) return;
+  if(!issue.features) issue.features=[];
+
+  const featData = {
+    name,
+    type:         document.getElementById('fm-type').value,
+    priority:     document.getElementById('fm-priority').value,
+    subject:      document.getElementById('fm-subject').value.trim(),
+    writer:       document.getElementById('fm-writer').value.trim(),
+    photographer: document.getElementById('fm-photographer').value.trim(),
+    dueDate:      document.getElementById('fm-due').value,
+    status:       document.getElementById('fm-status').value,
+    notes:        document.getElementById('fm-notes').value.trim(),
+    checklist:    fmChecklist,
+  };
+
+  if(existId) {
+    const idx = issue.features.findIndex(f=>f.id===existId);
+    if(idx>=0) issue.features[idx]={...issue.features[idx],...featData};
+  } else {
+    issue.features.push({id:uid(),...featData});
+  }
+
+  closeFeatModal();
+  openIssueDetail(issueId);
+  saveIssues(false);
+}
+
+function deleteFeature(issueId, featId) {
+  const issue = allIssues.find(i=>i.id===issueId); if(!issue) return;
+  issue.features = issue.features.filter(f=>f.id!==featId);
+  openIssueDetail(issueId);
+  saveIssues(true);
+}
 
 // ── TOAST ──
 let toastTmr;
