@@ -280,6 +280,60 @@
               "done": false
             }
           ]
+        },
+        {
+          "id": "mupzoc2sr4f4",
+          "name": "Kaylee Ameri",
+          "type": "feature",
+          "priority": "medium",
+          "subject": "",
+          "writer": "Minnee Martinez",
+          "photographer": "",
+          "dueDate": "",
+          "status": "idea",
+          "notes": "",
+          "checklist": [
+            {
+              "id": "mupzo0pik6b6",
+              "label": "Topic / angle confirmed",
+              "done": false
+            },
+            {
+              "id": "mupzo0pjbnwm",
+              "label": "Writer assigned",
+              "done": false
+            },
+            {
+              "id": "mupzo0pja95q",
+              "label": "Interview scheduled",
+              "done": false
+            },
+            {
+              "id": "mupzo0pj1137",
+              "label": "Interview completed",
+              "done": false
+            },
+            {
+              "id": "mupzo0pj8ifg",
+              "label": "First draft submitted",
+              "done": false
+            },
+            {
+              "id": "mupzo0pj01wd",
+              "label": "Photos received",
+              "done": false
+            },
+            {
+              "id": "mupzo0pjda87",
+              "label": "Editor review complete",
+              "done": false
+            },
+            {
+              "id": "mupzo0pj5row",
+              "label": "Final approval",
+              "done": false
+            }
+          ]
         }
       ],
       "checklist": [
