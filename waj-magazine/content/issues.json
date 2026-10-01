@@ -1,3 +1,60 @@
 {
-  "issues": []
+  "issues": [
+    {
+      "id": "mupzl4s28miu",
+      "number": "043",
+      "title": "TBD",
+      "theme": "Heavy Hitter",
+      "pubDate": "2026-11-25",
+      "coverSubject": "",
+      "coverPhotographer": "",
+      "status": "planning",
+      "notes": "",
+      "features": [],
+      "checklist": [
+        {
+          "id": "mupzl4s391op",
+          "label": "Cover concept approved",
+          "done": false
+        },
+        {
+          "id": "mupzl4s35b3t",
+          "label": "All features submitted",
+          "done": false
+        },
+        {
+          "id": "mupzl4s3ax5q",
+          "label": "Photography complete",
+          "done": false
+        },
+        {
+          "id": "mupzl4s3383o",
+          "label": "Copy editing complete",
+          "done": false
+        },
+        {
+          "id": "mupzl4s3fghp",
+          "label": "Layout / design complete",
+          "done": false
+        },
+        {
+          "id": "mupzl4s3up0j",
+          "label": "Print proof reviewed",
+          "done": false
+        },
+        {
+          "id": "mupzl4s3k8dq",
+          "label": "Digital PDF ready",
+          "done": false
+        },
+        {
+          "id": "mupzl4s3k74c",
+          "label": "Sent to printer",
+          "done": false
+        }
+      ],
+      "createdAt": "2026-10-01T20:28:27.123Z",
+      "updatedAt": "2026-10-01T20:28:27.124Z"
+    }
+  ]
 }
