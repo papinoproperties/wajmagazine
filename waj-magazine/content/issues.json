@@ -1,6 +1,62 @@
 {
   "issues": [
     {
+      "id": "muq6mw4icg13",
+      "number": "044",
+      "title": "TBD",
+      "theme": "",
+      "pubDate": "",
+      "coverSubject": "",
+      "coverPhotographer": "",
+      "status": "planning",
+      "notes": "",
+      "features": [],
+      "checklist": [
+        {
+          "id": "muq6mw4jkl0p",
+          "label": "Cover concept approved",
+          "done": false
+        },
+        {
+          "id": "muq6mw4j771v",
+          "label": "All features submitted",
+          "done": false
+        },
+        {
+          "id": "muq6mw4j02nq",
+          "label": "Photography complete",
+          "done": false
+        },
+        {
+          "id": "muq6mw4jpvvl",
+          "label": "Copy editing complete",
+          "done": false
+        },
+        {
+          "id": "muq6mw4jic7t",
+          "label": "Layout / design complete",
+          "done": false
+        },
+        {
+          "id": "muq6mw4j2tu5",
+          "label": "Print proof reviewed",
+          "done": false
+        },
+        {
+          "id": "muq6mw4j8ps5",
+          "label": "Digital PDF ready",
+          "done": false
+        },
+        {
+          "id": "muq6mw4jl8o7",
+          "label": "Sent to printer",
+          "done": false
+        }
+      ],
+      "createdAt": "2026-10-01T23:45:46.531Z",
+      "updatedAt": "2026-10-01T23:45:46.531Z"
+    },
+    {
       "id": "mupzl4s28miu",
       "number": "043",
       "title": "TBD",
