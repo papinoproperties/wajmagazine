@@ -118,6 +118,60 @@
               "done": false
             }
           ]
+        },
+        {
+          "id": "mupzmylh1je9",
+          "name": "Lumierree",
+          "type": "feature",
+          "priority": "medium",
+          "subject": "",
+          "writer": "Minnee Martinez",
+          "photographer": "",
+          "dueDate": "",
+          "status": "writing",
+          "notes": "",
+          "checklist": [
+            {
+              "id": "mupzmadfhok7",
+              "label": "Topic / angle confirmed",
+              "done": false
+            },
+            {
+              "id": "mupzmadfdcr3",
+              "label": "Writer assigned",
+              "done": false
+            },
+            {
+              "id": "mupzmadftwxt",
+              "label": "Interview scheduled",
+              "done": false
+            },
+            {
+              "id": "mupzmadfsrsb",
+              "label": "Interview completed",
+              "done": false
+            },
+            {
+              "id": "mupzmadfj8st",
+              "label": "First draft submitted",
+              "done": false
+            },
+            {
+              "id": "mupzmadfezjj",
+              "label": "Photos received",
+              "done": false
+            },
+            {
+              "id": "mupzmadf9g84",
+              "label": "Editor review complete",
+              "done": false
+            },
+            {
+              "id": "mupzmadf59gk",
+              "label": "Final approval",
+              "done": false
+            }
+          ]
         }
       ],
       "checklist": [
