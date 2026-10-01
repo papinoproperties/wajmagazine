@@ -226,6 +226,60 @@
               "done": false
             }
           ]
+        },
+        {
+          "id": "mupznoutp4e3",
+          "name": "The Alb Chemist",
+          "type": "feature",
+          "priority": "medium",
+          "subject": "",
+          "writer": "Bridget Papino",
+          "photographer": "",
+          "dueDate": "",
+          "status": "writing",
+          "notes": "",
+          "checklist": [
+            {
+              "id": "mupznbyvn64d",
+              "label": "Topic / angle confirmed",
+              "done": false
+            },
+            {
+              "id": "mupznbyv55ug",
+              "label": "Writer assigned",
+              "done": false
+            },
+            {
+              "id": "mupznbyvxrdj",
+              "label": "Interview scheduled",
+              "done": false
+            },
+            {
+              "id": "mupznbyvepts",
+              "label": "Interview completed",
+              "done": false
+            },
+            {
+              "id": "mupznbyvxnnh",
+              "label": "First draft submitted",
+              "done": false
+            },
+            {
+              "id": "mupznbyvs2uz",
+              "label": "Photos received",
+              "done": false
+            },
+            {
+              "id": "mupznbyvu9hg",
+              "label": "Editor review complete",
+              "done": false
+            },
+            {
+              "id": "mupznbyvfkms",
+              "label": "Final approval",
+              "done": false
+            }
+          ]
         }
       ],
       "checklist": [
