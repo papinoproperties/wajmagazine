@@ -1,6 +1,31 @@
 {
   "posts": [
     {
+      "slug": "jersey-club-101-history-newark",
+      "title": "Jersey Club 101: The Sound That Started in Newark and Took Over the World",
+      "summary": "Where Jersey Club came from, what makes the sound distinct, and why it's having another viral moment — a beginner's guide to New Jersey's biggest musical export.",
+      "content": "<p><br></p>",
+      "author": "WAJ Editorial Team",
+      "category": "Music",
+      "tags": [
+        "Jersey Club history",
+        "Newark music scene",
+        "New Jersey music culture"
+      ],
+      "featured": false,
+      "image": "",
+      "altText": "",
+      "seoTitle": "Jersey Club 101: The History and Sound of Newark's Signature Genre",
+      "metaDescription": "Where Jersey Club came from, what makes the sound distinct, and why it's having another viral moment — a beginner's guide to New Jersey's biggest musical export.",
+      "focusKeyword": "what is Jersey Club music",
+      "internalNotes": "",
+      "editorialStatus": "published",
+      "status": "published",
+      "date": "2026-10-02",
+      "publishDate": null,
+      "trash": false
+    },
+    {
       "slug": "waj-admin-test-delete-me-2",
       "title": "WAJ Admin Test Post - Delete Me (Updated)",
       "summary": "",
