@@ -834,7 +834,6 @@ function doFilter(){
 }
 
 function renderTable(){
-  if(!filteredPosts.length) doFilter();
   const posts=filteredPosts.length?filteredPosts:allPosts.filter(p=>!p.trash);
   const total=posts.length, start=(curPage-1)*PER_PAGE, page=posts.slice(start,start+PER_PAGE);
   document.getElementById('cnt-count').textContent=`${total} post${total!==1?'s':''} found`;
@@ -954,8 +953,8 @@ async function submitPost(){
     metaDescription:document.getElementById('p-meta-desc').value.trim(),
     focusKeyword:document.getElementById('p-keyword').value.trim(),
     internalNotes:document.getElementById('p-notes').value.trim(),
-    editorialStatus:editStatus,
-    status:publishDate?'published':(editStatus==='published'?'published':editStatus),
+    editorialStatus:pubMd==='now'?'published':editStatus,
+    status:publishDate?'published':'published',
     date:new Date().toISOString().split('T')[0],
     publishDate:publishDate||null,
     trash:false,
@@ -1133,8 +1132,15 @@ function setPub(mode){
   document.getElementById('pb-sched').classList.toggle('active',mode==='sched');
   document.getElementById('s-picker').style.display=mode==='sched'?'block':'none';
   const btn=document.getElementById('pub-btn'), orig=document.getElementById('orig-slug').value;
-  if(mode==='sched'){btn.textContent='🗓 Schedule Post';btn.style.background='#E65100';}
-  else{btn.textContent=orig?'Save Changes':'Publish Now';btn.style.background='';document.getElementById('pub-dt').value='';}
+  if(mode==='sched'){
+    btn.textContent='🗓 Schedule Post';btn.style.background='#E65100';
+  } else {
+    btn.textContent=orig?'Save Changes':'Publish Now';btn.style.background='';
+    document.getElementById('pub-dt').value='';
+    // Auto-set dropdown to Published so it's visually in sync
+    const sel=document.getElementById('p-status');
+    if(sel && sel.value!=='published') sel.value='published';
+  }
 }
 function qSched(days,hour){const d=new Date();d.setDate(d.getDate()+days);document.getElementById('s-date').value=d.toISOString().split('T')[0];document.getElementById('s-time').value=String(hour).padStart(2,'0')+':00';upSchedPrev();}
 function qSchedMon(hour){const d=new Date(),day=d.getDay(),diff=day===1?7:(8-day)%7||7;d.setDate(d.getDate()+diff);document.getElementById('s-date').value=d.toISOString().split('T')[0];document.getElementById('s-time').value=String(hour).padStart(2,'0')+':00';upSchedPrev();}
