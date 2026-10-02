@@ -1,6 +1,27 @@
 {
   "posts": [
     {
+      "slug": "waj-admin-test-delete-me-2",
+      "title": "WAJ Admin Test Post - Delete Me",
+      "summary": "",
+      "content": "<p>This is a disposable test post created to verify the admin publish pipeline. Safe to delete.</p>",
+      "author": "WAJ Editorial",
+      "category": "Music",
+      "tags": [],
+      "featured": false,
+      "image": "",
+      "altText": "",
+      "seoTitle": "",
+      "metaDescription": "",
+      "focusKeyword": "",
+      "internalNotes": "",
+      "editorialStatus": "published",
+      "status": "published",
+      "date": "2026-10-02",
+      "publishDate": null,
+      "trash": false
+    },
+    {
       "slug": "how-to-start-a-small-business-in-new-jersey",
       "title": "How to Start a Small Business in New Jersey: A Complete 2026 Guide",
       "summary": "A step-by-step guide to starting a small business in New Jersey in 2026 — registration, funding, grants, and free state resources, explained clearly.",
