@@ -2,9 +2,9 @@
   "posts": [
     {
       "slug": "waj-admin-test-delete-me-2",
-      "title": "WAJ Admin Test Post - Delete Me",
+      "title": "WAJ Admin Test Post - Delete Me (Updated)",
       "summary": "",
-      "content": "<p>This is a disposable test post created to verify the admin publish pipeline. Safe to delete.</p>",
+      "content": "<p><br></p>",
       "author": "WAJ Editorial",
       "category": "Music",
       "tags": [],
