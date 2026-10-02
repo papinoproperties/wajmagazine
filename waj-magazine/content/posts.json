@@ -1,6 +1,31 @@
 {
   "posts": [
     {
+      "slug": "nj-neighborhoods-cultural-moment",
+      "title": "From Newark to Asbury Park: The New Jersey Neighborhoods Having a Cultural Moment",
+      "summary": "Film production, music history, and a restaurant boom are converging in specific New Jersey cities. Here's where the state's cultural energy is concentrated right now.",
+      "content": "<p><br></p>",
+      "author": "WAJ Editorial Team",
+      "category": "Culture",
+      "tags": [
+        "Newark culture scene",
+        "Asbury Park arts scene",
+        "NJ neighborhoods to visit"
+      ],
+      "featured": false,
+      "image": "",
+      "altText": "",
+      "seoTitle": "From Newark to Asbury Park: NJ Neighborhoods Having a Cultural Moment",
+      "metaDescription": "Film production, music history, and a restaurant boom are converging in specific New Jersey cities. Here's where the state's cultural energy is concentrated right now.",
+      "focusKeyword": "up and coming neighborhoods New Jersey",
+      "internalNotes": "",
+      "editorialStatus": "published",
+      "status": "published",
+      "date": "2026-10-02",
+      "publishDate": null,
+      "trash": false
+    },
+    {
       "slug": "new-jersey-film-boom-2026",
       "title": "Why Productions Are Choosing New Jersey: Inside the State's 2026 Film Boom",
       "summary": "New Jersey is emerging as a major film production hub in 2026. Here's what's driving it — the tax credit, the studio space, and what it means for local jobs.",
