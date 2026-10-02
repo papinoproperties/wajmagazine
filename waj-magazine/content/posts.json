@@ -1,6 +1,31 @@
 {
   "posts": [
     {
+      "slug": "oktoberfest-new-jersey-guide",
+      "title": "Your Guide to Oktoberfest in New Jersey",
+      "summary": "From beer gardens to brewery takeovers, here's how to find the right Oktoberfest celebration near you in New Jersey this fall.",
+      "content": "<p><br></p>",
+      "author": "WAJ Editorial Team",
+      "category": "Food",
+      "tags": [
+        "nj oktoberfest events",
+        "new jersey beer garden fall",
+        "oktoberfest near me nj"
+      ],
+      "featured": false,
+      "image": "",
+      "altText": "",
+      "seoTitle": "Your Guide to Oktoberfest in New Jersey (2026)",
+      "metaDescription": "From beer gardens to brewery takeovers, here's how to find the right Oktoberfest celebration near you in New Jersey this fall.",
+      "focusKeyword": "oktoberfest nj 2026",
+      "internalNotes": "",
+      "editorialStatus": "scheduled",
+      "status": "published",
+      "date": "2026-10-02",
+      "publishDate": "2026-10-06T09:00:00",
+      "trash": false
+    },
+    {
       "slug": "things-to-do-new-jersey-october-2026",
       "title": "Things to Do in New Jersey This October",
       "summary": "Fall festivals, farm country, foliage drives, and Halloween kickoffs — here's how to plan a full month of New Jersey weekends in October.",
