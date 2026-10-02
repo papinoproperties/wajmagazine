@@ -1,6 +1,31 @@
 {
   "posts": [
     {
+      "slug": "new-jersey-wedding-planning-guide",
+      "title": "Planning a New Jersey Wedding: A First Look at Venues, Vendors, and Budgeting",
+      "summary": "A first-look planning guide for New Jersey couples — venue types, vendor categories, budgeting basics, and seasonal timing to consider before you book.",
+      "content": "<p><br></p>",
+      "author": "WAJ Editorial Team",
+      "category": "Culture",
+      "tags": [
+        "NJ wedding venues",
+        "how much does a wedding cost in NJ",
+        "NJ wedding vendors"
+      ],
+      "featured": false,
+      "image": "",
+      "altText": "",
+      "seoTitle": "New Jersey Wedding Planning Guide: Venues, Vendors & Budgeting",
+      "metaDescription": "A first-look planning guide for New Jersey couples — venue types, vendor categories, budgeting basics, and seasonal timing to consider before you book.",
+      "focusKeyword": "New Jersey wedding planning guide",
+      "internalNotes": "",
+      "editorialStatus": "published",
+      "status": "published",
+      "date": "2026-10-02",
+      "publishDate": null,
+      "trash": false
+    },
+    {
       "slug": "how-to-find-black-owned-businesses-in-new-jersey",
       "title": "How to Find and Support Black-Owned Businesses in New Jersey",
       "summary": "A practical guide to discovering, vetting, and supporting Black-owned businesses across New Jersey — plus how to get your own business listed with WAJ.",
