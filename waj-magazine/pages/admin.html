@@ -400,10 +400,48 @@ select:focus{border-color:var(--cr);}
       <div class="sp">
         <div class="sp-h">Cover Image</div>
         <div class="sp-b">
+          <!-- Preview -->
           <div id="img-prev" style="margin-bottom:8px;"></div>
-          <input type="file" id="img-file" accept="image/*" style="display:none;" onchange="uploadImg(event)"/>
-          <button class="btn btn-secondary btn-sm" style="width:100%;margin-bottom:7px;" onclick="document.getElementById('img-file').click()">📁 Upload Image</button>
-          <div class="field"><label>Alt Text</label><input type="text" id="p-alt" placeholder="Describe the image"/></div>
+
+          <!-- Tab toggle -->
+          <div style="display:flex;gap:0;margin-bottom:10px;border:1px solid var(--bd);overflow:hidden;">
+            <button id="img-tab-upload" onclick="setImgTab('upload')"
+              style="flex:1;padding:7px 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--fb);background:var(--cr);color:#fff;transition:all .15s;">
+              📁 Upload
+            </button>
+            <button id="img-tab-url" onclick="setImgTab('url')"
+              style="flex:1;padding:7px 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--fb);background:#fff;color:#888;transition:all .15s;">
+              🔗 URL
+            </button>
+          </div>
+
+          <!-- Upload pane -->
+          <div id="img-pane-upload">
+            <input type="file" id="img-file" accept="image/*" style="display:none;" onchange="uploadImg(event)"/>
+            <button class="btn btn-secondary btn-sm" style="width:100%;margin-bottom:4px;"
+              onclick="document.getElementById('img-file').click()">Choose Image File</button>
+            <div style="font-size:10px;color:#aaa;text-align:center;">JPG, PNG, WebP · max 4MB</div>
+          </div>
+
+          <!-- URL pane -->
+          <div id="img-pane-url" style="display:none;">
+            <input type="text" id="img-url-input" placeholder="https://example.com/image.jpg"
+              style="width:100%;padding:8px 10px;border:1px solid var(--bd);font-size:12px;font-family:var(--fb);outline:none;margin-bottom:6px;"
+              oninput="previewImgUrl(this.value)"
+              onpaste="setTimeout(()=>previewImgUrl(this.value),50)"/>
+            <button class="btn btn-primary btn-sm" style="width:100%;" onclick="applyImgUrl()">Use This URL</button>
+            <div style="font-size:10px;color:#aaa;margin-top:4px;">Paste any publicly accessible image URL. It will be auto-hosted on publish.</div>
+          </div>
+
+          <!-- Clear button (shown when an image is set) -->
+          <button id="img-clear-btn" onclick="clearImg()"
+            style="display:none;width:100%;margin-top:8px;padding:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid #EF4444;color:#EF4444;background:#fff;cursor:pointer;font-family:var(--fb);">
+            ✕ Remove Image
+          </button>
+
+          <div class="field" style="margin-top:10px;"><label>Alt Text</label>
+            <input type="text" id="p-alt" placeholder="Describe the image for accessibility"/>
+          </div>
           <input type="hidden" id="p-img"/>
         </div>
       </div>
@@ -895,8 +933,7 @@ function editPost(slug){
   cc('p-seo-title','seo-cc',30,60); cc('p-meta-desc','desc-cc',120,160);
   curTags=Array.isArray(p.tags)?[...p.tags]:(p.tags?p.tags.split(',').map(t=>t.trim()):[]);
   renderTags();
-  if(p.image) document.getElementById('img-prev').innerHTML=`<img src="${p.image}" style="width:100%;border-radius:3px;margin-bottom:6px;" alt=""/>`;
-  else document.getElementById('img-prev').innerHTML='';
+  loadImgIntoPanel(p.image||'');
   if(quill){const c=p.content||p.summary||''; quill.root.innerHTML=c.startsWith('<')?c:`<p>${c}</p>`;}
   if(p.publishDate&&new Date(p.publishDate)>new Date()){
     setPub('sched');
@@ -917,8 +954,7 @@ function resetEditor(){
   document.getElementById('p-status').value='draft';
   document.getElementById('p-featured').checked=false;
   document.getElementById('slug-prev').textContent='…';
-  document.getElementById('img-prev').innerHTML='';
-  document.getElementById('p-img').value='';
+  clearImg();
   if(quill) quill.setText('');
   curTags=[]; renderTags(); setPub('now');
   document.getElementById('pub-btn').textContent='Publish Now';
@@ -1167,11 +1203,12 @@ async function uploadImg(e){
   reader.onload=async(ev)=>{
     const b64=ev.target.result.split(',')[1], ext=file.name.split('.').pop(), fname=`upload-${Date.now()}.${ext}`;
     try{
-      const r=await fetch('/.netlify/functions/upload-image',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},body:JSON.stringify({filename:fname,content:b64})});
+      const r=await fetch('/.netlify/functions/upload-image',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},body:JSON.stringify({filename:fname,contentBase64:b64})});
       let d={}; try { d=await r.json(); } catch {} if(!r.ok) throw new Error(d.error||`Upload failed (${r.status})`);
-      const path=`/assets/uploads/${fname}`;
+      const path=d.url||`/assets/uploads/${fname}`;
       document.getElementById('p-img').value=path;
       document.getElementById('img-prev').innerHTML=`<img src="${path}" style="width:100%;border-radius:3px;margin-bottom:6px;" alt=""/>`;
+      document.getElementById('img-clear-btn').style.display='block';
       showToast('Image uploaded ✓','success');
     }catch(err){showToast(err.message||'Upload failed','error');}
   };
@@ -1693,6 +1730,69 @@ function deleteFeature(issueId, featId) {
   issue.features = issue.features.filter(f=>f.id!==featId);
   openIssueDetail(issueId);
   saveIssues(true);
+}
+
+
+// ── IMAGE: tab switcher ──
+function setImgTab(tab) {
+  const isUpload = tab === 'upload';
+  document.getElementById('img-pane-upload').style.display = isUpload ? 'block' : 'none';
+  document.getElementById('img-pane-url').style.display    = isUpload ? 'none'  : 'block';
+  document.getElementById('img-tab-upload').style.background = isUpload ? 'var(--cr)' : '#fff';
+  document.getElementById('img-tab-upload').style.color     = isUpload ? '#fff'       : '#888';
+  document.getElementById('img-tab-url').style.background   = isUpload ? '#fff'       : 'var(--cr)';
+  document.getElementById('img-tab-url').style.color        = isUpload ? '#888'       : '#fff';
+  if (!isUpload) setTimeout(()=>document.getElementById('img-url-input').focus(), 50);
+}
+
+// ── IMAGE: preview a URL while typing ──
+function previewImgUrl(url) {
+  if (!url || !url.trim()) { clearImgPreview(); return; }
+  const urlTrimmed = url.trim();
+  document.getElementById('img-prev').innerHTML =
+    `<img src="${urlTrimmed}" style="width:100%;border-radius:3px;margin-bottom:6px;" alt=""
+      onerror="this.style.display='none';document.getElementById('img-url-err').style.display='block'"
+      onload="document.getElementById('img-url-err').style.display='none'"/>
+     <div id="img-url-err" style="display:none;font-size:10px;color:#EF4444;margin-bottom:4px;">⚠ Could not load image — check the URL</div>`;
+}
+
+// ── IMAGE: apply URL immediately to hidden field + preview ──
+function applyImgUrl() {
+  const url = document.getElementById('img-url-input').value.trim();
+  if (!url) { showToast('Please enter an image URL', 'error'); return; }
+  document.getElementById('p-img').value = url;
+  document.getElementById('img-clear-btn').style.display = 'block';
+  previewImgUrl(url);
+  showToast('Image URL set ✓', 'success');
+}
+
+// ── IMAGE: clear ──
+function clearImg() {
+  document.getElementById('p-img').value = '';
+  document.getElementById('img-url-input').value = '';
+  document.getElementById('img-file').value = '';
+  document.getElementById('img-clear-btn').style.display = 'none';
+  clearImgPreview();
+  showToast('Image removed', 'success');
+}
+function clearImgPreview() {
+  document.getElementById('img-prev').innerHTML = '';
+}
+
+// ── IMAGE: when editing a post, populate whichever pane matches ──
+function loadImgIntoPanel(imgValue) {
+  if (!imgValue) { clearImgPreview(); document.getElementById('img-clear-btn').style.display='none'; return; }
+  document.getElementById('p-img').value = imgValue;
+  document.getElementById('img-clear-btn').style.display = 'block';
+  document.getElementById('img-prev').innerHTML =
+    `<img src="${imgValue}" style="width:100%;border-radius:3px;margin-bottom:6px;" alt=""/>`;
+  // If it's an external URL, switch to URL tab and pre-fill
+  if (imgValue.startsWith('http')) {
+    setImgTab('url');
+    document.getElementById('img-url-input').value = imgValue;
+  } else {
+    setImgTab('upload');
+  }
 }
 
 // ── TOAST ──
