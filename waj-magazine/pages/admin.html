@@ -1090,7 +1090,23 @@ function initQuill(){
   if(quill) return;
   quill = new Quill('#quill-wrap', {
     theme:'snow', placeholder:'Write your article here…',
-    modules:{ toolbar:[[{header:[1,2,3,false]}],['bold','italic','underline','strike'],[{list:'ordered'},{list:'bullet'}],['blockquote','link','image'],['clean']] }
+    modules:{
+      toolbar:{
+        container:[[{header:[1,2,3,false]}],['bold','italic','underline','strike'],
+          [{list:'ordered'},{list:'bullet'}],['blockquote','link','image'],['clean']],
+        handlers:{
+          // Override default image handler — default embeds base64 which breaks uploads.
+          // Instead, prompt for a URL (use Cover Image panel for the featured image).
+          image: function(){
+            const url = prompt('Paste an image URL to embed in the article body. For the cover image, use the Cover Image panel on the right.')
+            if(url && url.trim()){
+              const range = quill.getSelection(true);
+              quill.insertEmbed(range ? range.index : 0, 'image', url.trim());
+            }
+          }
+        }
+      }
+    }
   });
   quill.on('text-change', ()=>{ document.getElementById('p-content').value=quill.root.innerHTML; triggerAS(); });
 }
@@ -1307,6 +1323,12 @@ async function submitPost(){
     publishDate:publishDate||null,
     trash:false,
   };
+  // Guard: warn if post content is suspiciously large (Netlify limit is 1MB)
+  const postJson = JSON.stringify({post,originalSlug:origSlug||null});
+  if(postJson.length > 900_000){
+    showToast('Post content is too large to save ('+Math.round(postJson.length/1024)+'KB). Remove any embedded images from the article body — use the Cover Image panel instead.','error');
+    return;
+  }
   const btn=document.getElementById('pub-btn');
   btn.disabled=true; btn.textContent='Saving…';
   try{
@@ -1345,17 +1367,26 @@ function closeModal(){ document.getElementById('modal').classList.remove('open')
 async function trashPost(slug){
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   p.trash=true; p.trashedAt=new Date().toISOString();
-  await saveAll(); showToast('Moved to trash','success'); renderTrash(); renderTable(); updateDash();
+  await saveSinglePost(p); showToast('Moved to trash','success'); renderTrash(); renderTable(); updateDash();
 }
 async function restorePost(slug){
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   p.trash=false; p.trashedAt=null;
-  await saveAll(); showToast('Post restored ✓','success'); renderTrash(); updateDash();
+  await saveSinglePost(p); showToast('Post restored ✓','success'); renderTrash(); updateDash();
 }
 async function permDel(slug){
   const i=allPosts.findIndex(p=>p.slug===slug); if(i===-1) return;
-  allPosts.splice(i,1);
-  await saveAll(); showToast('Permanently deleted','success'); renderTrash(); updateDash();
+  try{
+    const r=await fetch('/.netlify/functions/publish-post',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},
+      body:JSON.stringify({deleteSlug:slug})
+    });
+    let d={}; try{d=await r.json();}catch{}
+    if(!r.ok) throw new Error(d.error||`Delete failed (${r.status})`);
+    allPosts.splice(i,1);
+    showToast('Permanently deleted','success'); renderTrash(); updateDash();
+  }catch(e){ showToast(e.message||'Delete failed','error'); }
 }
 function trashFromEditor(){
   const slug=document.getElementById('orig-slug').value;
@@ -1412,18 +1443,35 @@ function dupPost(){
   editPost(copy.slug);
 }
 
+
+// ── Save a single post via the publish endpoint ──
+// Used by trash/restore to avoid sending entire allPosts array
+async function saveSinglePost(post, origSlug) {
+  const r = await fetch('/.netlify/functions/publish-post', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json', 'Authorization':`Bearer ${authToken}`},
+    body: JSON.stringify({post, originalSlug: origSlug || post.slug})
+  });
+  let d={}; try{d=await r.json();}catch{}
+  if(!r.ok) throw new Error(d.error||`Save failed (${r.status})`);
+  return d;
+}
+
 // ── SAVE ALL ──
 async function saveAll(){
   if(!authToken){ showToast('Not logged in — please refresh','error'); return; }
-  const btn = document.getElementById('pub-btn');
+  const payload = JSON.stringify({saveAll:true,posts:allPosts});
+  if(payload.length > 900_000){
+    showToast(`Bulk save payload too large (${Math.round(payload.length/1024)}KB) — use individual post saves instead`,'error');
+    return;
+  }
   try{
     const r = await fetch('/.netlify/functions/publish-post',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},
-      body:JSON.stringify({saveAll:true,posts:allPosts})
+      body:payload
     });
-    let d={};
-    try { d = await r.json(); } catch {}
+    let d={}; try { d = await r.json(); } catch {}
     if(!r.ok) throw new Error(d.error||`Save failed (${r.status})`);
     showToast(`All posts saved ✓ (${allPosts.length} posts)`,'success');
   }catch(e){
@@ -1621,6 +1669,20 @@ async function loadIssues() {
   } catch(e) {
     showToast('Could not load issues', 'error');
   }
+}
+
+
+// ── Save a single post via the publish endpoint ──
+// Used by trash/restore to avoid sending entire allPosts array
+async function saveSinglePost(post, origSlug) {
+  const r = await fetch('/.netlify/functions/publish-post', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json', 'Authorization':`Bearer ${authToken}`},
+    body: JSON.stringify({post, originalSlug: origSlug || post.slug})
+  });
+  let d={}; try{d=await r.json();}catch{}
+  if(!r.ok) throw new Error(d.error||`Save failed (${r.status})`);
+  return d;
 }
 
 // ── SAVE ALL ──
