@@ -161,6 +161,14 @@ exports.handler = async (event, context) => {
       return ok({ success: true, count: body.posts.length });
     }
 
+    // ── PERMANENT DELETE ──
+    if (body.deleteSlug) {
+      const remaining = posts.filter(p => p.slug !== body.deleteSlug);
+      if (remaining.length === posts.length) return err('Post not found: ' + body.deleteSlug, 404);
+      await writePosts(remaining, sha, `Delete post: "${body.deleteSlug}" by ${user.email}`);
+      return ok({ success: true, deleted: body.deleteSlug });
+    }
+
     // ── SINGLE POST ──
     const { post, originalSlug } = body;
     if (!post)             return err('post object is required', 400);
