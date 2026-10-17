@@ -96,3 +96,23 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[redirects]]
+  from = "/issues/honey-bxby-issue-042"
+  to = "/pages/products/honey-bxby-issue-042.html"
+  status = 200
+
+[[redirects]]
+  from = "/issues/dj-taj-issue-042"
+  to = "/pages/products/dj-taj-issue-042.html"
+  status = 200
+
+[[redirects]]
+  from = "/issues/malcolm-jenkins-foundation-issue-037"
+  to = "/pages/products/malcolm-jenkins-foundation-issue-037.html"
+  status = 200
+
+[[redirects]]
+  from = "/issues/reggie-couz-november-2020"
+  to = "/pages/products/reggie-couz-november-2020.html"
+  status = 200
