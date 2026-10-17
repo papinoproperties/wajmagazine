@@ -9,6 +9,8 @@
   let choice = storage.get(preferenceKey);
   let loaded = false;
   let enabled = false;
+  let pageVisitSent = false;
+  const eventId = () => 'waj-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
   const sentThisPage = new Set();
   function purchase(result) {
     if (!enabled || blocked() || result?.verified !== true || !/^[a-f0-9]{64}$/.test(result.event_id) || !(result.value > 0)) return;
@@ -16,7 +18,7 @@
     try { sent = JSON.parse(storage.get('waj-measured-orders') || '[]'); } catch { sent = []; }
     if (!Array.isArray(sent)) sent = [];
     if (sent.includes(result.event_id) || sentThisPage.has(result.event_id)) return;
-    const data = { event_id: result.event_id, value: result.value, currency: result.currency, order_quantity: result.quantity };
+    const data = { event_id: result.event_id, order_id: result.event_id, value: result.value, currency: result.currency, order_quantity: result.quantity };
     if (result.product_id) data.line_items = [{ product_id: result.product_id, product_quantity: result.quantity }];
     window.pintrk('track', 'checkout', data);
     sentThisPage.add(result.event_id);
@@ -37,6 +39,10 @@
       loaded = true;
     } else window.pintrk('setconsent', true);
     if (!enabled) window.pintrk('page');
+    if (!pageVisitSent) {
+      window.pintrk('track', 'pagevisit', { event_id: eventId() });
+      pageVisitSent = true;
+    }
     enabled = true;
     purchase(window.wajVerifiedPurchase);
   }
@@ -80,7 +86,7 @@
   window.addEventListener('waj:add-to-cart', event => {
     const item = event.detail;
     if (!enabled || blocked() || !item?.productId || !(item.price > 0)) return;
-    window.pintrk('track', 'addtocart', { value:item.price, currency:'USD', order_quantity:1,
+    window.pintrk('track', 'addtocart', { event_id:eventId(), value:item.price, currency:'USD', order_quantity:1,
       line_items:[{product_id:item.productId + '-' + item.type.toUpperCase(), product_price:item.price, product_quantity:1}] });
   });
 })();
