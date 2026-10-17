@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "slug": "nj-car-inspection-guide-what-to-know",
+      "title": "New Jersey Car Inspection: Everything You Need to Know",
+      "author": "WAJ Editorial Team",
+      "category": "Community",
+      "date": "2027-02-22",
+      "publishDate": "2027-02-22T09:00:00",
+      "image": "/assets/uploads/post-1792270008206.jpeg",
+      "featured": false,
+      "status": "published",
+      "editorialStatus": "published",
+      "trash": false,
+      "trashedAt": null,
+      "duplicatedFrom": null,
+      "seoTitle": "NJ Car Inspection Guide: Everything You Need to Know",
+      "metaDescription": "New Jersey requires periodic vehicle inspections. Here's everything you need to know — how often, where to go, what they check, what to do if you fail, and the fee schedule.",
+      "focusKeyword": "nj car inspection guide",
+      "tags": [
+        "NJ car inspection",
+        "New Jersey vehicle inspection",
+        "NJ MVC inspection",
+        "car inspection NJ how to",
+        "NJ inspection stations"
+      ],
+      "altText": "Car at an inspection station representing New Jersey's vehicle inspection requirement",
+      "summary": "New Jersey requires periodic vehicle inspections. Everything you need to know — how often, where to go, what they check, what to do if you fail, and fee information.",
+      "content": "<p>New Jersey requires periodic vehicle inspections as a condition of vehicle registration — a requirement that generates more searches, confusion, and frustration than almost any other state DMV function. Here's a complete, practical guide to everything you need to know about NJ car inspections.</p>\n\n<h2>How Often Does NJ Require Inspection?</h2>\n<p>New Jersey inspection requirements vary by vehicle age and type:</p>\n<p><strong>New vehicles</strong>: Vehicles in their first model year in NJ are exempt from inspection for five years from the model year. A 2024 model year vehicle (regardless of when it was actually purchased) does not require inspection until the 2029 inspection cycle.</p>\n<p><strong>Vehicles over 5 years old</strong>: Required to be inspected every two years.</p>\n<p><strong>Diesel vehicles</strong>: Required annually.</p>\n<p><strong>Commercial vehicles</strong>: Annual inspection required.</p>\n<p>The specific due date for your vehicle's inspection is printed on your registration and on the inspection sticker on your windshield. The NJ MVC sends renewal reminders, but tracking your own due date is your responsibility.</p>\n\n<h2>Where to Get Inspected in NJ</h2>\n<p>New Jersey operates state-run inspection stations — the main option for most passenger vehicles — and also allows licensed private inspection centers to perform certain types of inspections. State inspection stations are free for passenger vehicles. Private inspection centers may charge fees.</p>\n<p>State inspection station locations can be found on the NJ MVC website at nj.gov/mvc. Stations have specific hours (most run weekday business hours; some have Saturday hours) and can have variable wait times — morning arrivals at the start of the business day typically have shorter waits than afternoon arrivals. The NJ MVC app and website provide wait time estimates for state stations.</p>\n\n<h2>What Does NJ Inspect?</h2>\n<p>New Jersey's vehicle inspection checks for:</p>\n<p><strong>Emissions</strong>: New Jersey uses an OBD-II (onboard diagnostics) check for most 1996 and newer vehicles — the inspector plugs into your car's diagnostic port and reads whether your vehicle's emission systems are functioning properly. You cannot \"just clean up\" an emissions problem the day before inspection; the OBD system records readiness monitors over time, and a vehicle that recently had its battery disconnected or its check engine light cleared will show incomplete readiness monitors and may fail on that basis even if there's no actual emission problem.</p>\n<p><strong>Safety items</strong>: Lights (headlights, brake lights, turn signals), horn, wipers, tires, brakes (visual inspection), mirrors, and general structural condition.</p>\n<p><strong>Window tint</strong>: NJ has specific legal limits on window tinting — non-compliant tinting can cause an inspection failure.</p>\n\n<h2>What Happens If You Fail?</h2>\n<p>If your vehicle fails inspection, you'll receive a rejection sticker and a list of what failed. You have a specific period (typically 30 days) to repair the failed items and return for a re-inspection. The first re-inspection at a state station after a failure is free if you return to the same station. A vehicle with a rejection sticker is legally allowed to be driven to and from repair facilities and to return for re-inspection, but driving it normally is technically not permitted.</p>\n<p>The NJ Emission Repair Assistance Program (NJRAP) provides financial assistance for low-income vehicle owners who need emissions repairs to pass inspection — check the NJ MVC website for current income eligibility thresholds and benefit amounts.</p>\n\n<h2>Common Reasons NJ Cars Fail Inspection</h2>\n<p>The most common NJ inspection failures: check engine light (any active diagnostic trouble code will cause a failure), incomplete OBD readiness monitors (battery was recently disconnected), brake light or headlight failures, expired or improper window tinting, and tire tread depth below minimum requirements.</p>\n\n<h2>Frequently Asked Questions</h2>\n<p><strong>How much does NJ car inspection cost?</strong> State-run inspection stations charge no fee for passenger vehicles. Private inspection centers may charge. The NJ MVC website lists current fee information.</p>\n<p><strong>Can I drive my car if it failed NJ inspection?</strong> A vehicle with a rejection sticker can be driven to repair facilities and to return for re-inspection. Normal operation is technically not permitted until the vehicle passes.</p>\n<p><strong>Where are NJ state inspection stations?</strong> Find locations and current wait times on the NJ MVC website at nj.gov/mvc or through the NJ MVC app.</p>"
+    },
+    {
       "slug": "jersey-shore-complete-guide-new-jersey",
       "title": "The Jersey Shore: A Complete Guide to New Jersey's 130 Miles of Atlantic Coast",
       "author": "WAJ Editorial Team",
