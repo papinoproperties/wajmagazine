@@ -1263,6 +1263,7 @@
         return;
       }
       cart.push({ id, name, type, price, img, productId: productId || name });
+      window.dispatchEvent(new CustomEvent('waj:add-to-cart', { detail: { name, type, price, productId: productId || name } }));
       const btn = optionEl.querySelector('.add-btn');
       btn.classList.add('added');
       btn.textContent = '';
@@ -1530,5 +1531,6 @@
   card.scrollIntoView({block:'center'});
 })();
 </script>
+  <script src="/assets/js/pinterest-measurement.js" defer></script>
 </body>
 </html>

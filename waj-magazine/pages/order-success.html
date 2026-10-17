@@ -7,7 +7,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
-  <title>Order Confirmed | Thank You — WAJ Magazine</title>
+  <title>Checking Your Order | WAJ Magazine</title>
+  <meta name="robots" content="noindex, nofollow"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root{--crimson:#7A0000;--text:#1A1A1A;--bg:#FFFFFF;--black:#0A0A0A;--white:#FFFFFF;--font-display:'Bebas Neue',sans-serif;--font-body:'Montserrat',sans-serif;}
@@ -194,9 +195,10 @@
   <main>
     <div class="success-box">
       <div class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-      <h1>ORDER CONFIRMED!</h1>
-      <p>Thank you for your purchase. You'll receive a confirmation email shortly with your order details.</p>
-      <div class="info-box">
+      <h1 id="order-title">CHECKING YOUR ORDER</h1>
+      <p id="order-status" role="status">Please wait while we confirm your payment.</p>
+      <noscript><p>Please check your Stripe receipt or contact magazine@wearejerseyent.com to confirm your order.</p></noscript>
+      <div class="info-box" id="order-details" hidden>
         <h3>What Happens Next</h3>
         <ul>
           <li><strong>Digital issues</strong> — your download link will be sent to your email within 24 hours. Please check your spam folder if you don't see it. Questions? Email us at <a href="mailto:magazine@wearejerseyent.com" style="color:#7A0000;">magazine@wearejerseyent.com</a></li>
@@ -258,5 +260,7 @@
     // Close on escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
   </script>
+  <script src="/assets/js/verify-order.js" defer></script>
+  <script src="/assets/js/pinterest-measurement.js" defer></script>
 </body>
 </html>
