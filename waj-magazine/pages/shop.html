@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shop WAJ Magazine | Digital & Print Issues from $5.99</title>
-  <meta name="description" content="Buy any WAJ Magazine issue as a digital PDF ($5.99) or print copy ($30.99). 42+ issues featuring New Jersey's most inspiring creatives and community voices."s most inspiring creatives and community voices."/>
+  <meta name="description" content="Shop WAJ Magazine issues as digital PDFs ($5.99) or print copies ($30.99 plus shipping), featuring creatives and community voices."/>
   <meta name="robots" content="index, follow"/>
   <meta property="og:title" content="Shop WAJ Magazine | Digital & Print Issues from $5.99"/>
   <meta property="og:description" content="Buy every WAJ Magazine issue in digital PDF ($5.99) or print ($30.99). 42+ issues featuring New Jersey's most inspiring creatives and community voices."/>
-  <meta property="og:image" content="Magazine_Cover.png"/>
+  <meta property="og:image" content="https://wajmagazine.com/assets/images/Magazine_Cover.png"/>
   <meta property="og:url" content="https://wajmagazine.com/shop"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="WAJ Magazine"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Shop WAJ Magazine | Digital & Print Issues from $5.99"/>
   <meta name="twitter:description" content="Buy every WAJ Magazine issue in digital PDF ($5.99) or print ($30.99). 42+ issues featuring New Jersey's most inspiring creatives and community voices."/>
-  <meta name="twitter:image" content="Magazine_Cover.png"/>
+  <meta name="twitter:image" content="https://wajmagazine.com/assets/images/Magazine_Cover.png"/>
   <meta name="twitter:site" content="@wajmagazine"/>
   <link rel="canonical" href="https://wajmagazine.com/shop"/>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -682,12 +682,12 @@
     <div class="shop-grid" id="shopGrid">
 
       <!-- Issue 042 - Honey Bxby -->
-      <div class="shop-card" data-year="latest 2025">
+      <div class="shop-card" id="WAJ-042-HONEY-BXBY" data-year="latest 2025">
         <div class="shop-card-img">
           <img src="/assets/images/Cover_2_.png" alt="Honey Bxby WAJ Magazine Issue 042 Cover" />
         </div>
         <div class="shop-card-body">
-          <h3>HONEY BXBY</h3>
+          <h3><a href="/issues/honey-bxby-issue-042">HONEY BXBY</a></h3>
           <div class="purchase-options">
             <div class="purchase-option" onclick="addToCart(this, 'HONEY BXBY', 'digital', 5.99, 'Cover_2_.png', 'WAJ-042-HONEY-BXBY')">
               <div class="option-info">
@@ -720,12 +720,12 @@
       </div>
 
       <!-- Issue 042 - DJ Taj -->
-      <div class="shop-card" data-year="latest 2025">
+      <div class="shop-card" id="WAJ-042-DJ-TAJ" data-year="latest 2025">
         <div class="shop-card-img">
           <img src="/assets/images/Magazine_Cover.png" alt="DJ Taj WAJ Magazine Issue 042 Cover" />
         </div>
         <div class="shop-card-body">
-          <h3>DJ TAJ</h3>
+          <h3><a href="/issues/dj-taj-issue-042">DJ TAJ</a></h3>
           <div class="purchase-options">
             <div class="purchase-option" onclick="addToCart(this, 'DJ TAJ', 'digital', 5.99, 'Magazine_Cover.png', 'WAJ-042-DJ-TAJ')">
               <div class="option-info">
@@ -997,13 +997,13 @@
           </div>
         </div>
       </div>
-      <div class="shop-card" data-year="archive">
+      <div class="shop-card" id="WAJ-037-MALCOLM-JENKINS-FOUNDATION" data-year="archive">
         <div class="shop-card-img">
           <img src="/assets/images/fall2023.png" alt="Malcolm Jenkins Foundation WAJ Magazine Issue 037 Cover"/>
           
         </div>
         <div class="shop-card-body">
-          <h3>THE MALCOLM JENKINS FOUNDATION</h3>
+          <h3><a href="/issues/malcolm-jenkins-foundation-issue-037">THE MALCOLM JENKINS FOUNDATION</a></h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine Issue 037 featuring The Malcolm Jenkins Foundation — effectuating positive change in th...</p>
           <div class="purchase-options">
             <div class="purchase-option" onclick="addToCart(this, 'THE MALCOLM JENKINS FOUNDATION', 'digital', 5.99, 'fall2023.png', 'WAJ-037-MALCOLM-JENKINS-FOUNDATION')">
@@ -1107,13 +1107,13 @@
           </div>
         </div>
       </div>
-      <div class="shop-card" data-year="archive">
+      <div class="shop-card" id="WAJ-2020-NOV-REGGIE-COUZ" data-year="archive">
         <div class="shop-card-img">
           <img src="/assets/images/Nov2020.png" alt="Reggie Couz WAJ Magazine November 2020 Cover"/>
           <span class="issue-card-badge" style="background:#1A1A1A;">Best Seller</span>
         </div>
         <div class="shop-card-body">
-          <h3>REGGIE COUZ</h3>
+          <h3><a href="/issues/reggie-couz-november-2020">REGGIE COUZ</a></h3>
           <p class="subtitle" style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.5;">WAJ Magazine November 2020 featuring influencer and music artist Reggie Couz. Exclusive story by Mel...</p>
           <div class="purchase-options">
             <div class="purchase-option" onclick="addToCart(this, 'REGGIE COUZ', 'digital', 5.99, 'Nov2020.png', 'WAJ-2020-NOV-REGGIE-COUZ')">
@@ -1303,7 +1303,7 @@
           <div class="cart-item-info">
             <div class="item-name">${item.name}</div>
             <div class="item-type ${item.type}">${item.type === 'digital' ? 'Digital PDF' : 'Print Copy'}</div>
-            ${item.type === 'print' ? '<div class="item-note">+ $10.00 shipping</div>' : '<div class="item-note">Instant download</div>'}
+            ${item.type === 'print' ? '<div class="item-note">+ $10.00 shipping</div>' : '<div class="item-note">Delivered by email within 24 hours</div>'}
           </div>
           <div>
             <div class="cart-item-price">$${item.price.toFixed(2)}</div>
@@ -1512,5 +1512,23 @@
     }
   });
   </script>
+<script>
+// Keep a shared issue link focused on its product without adding anything to the cart.
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const issue = params.get('issue');
+  const card = issue && document.getElementById(issue);
+  if (!card || !card.classList.contains('shop-card')) return;
+  card.style.outline = '3px solid #7A0000';
+  card.style.outlineOffset = '8px';
+  card.style.scrollMarginTop = '100px';
+  const format = params.get('format');
+  const button = (format === 'digital' || format === 'print')
+    ? card.querySelector('.option-dot.' + format)?.closest('.purchase-option')?.querySelector('button')
+    : card.querySelector('a');
+  if (button) { button.setAttribute('aria-label', 'Add ' + card.querySelector('h3').textContent + ' ' + format + ' to cart'); button.focus({preventScroll:true}); }
+  card.scrollIntoView({block:'center'});
+})();
+</script>
 </body>
 </html>
