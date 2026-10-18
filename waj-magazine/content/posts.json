@@ -1,6 +1,34 @@
 {
   "posts": [
     {
+      "slug": "new-jersey-grocery-store-data-privacy-ban-2026",
+      "title": "NJ Just Banned Grocery Stores From Using Your Data to Set Prices. Here's What It Means.",
+      "author": "WAJ Editorial Team",
+      "category": "Community",
+      "date": "2026-10-21",
+      "publishDate": "2026-10-21T09:00:00",
+      "image": "/assets/uploads/post-1792361157881.jpeg",
+      "featured": false,
+      "status": "published",
+      "editorialStatus": "published",
+      "trash": false,
+      "trashedAt": null,
+      "duplicatedFrom": null,
+      "seoTitle": "NJ Grocery Store Data Privacy Ban 2026: What Shoppers Need to Know",
+      "metaDescription": "New Jersey banned grocery stores from using shoppers' personal data to set prices in July 2026. Here's what the law does, who it protects, and what it means for NJ consumers.",
+      "focusKeyword": "new jersey grocery store data privacy ban",
+      "tags": [
+        "NJ grocery data privacy",
+        "New Jersey consumer protection",
+        "dynamic pricing NJ",
+        "NJ grocery law 2026",
+        "NJ shopper privacy"
+      ],
+      "altText": "Grocery store aisle representing New Jersey's new ban on using customer data for dynamic pricing",
+      "summary": "New Jersey banned grocery stores from using shoppers' personal data to set prices in July 2026. Here's what the law does, who it protects, and what it means for NJ consumers.",
+      "content": "<p>New Jersey enacted a law in July 2026 prohibiting grocery stores from using shoppers' personal data to set or adjust prices — a measure that addresses the growing practice of \"dynamic pricing\" based on customer data, and that makes New Jersey one of the first states in the country to specifically regulate this practice at the grocery store level. Here's what the law does and what it means for NJ consumers.</p>\n\n<h2>What the Law Prohibits</h2>\n<p>The law bars grocery stores operating in New Jersey from using customers' personal data — information collected through loyalty card programs, apps, purchase history, location data, or any other means of individual customer identification — to set prices that differ from the prices offered to other customers at the same time. In other words: if you're a loyalty card member and the store has data indicating you're willing to pay more for a product, it cannot use that data to show you a higher price than a customer without that profile.</p>\n<p>This type of price discrimination, sometimes called \"personalized pricing\" or data-driven dynamic pricing, has become technically feasible as grocery chains have built large customer data profiles through their loyalty programs. The practice of using that data to extract higher prices from customers who appear less price-sensitive is what the New Jersey law specifically targets.</p>\n\n<h2>What the Law Does Not Prohibit</h2>\n<p>The law does not prohibit grocery stores from offering loyalty discounts or rewards — programs that give all loyalty members the same lower price on items are still permitted. The prohibition is specifically on using individual customer data to raise prices for specific customers or show different prices to different customers based on their personal data profiles. Standard weekly sales, loyalty program discounts available to all members, and bulk-buy pricing are unaffected.</p>\n<p>Dynamic pricing based on factors other than customer data — time-of-day pricing, supply and inventory adjustments, surge pricing based on demand — is a separate question not addressed by this specific law.</p>\n\n<h2>Why This Matters for NJ Shoppers</h2>\n<p>New Jersey grocery shoppers have generally not known the extent to which their loyalty card data was being used to inform pricing decisions. Grocery chains have collected extraordinarily detailed purchase histories on their loyalty members for years — data that includes what you buy, how often, in what quantities, which brands you switch between, and how you respond to price changes. The law addresses a legitimate concern that this data could be turned against the consumers who provided it in exchange for discounts.</p>\n<p>New Jersey enacted this legislation as part of a broader consumer protection posture under Governor Sherrill, who also signed legislation addressing dynamic pricing concerns in other retail categories. The grocery-specific law reflects the specific sensitivity of food costs — one of the most discussed affordability concerns among New Jersey residents — and the scale of loyalty data collection by major grocery chains.</p>\n\n<h2>Who Enforces It and What the Penalties Are</h2>\n<p>The law is enforced by the New Jersey Division of Consumer Affairs. Violations can result in penalties under the New Jersey Consumer Fraud Act, which provides for civil penalties, restitution, and attorney's fees. Consumers who believe a grocery store has violated the law can file a complaint with the Division of Consumer Affairs at njconsumeraffairs.gov.</p>\n\n<h2>Frequently Asked Questions</h2>\n<p><strong>Can NJ grocery stores still have loyalty programs?</strong> Yes — loyalty programs that offer discounts available to all members are permitted. The prohibition is specifically on using individual customer data to charge some customers more than others at the same time.</p>\n<p><strong>When did the NJ grocery data privacy law take effect?</strong> The law was enacted in July 2026. Check with the NJ Division of Consumer Affairs at njconsumeraffairs.gov for the specific effective date and enforcement guidance.</p>\n<p><strong>How do I report a violation?</strong> File a complaint with the NJ Division of Consumer Affairs at njconsumeraffairs.gov.</p>"
+    },
+    {
       "slug": "delaney-hall-newark-ice-detention-explainer",
       "title": "Delaney Hall Explained: What Newark's ICE Detention Center Is and Why It Matters",
       "author": "WAJ Editorial Team",
