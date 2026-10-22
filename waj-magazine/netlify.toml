@@ -116,3 +116,9 @@
   from = "/issues/reggie-couz-november-2020"
   to = "/pages/products/reggie-couz-november-2020.html"
   status = 200
+
+[[redirects]]
+  from = "/apparel"
+  to = "https://we-are-jersey-shop.fourthwall.com"
+  status = 302
+  force = true
