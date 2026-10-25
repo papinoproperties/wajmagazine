@@ -66,7 +66,10 @@ function main() {
   for (const post of posts) {
     try {
       const url = `${SITE}/blog/${post.slug}`;
-      const title = (post.seoTitle || '').trim() || post.title;
+      // Some saved SEO titles were cut off mid-phrase ("...Frozen: What"); use the headline instead.
+      const seo = (post.seoTitle || '').trim();
+      const looksCut = /[:,;—–-]$/.test(seo) || /\s(a|an|and|the|to|of|for|in|on|at|with|from|what|how|why|is|are|or|but|by|as|its|their|your|our)$/i.test(seo);
+      const title = (seo && !looksCut) ? seo : post.title;
       const desc = clip((post.metaDescription || '').trim() || (post.summary || '').trim() || stripHtml(post.content), 158);
       const img = abs(post.image);
       const alt = (post.altText || '').trim() || post.title;
