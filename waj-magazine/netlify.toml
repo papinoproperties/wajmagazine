@@ -1,4 +1,5 @@
 [build]
+  command = "node scripts/build-blog.mjs"
   publish = "."
   functions = "netlify/functions"
 
@@ -122,3 +123,22 @@
   to = "https://we-are-jersey-shop.fourthwall.com"
   status = 302
   force = true
+
+# Old duplicate copy of the site: send visitors and search engines to the real pages
+[[redirects]]
+  from = "/waj-magazine/*"
+  to = "/:splat"
+  status = 301
+  force = true
+
+# Article pages are generated at build time (scripts/build-blog.mjs).
+# Posts that go live between builds fall back to the dynamic article page.
+[[redirects]]
+  from = "/blog/"
+  to = "/pages/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/pages/post.html"
+  status = 200

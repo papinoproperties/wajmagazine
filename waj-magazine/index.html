@@ -349,7 +349,7 @@
       "https://www.youtube.com/wearejersey"
     ],
     "contactPoint": { "@type": "ContactPoint", "email": "magazine@wearejerseyent.com", "contactType": "editorial" },
-    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com" }
+    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com", "sameAs": ["https://www.wikidata.org/wiki/Q141844432"] }
   },
   {
     "@context": "https://schema.org",
@@ -438,6 +438,7 @@
   .nav-merch-cta{background:#7A0000!important;color:#fff!important;padding:7px 16px!important;border-radius:2px!important;font-weight:700!important;letter-spacing:.06em!important;white-space:nowrap!important;transition:background .2s,transform .15s!important;display:inline-block!important;text-decoration:none!important}
   .nav-merch-cta:hover{background:#5a0000!important;color:#fff!important;transform:translateY(-1px)!important}
 </style>
+<style>/* tighter top menu on small laptops/tablets */@media (min-width:901px) and (max-width:1280px){.nav-links{gap:14px!important}.nav-links a{letter-spacing:.08em!important}.nav-links .nav-ent{padding:8px 12px!important;white-space:nowrap}}@media (max-width:1080px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}</style>
 </head>
 <body>
 
@@ -736,7 +737,7 @@
         const rest = posts.slice(1, 4);
 
         const featuredHtml = `
-          <a href="/post?slug=${featured.slug}" style="display:block;overflow:hidden;border:1px solid #E0E0E0;text-decoration:none;">
+          <a href="/blog/${featured.slug}" style="display:block;overflow:hidden;border:1px solid #E0E0E0;text-decoration:none;">
             <div style="position:relative;overflow:hidden;">
               <img src="${featured.image || 'assets/images/Cover_2_.png'}"
                    alt="Honey Bxby WAJ Magazine Issue 042 Cover"
@@ -752,7 +753,7 @@
           </a>`;
 
         const smallHtml = rest.map((p, i) => `
-          <a href="/post?slug=${p.slug}" style="display:grid;grid-template-columns:90px 1fr;background:#fff;${i < rest.length-1 ? 'border-bottom:1px solid #E0E0E0;' : ''}overflow:hidden;text-decoration:none;">
+          <a href="/blog/${p.slug}" style="display:grid;grid-template-columns:90px 1fr;background:#fff;${i < rest.length-1 ? 'border-bottom:1px solid #E0E0E0;' : ''}overflow:hidden;text-decoration:none;">
             <img src="${p.image || 'assets/images/Cover_2_.png'}"
                  alt="Honey Bxby WAJ Magazine Issue 042 Cover"
                  onerror="this.src='assets/images/Cover_2_.png'"
