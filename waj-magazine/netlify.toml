@@ -142,3 +142,10 @@
   from = "/blog/*"
   to = "/pages/post.html"
   status = 200
+
+# Old/common link: /advertising -> Advertise page
+[[redirects]]
+  from = "/advertising"
+  to = "/advertise"
+  status = 301
+  force = true
