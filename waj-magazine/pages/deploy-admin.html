@@ -271,7 +271,7 @@ select:focus{border-color:var(--cr);}
           <div class="field"><label>SEO Title <span class="char-count" id="seo-cc">0/60</span></label><input type="text" id="p-seo-title" placeholder="Leave blank to use headline" oninput="cc('p-seo-title','seo-cc',30,60)"/><div class="field-hint">Ideal 30–60 chars</div></div>
           <div class="field"><label>Meta Description <span class="char-count" id="desc-cc">0/160</span></label><textarea id="p-meta-desc" rows="2" placeholder="For search engines and social…" oninput="cc('p-meta-desc','desc-cc',120,160)"></textarea><div class="field-hint">Ideal 120–160 chars</div></div>
           <div class="field"><label>Focus Keyword</label><input type="text" id="p-keyword" placeholder="e.g. Jersey Club Newark"/></div>
-          <div class="field"><label>Custom Slug</label><input type="text" id="p-slug" placeholder="auto-generated-from-title" oninput="document.getElementById('slug-prev').textContent=this.value||'…'"/><div class="field-hint">wajmagazine.com/post?slug=<strong id="slug-prev">…</strong></div></div>
+          <div class="field"><label>Custom Slug</label><input type="text" id="p-slug" placeholder="auto-generated-from-title" oninput="document.getElementById('slug-prev').textContent=this.value||'…'"/><div class="field-hint">wajmagazine.com/blog/<strong id="slug-prev">…</strong></div></div>
         </div>
       </div>
       <div class="panel">
@@ -910,8 +910,8 @@ async function uploadImg(e){
 }
 
 // ── PREVIEW ──
-function prevPost(){const slug=document.getElementById('p-slug').value||document.getElementById('orig-slug').value;if(slug)window.open(`/post?slug=${slug}`,'_blank');else showToast('Save first to preview','error');}
-function prevSlug(s){window.open(`/post?slug=${s}`,'_blank');}
+function prevPost(){const slug=document.getElementById('p-slug').value||document.getElementById('orig-slug').value;if(slug)window.open(`/pages/post.html?slug=${slug}`,'_blank');else showToast('Save first to preview','error');}
+function prevSlug(s){window.open(`/pages/post.html?slug=${s}`,'_blank');}
 
 // ── SUBMISSIONS ──
 const STAGES=['New','Under Review','Contacted','Accepted','Revisions Requested','Declined','Converted to Draft'];

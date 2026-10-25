@@ -10,8 +10,8 @@
   <meta name="description" id="pageDesc" content="WAJ Magazine"/>
   <meta property="og:title" id="ogTitle" content="WAJ Magazine"/>
   <meta property="og:description" id="ogDesc" content="WAJ Magazine"/>
-  <meta property="og:image" id="ogImage" content="/waj-red-logo.png"/>
-  <link rel="icon" href="/waj-red-logo.png" type="image/png"/>
+  <meta property="og:image" id="ogImage" content="/assets/images/waj-red-logo.png"/>
+  <link rel="icon" href="/assets/images/waj-red-logo.png" type="image/png"/>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MBG1ZXVMHE');</script>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -103,11 +103,12 @@
   </script>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4281210410485438" crossorigin="anonymous"></script>
+<style>/* tighter top menu on small laptops/tablets */@media (min-width:901px) and (max-width:1280px){.nav-links{gap:14px!important}.nav-links a{letter-spacing:.08em!important}.nav-links .nav-ent{padding:8px 12px!important;white-space:nowrap}}@media (max-width:1080px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}</style>
 </head>
 <body>
 
   <nav>
-    <a href="/" class="nav-logo"><img src="/waj-red-logo.png" alt="WAJ Magazine"/></a>
+    <a href="/" class="nav-logo"><img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/issues">Issues</a></li>
@@ -137,7 +138,7 @@
   <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileMenu()"></div>
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="mobile-drawer-header">
-      <img src="/waj-red-logo.png" alt="WAJ Magazine"/>
+      <img src="/assets/images/waj-red-logo.png" alt="WAJ Magazine"/>
       <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
     </div>
     <ul class="mobile-nav-links">
@@ -205,7 +206,7 @@
             <h3>More in ${post.category}</h3>
             <div class="related-grid">
               ${related.map(r => `
-                <a href="/post?slug=${r.slug}" class="related-card" style="display:block;">
+                <a href="/blog/${r.slug}" class="related-card" style="display:block;">
                   <img src="${r.image}" alt="${r.title}" onerror="this.style.display='none'"/>
                   <div class="body">
                     <span class="cat">${r.category}</span>
@@ -249,7 +250,9 @@
     // ── LOAD POST ──
     (function(){
       const params = new URLSearchParams(window.location.search);
-      const slug = params.get('slug');
+      const pathSlug = (window.location.pathname.match(/^\/blog\/([a-z0-9-]+)\/?$/) || [])[1];
+      const slug = params.get('slug') || pathSlug;
+      if (slug) { const c = document.createElement('link'); c.rel = 'canonical'; c.href = 'https://wajmagazine.com/blog/' + slug; document.head.appendChild(c); }
       if (!slug) { renderNotFound(); return; }
 
       fetch('/content/posts.json?t=' + Date.now())

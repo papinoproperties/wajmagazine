@@ -285,7 +285,7 @@
       "https://www.youtube.com/wearejersey"
     ],
     "contactPoint": { "@type": "ContactPoint", "email": "magazine@wearejerseyent.com", "contactType": "editorial" },
-    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com" }
+    "parentOrganization": { "@type": "Organization", "name": "We Are Jersey ENT LLC", "url": "https://www.wearejerseyent.com", "sameAs": ["https://www.wikidata.org/wiki/Q141844432"] }
   }]
   </script>
   <script type="application/ld+json">
@@ -310,6 +310,7 @@
   </script>
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4281210410485438" crossorigin="anonymous"></script>
+<style>/* tighter top menu on small laptops/tablets */@media (min-width:901px) and (max-width:1280px){.nav-links{gap:14px!important}.nav-links a{letter-spacing:.08em!important}.nav-links .nav-ent{padding:8px 12px!important;white-space:nowrap}}@media (max-width:1080px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}</style>
 </head>
 <body>
 
@@ -726,7 +727,7 @@
       const readTime = wordCount > 10 ? readMins + ' min read' : '';
 
       return `
-        <a href="/post?slug=${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
+        <a href="/blog/${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
           <div class="blog-card-img">
             <img src="${imgSrc}" alt="Honey Bxby WAJ Magazine Issue 042 Cover" onerror="this.src='/assets/images/Cover_2_.png'" loading="lazy"/>
             <span class="blog-card-cat">${post.category || 'Community'}</span>
@@ -765,7 +766,7 @@
       document.getElementById('featuredAuthor').textContent = hero.author || 'WAJ Editorial';
       document.getElementById('featuredDate').textContent =
         new Date(hero.date + 'T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});
-      document.getElementById('featuredLink').href = '/post?slug=' + hero.slug;
+      document.getElementById('featuredLink').href = '/blog/' + hero.slug;
       document.getElementById('featuredHero').style.display = 'block';
 
       // Show remaining posts in grid (hero post excluded)
@@ -787,7 +788,7 @@
             const h4 = pop[i].querySelector('h4');
             if (h4) h4.textContent = p.title;
             const link = pop[i].closest('a');
-            if (link) link.href = '/post?slug=' + p.slug;
+            if (link) link.href = '/blog/' + p.slug;
           }
         });
       }
