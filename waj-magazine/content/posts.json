@@ -265,8 +265,8 @@
       "status": "published",
       "date": "2026-10-26",
       "publishDate": null,
-      "trash": true,
-      "trashedAt": "2026-10-26T21:18:22.897Z"
+      "trash": false,
+      "trashedAt": null
     },
     {
       "slug": "anthony-lin-on-the-lull-building-horror-from-what-you-cant-see-jciff",
