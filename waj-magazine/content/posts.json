@@ -236,8 +236,8 @@
       "status": "published",
       "date": "2026-10-26",
       "publishDate": null,
-      "trash": true,
-      "trashedAt": "2026-10-26T21:18:11.734Z"
+      "trash": false,
+      "trashedAt": null
     },
     {
       "slug": "jciff-nightmares-takeover-october-26-28",
