@@ -1556,12 +1556,36 @@ function autoSlug(){const t=document.getElementById('p-title').value,os=document
 function cc(inId,ccId,ideal,max){const el=document.getElementById(inId),cc=document.getElementById(ccId);if(!el||!cc)return;const len=el.value.length;cc.textContent=`${len}/${max}`;cc.className='char-count '+(len>max?'char-bad':len>=ideal?'char-ok':'char-warn');}
 
 // ── IMAGE UPLOAD ──
+// Every uploaded photo is turned into a web-safe JPG (or PNG if it has transparency):
+// iPhone HEIC/HEIF photos are converted, large photos are resized to 1600px and
+// the file gets a descriptive name based on the post title.
+async function prepImage(file){
+  const head=new Uint8Array(await file.slice(0,32).arrayBuffer());
+  const brand=String.fromCharCode(...head.slice(4,12));
+  if(file.type==='image/gif') return {blob:file,ext:'gif'};
+  const isHeic=/ftyp(heic|heix|hevc|hevx|heim|heis|mif1|msf1)/.test(brand)||/hei[cf]/i.test(file.type)||/\.(heic|heif)$/i.test(file.name);
+  let src=file;
+  if(isHeic){
+    showToast('Converting iPhone photo…','success');
+    if(!window.heic2any){await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js';s.onload=res;s.onerror=()=>rej(new Error('Could not load the photo converter — try again, or export the photo as JPG'));document.head.appendChild(s);});}
+    src=await heic2any({blob:file,toType:'image/jpeg',quality:0.9}); if(Array.isArray(src)) src=src[0];
+  }
+  let bmp; try{ bmp=await createImageBitmap(src); }catch{ throw new Error('This image format can\'t be shown on websites. Please upload a JPG or PNG.'); }
+  const scale=Math.min(1,1600/Math.max(bmp.width,bmp.height)), w=Math.round(bmp.width*scale), h=Math.round(bmp.height*scale);
+  const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(bmp,0,0,w,h);
+  let alpha=false;
+  if(file.type==='image/png'){ const d=ctx.getImageData(0,0,w,h).data; for(let i=3;i<d.length;i+=16){ if(d[i]<250){alpha=true;break;} } }
+  const blob=await new Promise(r=>c.toBlob(r,alpha?'image/png':'image/jpeg',0.85));
+  return {blob,ext:alpha?'png':'jpg'};
+}
 async function uploadImg(e){
   const file=e.target.files[0]; if(!file) return;
-  if(file.size>4*1024*1024){showToast('Image must be under 4MB','error');return;}
+  let prepared; try{ prepared=await prepImage(file); }catch(err){ showToast(err.message||'Could not read this image','error'); return; }
+  if(prepared.blob.size>4*1024*1024){showToast('Image must be under 4MB','error');return;}
   const reader=new FileReader();
   reader.onload=async(ev)=>{
-    const b64=ev.target.result.split(',')[1], ext=file.name.split('.').pop(), fname=`upload-${Date.now()}.${ext}`;
+    const base=(typeof slugify==='function'?slugify(document.getElementById('p-title').value||''):'').substring(0,60)||'post-image';
+    const b64=ev.target.result.split(',')[1], fname=`${base}-${Date.now()}.${prepared.ext}`;
     try{
       const r=await fetch('/.netlify/functions/upload-image',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},body:JSON.stringify({filename:fname,contentBase64:b64})});
       let d={}; try { d=await r.json(); } catch {} if(!r.ok) throw new Error(d.error||`Upload failed (${r.status})`);
@@ -1572,7 +1596,7 @@ async function uploadImg(e){
       showToast('Image uploaded ✓','success');
     }catch(err){showToast(err.message||'Upload failed','error');}
   };
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(prepared.blob);
 }
 
 // ── PREVIEW ──

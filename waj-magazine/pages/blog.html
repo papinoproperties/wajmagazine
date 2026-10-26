@@ -9,14 +9,14 @@
   <meta name="robots" content="index, follow"/>
   <meta property="og:title" content="Blog | WAJ Magazine — NJ Music, Culture & Community"/>
   <meta property="og:description" content="Read the latest from WAJ Magazine. Covering music, fashion, food, sports, community stories, and the voices shaping culture in New Jersey and beyond."/>
-  <meta property="og:image" content="Cover_2_.png"/>
+  <meta property="og:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
   <meta property="og:url" content="https://wajmagazine.com/blog"/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="WAJ Magazine"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Blog | WAJ Magazine — NJ Music, Culture & Community"/>
   <meta name="twitter:description" content="Read the latest from WAJ Magazine. Covering music, fashion, food, sports, community stories, and the voices shaping culture in New Jersey and beyond."/>
-  <meta name="twitter:image" content="Cover_2_.png"/>
+  <meta name="twitter:image" content="https://wajmagazine.com/assets/images/Cover_2_.png"/>
   <meta name="twitter:site" content="@wajmagazine"/>
   <link rel="canonical" href="https://wajmagazine.com/blog"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -368,8 +368,8 @@
   <section class="featured-hero" id="featuredHero" style="display:none;">
     <div class="featured-hero-inner">
       <div class="featured-hero-img">
-        <img id="featuredImg" src="/assets/images/Cover_2_.png" alt="Honey Bxby WAJ Magazine Issue 042 Cover"
-             onerror="this.src='/assets/images/Cover_2_.png'"/>
+        <img id="featuredImg" src="/assets/images/waj-post-placeholder.jpg" alt=""
+             onerror="this.onerror=null;this.src='/assets/images/waj-post-placeholder.jpg'"/>
         <span class="cat-badge" id="featuredCat">Community</span>
       </div>
       <div class="featured-hero-body">
@@ -426,19 +426,19 @@
       <div class="sidebar-popular">
         <h3>Popular Posts</h3>
         <div class="popular-post">
-          <img src="../assets/images/Cover_2_.png" alt="Honey Bxby WAJ Magazine Issue 042 Cover"/>
+          <img src="/assets/images/waj-post-placeholder.jpg" alt=""/>
           <div class="popular-post-info"><p class="cat">Music</p><h4>How NJ Artists Are Redefining the East Coast Sound</h4></div>
         </div>
         <div class="popular-post">
-          <img src="../assets/images/spring2025.png" alt="DJ Smallz 732 WAJ Magazine Issue 041 Cover"/>
+          <img src="/assets/images/waj-post-placeholder.jpg" alt=""/>
           <div class="popular-post-info"><p class="cat">Music</p><h4>DJ Smallz 732: Jersey Club Is a Lifestyle</h4></div>
         </div>
         <div class="popular-post">
-          <img src="../assets/images/Spring20252.png" alt="Qaysean Williams WAJ Magazine Issue 041 Cover"/>
+          <img src="/assets/images/waj-post-placeholder.jpg" alt=""/>
           <div class="popular-post-info"><p class="cat">Community</p><h4>Qaysean Williams on Shattering Stereotypes</h4></div>
         </div>
         <div class="popular-post">
-          <img src="../assets/images/winterSpring2023.png" alt="Shakur Stevenson WAJ Magazine Issue 039 Cover"/>
+          <img src="/assets/images/waj-post-placeholder.jpg" alt=""/>
           <div class="popular-post-info"><p class="cat">Sports</p><h4>Shakur Stevenson: Newark's Champion</h4></div>
         </div>
       </div>
@@ -715,7 +715,7 @@
 
     function formatPost(post, index) {
       const cat = normalizeCategory(post.category);
-      const imgSrc = post.image || '/assets/images/Cover_2_.png';
+      const imgSrc = post.image || '/assets/images/waj-post-placeholder.jpg';
 
       const rawDesc = (post.summary || post.content || '').replace(/<[^>]+>/g,'').trim();
       const desc = rawDesc.length > 160
@@ -729,7 +729,7 @@
       return `
         <a href="/blog/${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
           <div class="blog-card-img">
-            <img src="${imgSrc}" alt="Honey Bxby WAJ Magazine Issue 042 Cover" onerror="this.src='/assets/images/Cover_2_.png'" loading="lazy"/>
+            <img src="${imgSrc}" alt="${(post.altText || post.title || '').replace(/"/g,'&quot;')}" onerror="this.onerror=null;this.src='/assets/images/waj-post-placeholder.jpg'" loading="lazy"/>
             <span class="blog-card-cat">${post.category || 'Community'}</span>
           </div>
           <div class="blog-card-body">
@@ -756,8 +756,8 @@
 
       // Populate featured hero with newest post
       const hero = posts[0];
-      document.getElementById('featuredImg').src = hero.image || '/assets/images/Cover_2_.png';
-      document.getElementById('featuredImg').alt = hero.title;
+      document.getElementById('featuredImg').src = hero.image || '/assets/images/waj-post-placeholder.jpg';
+      document.getElementById('featuredImg').alt = hero.altText || hero.title;
       document.getElementById('featuredCat').textContent = hero.category || 'Community';
       document.getElementById('featuredTitle').textContent = hero.title;
       const rawDesc = (hero.summary || hero.content || '').replace(/<[^>]+>/g,'').trim();
@@ -782,7 +782,7 @@
         posts.slice(0,4).forEach((p,i) => {
           if (pop[i]) {
             const img = pop[i].querySelector('img');
-            if (img) { img.src = p.image || '/assets/images/Cover_2_.png'; img.onerror = function(){ this.src='/assets/images/Cover_2_.png'; }; }
+            if (img) { img.onerror = function(){ this.onerror=null; this.src='/assets/images/waj-post-placeholder.jpg'; }; img.src = p.image || '/assets/images/waj-post-placeholder.jpg'; img.alt = p.altText || p.title; }
             const catEl = pop[i].querySelector('.cat');
             if (catEl) catEl.textContent = p.category || 'Community';
             const h4 = pop[i].querySelector('h4');
