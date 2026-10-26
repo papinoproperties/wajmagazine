@@ -5,6 +5,7 @@
 // so a bad post can never break the whole site deploy.
 import fs from 'node:fs';
 import path from 'node:path';
+import { loadCatalog, issueForText } from './build-issues.mjs';
 
 const ROOT = process.cwd();
 const SITE = 'https://wajmagazine.com';
@@ -58,6 +59,7 @@ function main() {
   const navHtml = tpl.slice(tpl.indexOf('</head>') + 7, containerStart).replace('<body>', '');
   const tail = tpl.slice(footerStart, loaderStart) + '</script>\n</body>\n</html>\n';
 
+  const catalog = (() => { try { return loadCatalog(); } catch { return []; } })();
   const outDir = path.join(ROOT, 'blog');
   fs.mkdirSync(outDir, { recursive: true });
   const redirects = [];
@@ -97,6 +99,20 @@ function main() {
           { '@type': 'ListItem', position: 3, name: post.title, item: url },
         ],
       };
+      // "Shop the issue" box when the article is about a cover star, plus shop/apparel links on every article.
+      const issue = catalog.length ? issueForText(catalog, `${post.title} ${stripHtml(post.content)}`) : null;
+      const shopHtml = `
+        <aside class="shop-strip" style="margin:36px 0 8px;border:1px solid #E0E0E0;background:#FAF7F2;padding:20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+          ${issue ? `<a href="/issues/${issue.slug}" style="flex:0 0 96px;"><img src="${esc(issue.image)}" alt="${esc(issue.name)} WAJ Magazine ${esc(issue.edition)} cover" loading="lazy" style="width:96px;height:auto;display:block;box-shadow:0 4px 14px rgba(0,0,0,.15);"/></a>
+          <div style="flex:1 1 220px;"><p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7A0000;">Get the issue</p>
+            <p style="margin:0 0 12px;font-size:16px;font-weight:700;line-height:1.35;color:#1A1A1A;">${esc(issue.name)} — WAJ Magazine ${esc(issue.edition)}</p>
+            <a href="/issues/${issue.slug}" style="display:inline-block;background:#7A0000;color:#fff;padding:9px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin:0 8px 8px 0;">Digital $5.99 · Print $30.99</a>
+            <a href="/apparel" target="_blank" rel="noopener" style="display:inline-block;border:1px solid #1A1A1A;color:#1A1A1A;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Shop apparel ↗</a></div>`
+          : `<div style="flex:1 1 260px;"><p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7A0000;">Support independent NJ media</p>
+            <p style="margin:0;font-size:15px;color:#1A1A1A;line-height:1.5;">Grab a print or digital issue of WAJ Magazine, or rep the culture with official WAJ apparel.</p></div>
+          <div><a href="/shop" style="display:inline-block;background:#7A0000;color:#fff;padding:9px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin:0 8px 8px 0;">Shop issues</a>
+            <a href="/apparel" target="_blank" rel="noopener" style="display:inline-block;border:1px solid #1A1A1A;color:#1A1A1A;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Shop apparel ↗</a></div>`}
+        </aside>`;
       const relatedHtml = related.length ? `
         <div class="related-section">
           <div class="related-inner">
@@ -147,6 +163,7 @@ ${navHtml}
       ${post.image ? `<img src="${esc(post.image)}" alt="${esc(alt)}" class="hero-img" fetchpriority="high" onerror="this.style.display='none'"/>` : ''}
       <div class="article-body">
         ${paragraphs(post.content)}
+        ${shopHtml}
         <div class="share-row">
           <span>Share:</span>
           <a class="share-btn" href="https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(post.title)}" target="_blank" rel="noopener" title="Share on Twitter/X">
