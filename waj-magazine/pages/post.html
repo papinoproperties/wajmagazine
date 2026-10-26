@@ -270,6 +270,11 @@
           const posts = data.posts || [];
           const post = posts.find(p => p.slug === slug);
           if (!post) { renderNotFound(); return; }
+          // Drafts and scheduled posts are only viewable through the admin preview (/pages/post.html?slug=…).
+          const isPreview = window.location.pathname.indexOf('/pages/post.html') === 0;
+          const isLive = post.status === 'published' && !post.trash && (!post.publishDate || new Date(post.publishDate) <= new Date());
+          if (!isLive && !isPreview) { renderNotFound(); return; }
+          if (!isLive) { const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m); }
           renderArticle(post, posts);
         })
         .catch(() => renderNotFound());
