@@ -49,7 +49,12 @@ exports.handler = async (event, context) => {
   // Sanitize filename and force a unique name to avoid collisions
   const ext = (filename.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
   const safeExt = ['jpg','jpeg','png','webp','gif'].includes(ext) ? ext : 'jpg';
-  const finalFilename = `upload-${Date.now()}.${safeExt}`;
+  // Keep the descriptive name sent by the admin (e.g. post-title-1793032621630.jpg);
+  // fall back to upload-<timestamp> when no usable name is given.
+  let base = filename.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 90);
+  if (!base || base === 'upload') base = 'upload';
+  if (!/-\d{10,}$/.test(base)) base = `${base}-${Date.now()}`;
+  const finalFilename = `${base}.${safeExt}`;
   const uploadPath = `waj-magazine/assets/uploads/${finalFilename}`;
 
   const GH_HEADERS = {
@@ -63,7 +68,7 @@ exports.handler = async (event, context) => {
       method: 'PUT',
       headers: { ...GH_HEADERS, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        message: `Upload image via admin: ${finalFilename} (by ${user.email || 'unknown'})`,
+        message: `Upload image via admin: ${finalFilename} (by ${user.email || 'unknown'}) [skip netlify]`,
         content: contentBase64,
         branch: BRANCH,
       }),
