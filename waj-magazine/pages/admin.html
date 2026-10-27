@@ -834,6 +834,18 @@ select:focus{border-color:var(--cr);}
 </section>
 
 <!-- PROJECT MODAL -->
+<div class="modal-overlay" id="embed-modal" onclick="if(event.target===this)closeEmbedModal()">
+  <div class="modal">
+    <h3>Embed Video or Post</h3>
+    <p>Paste a link from YouTube, Vimeo, TikTok, Instagram, Spotify, SoundCloud, Facebook or Apple Music, or a full embed code.</p>
+    <textarea id="embed-url" rows="3" placeholder="https://youtu.be/..." style="width:100%;padding:10px;border:1px solid var(--bd);font-family:var(--fb);font-size:13px;margin-bottom:6px;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();confirmEmbed();}"></textarea>
+    <div id="embed-err" style="color:var(--cr);font-size:12px;min-height:18px;margin-bottom:10px;"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" onclick="closeEmbedModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" id="embed-confirm" onclick="confirmEmbed()">Embed</button>
+    </div>
+  </div>
+</div>
 <div class="modal-overlay" id="proj-modal">
   <div class="modal modal-lg">
     <h3 id="proj-modal-title">New Project</h3>
@@ -1127,15 +1139,23 @@ function embedFromInput(raw){
   return null;
 }
 
+// Video button opens an on-page panel (no browser pop-up, so it works in every browser and with assistants).
+let _embedAt=null;
 function insertMediaEmbed(){
-  const raw=prompt('Paste a video or post link (YouTube, Vimeo, TikTok, Instagram, Spotify, SoundCloud, Facebook, Apple Music) or a full embed code:');
-  if(raw===null) return;
-  const e=embedFromInput(raw);
-  if(!e){ showToast('That link could not be embedded. Check it starts with https://','error'); return; }
-  const at=(quill.getSelection(true)||{index:quill.getLength()}).index;
-  quill.insertEmbed(at,'wajembed',e,'user'); quill.setSelection(at+1,0);
-  showToast('Embed added ✓','success');
+  const sel=quill.getSelection(); _embedAt=sel?sel.index:quill.getLength()-1;
+  const m=document.getElementById('embed-modal'); const i=document.getElementById('embed-url');
+  i.value=''; document.getElementById('embed-err').textContent=''; m.classList.add('open'); setTimeout(()=>i.focus(),50);
 }
+function closeEmbedModal(){ document.getElementById('embed-modal').classList.remove('open'); }
+function confirmEmbed(){
+  const raw=document.getElementById('embed-url').value; const e=embedFromInput(raw);
+  if(!e){ document.getElementById('embed-err').textContent='That link could not be embedded. Paste a full link starting with https:// or an <iframe> embed code.'; return; }
+  const at=Math.max(0,Math.min(_embedAt==null?quill.getLength()-1:_embedAt,quill.getLength()-1));
+  quill.insertEmbed(at,'wajembed',e,'user'); quill.setSelection(at+1,0);
+  closeEmbedModal(); showToast('Embed added ✓ — save the post to publish it','success');
+}
+// Same as the button, for scripts/assistants: wajAddEmbed('https://youtu.be/...')
+window.wajAddEmbed=function(url){ initQuill(); const e=embedFromInput(url); if(!e) return false; const at=(quill.getSelection()||{index:quill.getLength()-1}).index; quill.insertEmbed(at,'wajembed',e,'user'); return true; };
 
 function initQuill(){
   if(quill) return;
