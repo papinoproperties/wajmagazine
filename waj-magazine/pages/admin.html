@@ -1093,22 +1093,56 @@ function initQuill(){
     modules:{
       toolbar:{
         container:[[{header:[1,2,3,false]}],['bold','italic','underline','strike'],
-          [{list:'ordered'},{list:'bullet'}],['blockquote','link','image'],['clean']],
+          [{list:'ordered'},{list:'bullet'}],['blockquote','link','image','video'],['clean']],
         handlers:{
-          // Override default image handler — default embeds base64 which breaks uploads.
-          // Instead, prompt for a URL (use Cover Image panel for the featured image).
-          image: function(){
-            const url = prompt('Paste an image URL to embed in the article body. For the cover image, use the Cover Image panel on the right.')
-            if(url && url.trim()){
-              const range = quill.getSelection(true);
-              quill.insertEmbed(range ? range.index : 0, 'image', url.trim());
-            }
-          }
+          // Image button: pick a photo from your computer/phone. It is converted to a web-safe JPG
+          // (iPhone photos included), resized, uploaded, and placed where the cursor is.
+          image: function(){ pickInlineImage(); }
         }
       }
     }
   });
-  quill.on('text-change', ()=>{ document.getElementById('p-content').value=quill.root.innerHTML; triggerAS(); });
+  quill.on('text-change', ()=>{ document.getElementById('p-content').value=quill.root.innerHTML; triggerAS(); uploadPastedImages(); });
+}
+
+// Pasted or dragged-in photos arrive as huge embedded data; upload them as real image files instead.
+async function uploadPastedImages(){
+  const imgs=[...quill.root.querySelectorAll('img[src^="data:"]')].filter(i=>!i.dataset.wajUploading);
+  for(const img of imgs){
+    img.dataset.wajUploading='1';
+    try{
+      const blob=await (await fetch(img.src)).blob();
+      const prepared=await prepImage(new File([blob],'pasted.'+((blob.type.split('/')[1])||'jpg'),{type:blob.type}));
+      const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(prepared.blob);});
+      const base=(slugify(document.getElementById('p-title').value||'')||'post').substring(0,50)+'-inline';
+      const r=await fetch('/.netlify/functions/upload-image',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},body:JSON.stringify({filename:`${base}-${Date.now()}.${prepared.ext}`,contentBase64:b64})});
+      let d={}; try{ d=await r.json(); }catch{} if(!r.ok) throw new Error(d.error||'Upload failed');
+      img.setAttribute('src',d.url);
+      document.getElementById('p-content').value=quill.root.innerHTML; triggerAS();
+      showToast('Pasted image uploaded ✓','success');
+    }catch(err){ showToast('A pasted image could not be uploaded — use the image button instead','error'); }
+  }
+}
+
+// ── IMAGES INSIDE THE ARTICLE ──
+function pickInlineImage(){
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+  inp.onchange=async()=>{
+    const file=inp.files[0]; if(!file) return;
+    const range=quill.getSelection(true); const at=range?range.index:quill.getLength();
+    let prepared; try{ prepared=await prepImage(file); }catch(err){ showToast(err.message||'Could not read this image','error'); return; }
+    if(prepared.blob.size>4*1024*1024){ showToast('Image must be under 4MB','error'); return; }
+    showToast('Uploading image…','success');
+    const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(prepared.blob);});
+    const base=(slugify(document.getElementById('p-title').value||'')||'post').substring(0,50)+'-inline';
+    try{
+      const r=await fetch('/.netlify/functions/upload-image',{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${authToken}`},body:JSON.stringify({filename:`${base}-${Date.now()}.${prepared.ext}`,contentBase64:b64})});
+      let d={}; try{ d=await r.json(); }catch{} if(!r.ok) throw new Error(d.error||`Upload failed (${r.status})`);
+      quill.insertEmbed(at,'image',d.url,'user'); quill.setSelection(at+1,0);
+      showToast('Image added ✓ — it appears on the live site after you save the post','success');
+    }catch(err){ showToast(err.message||'Upload failed','error'); }
+  };
+  inp.click();
 }
 
 // ── NAV ──

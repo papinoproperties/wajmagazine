@@ -205,6 +205,14 @@
   .feature-card img    { aspect-ratio: 3/4; object-fit: cover; }
   .covers-row img, .covers-sample img { aspect-ratio: 3/4; object-fit: cover; }
   .mission-img img     { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+  /* Show whole photos on cards: fit inside the frame over a soft blurred copy of the same image (no cropping). */
+  .blog-card-img, .featured-hero-img { position: relative; overflow: hidden; background: #111; }
+  .blog-card-img::before, .featured-hero-img::before { content: ''; position: absolute; inset: -30px; background: var(--bg, none) center / cover no-repeat; filter: blur(22px) brightness(.5); transform: scale(1.1); }
+  .blog-card-img img, .featured-hero-img img { position: relative; z-index: 1; object-fit: contain !important; object-position: center !important; height: 100%; }
+  .blog-card-img img { aspect-ratio: 3/4 !important; }
+  .blog-card:hover .blog-card-img img, .featured-hero-inner:hover .featured-hero-img img { transform: scale(1.02); }
+  .blog-card-img .blog-card-cat, .featured-hero-img .cat-badge { z-index: 2; }
+
   .hero-bg             { background-position: 30% 40% !important; }
 
     /* ── MOBILE MENU ── */
@@ -728,7 +736,7 @@
 
       return `
         <a href="/blog/${post.slug}" class="blog-card" data-cat="${cat}" style="${index >= 9 ? 'display:none' : ''}text-decoration:none;color:inherit;display:block;">
-          <div class="blog-card-img">
+          <div class="blog-card-img" style="--bg:url('${imgSrc}')">
             <img src="${imgSrc}" alt="${(post.altText || post.title || '').replace(/"/g,'&quot;')}" onerror="this.onerror=null;this.src='/assets/images/waj-post-placeholder.jpg'" loading="lazy"/>
             <span class="blog-card-cat">${post.category || 'Community'}</span>
           </div>
@@ -757,6 +765,7 @@
       // Populate featured hero with newest post
       const hero = posts[0];
       document.getElementById('featuredImg').src = hero.image || '/assets/images/waj-post-placeholder.jpg';
+      document.getElementById('featuredImg').parentElement.style.setProperty('--bg', `url('${hero.image || '/assets/images/waj-post-placeholder.jpg'}')`);
       document.getElementById('featuredImg').alt = hero.altText || hero.title;
       document.getElementById('featuredCat').textContent = hero.category || 'Community';
       document.getElementById('featuredTitle').textContent = hero.title;
