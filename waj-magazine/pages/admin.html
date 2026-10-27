@@ -1086,8 +1086,60 @@ async function boot(user){
 }
 
 // ── QUILL ──
+// Embeds (video, social posts, music players) keep a layout class: wide 16:9, portrait 9:16, or a short audio bar.
+function registerEmbedBlot(){
+  if(window._wajEmbedReg) return; window._wajEmbedReg=true;
+  const BlockEmbed=Quill.import('blots/block/embed');
+  class WajEmbed extends BlockEmbed{
+    static create(v){
+      const n=super.create(); const o=typeof v==='string'?{src:v,kind:'wide'}:v;
+      n.setAttribute('src',o.src); n.setAttribute('frameborder','0'); n.setAttribute('loading','lazy');
+      n.setAttribute('allowfullscreen','true'); n.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; clipboard-write; fullscreen');
+      n.classList.add('waj-'+(o.kind||'wide')); return n;
+    }
+    static value(n){ const k=['portrait','audio','tall'].find(c=>n.classList.contains('waj-'+c))||'wide'; return {src:n.getAttribute('src'),kind:k}; }
+  }
+  WajEmbed.blotName='wajembed'; WajEmbed.tagName='IFRAME'; WajEmbed.className='waj-embed';
+  Quill.register(WajEmbed,true);
+}
+
+function embedFromInput(raw){
+  raw=(raw||'').trim(); if(!raw) return null;
+  const ifr=raw.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i); if(ifr) raw=ifr[1];
+  let u; try{ u=new URL(raw.startsWith('//')?'https:'+raw:raw); }catch(e){ return null; }
+  const h=u.hostname.replace(/^www\.|^m\./,''), path=u.pathname; let m;
+  if(h==='youtu.be') return {src:'https://www.youtube.com/embed/'+path.slice(1).split('/')[0],kind:'wide'};
+  if(/youtube(-nocookie)?\.com$/.test(h)){
+    if(m=path.match(/^\/shorts\/([\w-]+)/)) return {src:'https://www.youtube.com/embed/'+m[1],kind:'portrait'};
+    if(m=path.match(/^\/(embed|live)\/([\w-]+)/)) return {src:'https://www.youtube.com/embed/'+m[2],kind:'wide'};
+    if(u.searchParams.get('v')) return {src:'https://www.youtube.com/embed/'+u.searchParams.get('v'),kind:'wide'};
+  }
+  if(h==='vimeo.com'&&(m=path.match(/(\d+)/))) return {src:'https://player.vimeo.com/video/'+m[1],kind:'wide'};
+  if(h==='player.vimeo.com') return {src:u.href,kind:'wide'};
+  if(h==='tiktok.com'&&(m=path.match(/video\/(\d+)/))) return {src:'https://www.tiktok.com/embed/v2/'+m[1],kind:'portrait'};
+  if(h==='instagram.com'&&(m=path.match(/^\/(p|reel|reels|tv)\/([\w-]+)/))) return {src:'https://www.instagram.com/'+(m[1]==='reels'?'reel':m[1])+'/'+m[2]+'/embed',kind:'tall'};
+  if(h==='open.spotify.com'){ const pth=path.replace(/^\/intl-[a-z]+/,'').replace(/^\/embed/,''); return {src:'https://open.spotify.com/embed'+pth,kind:/\/(track|episode)\//.test(pth)?'audio':'tall'}; }
+  if(h==='soundcloud.com') return {src:'https://w.soundcloud.com/player/?url='+encodeURIComponent(u.origin+path)+'&visual=true',kind:'audio'};
+  if(h==='w.soundcloud.com') return {src:u.href,kind:'audio'};
+  if(h==='facebook.com'||h==='fb.watch') return {src:'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u.href)+'&show_text=false',kind:'wide'};
+  if(h==='music.apple.com'||h==='embed.music.apple.com') return {src:'https://embed.music.apple.com'+path+u.search,kind:'tall'};
+  if(u.protocol==='https:') return {src:u.href,kind:'wide'};
+  return null;
+}
+
+function insertMediaEmbed(){
+  const raw=prompt('Paste a video or post link (YouTube, Vimeo, TikTok, Instagram, Spotify, SoundCloud, Facebook, Apple Music) or a full embed code:');
+  if(raw===null) return;
+  const e=embedFromInput(raw);
+  if(!e){ showToast('That link could not be embedded. Check it starts with https://','error'); return; }
+  const at=(quill.getSelection(true)||{index:quill.getLength()}).index;
+  quill.insertEmbed(at,'wajembed',e,'user'); quill.setSelection(at+1,0);
+  showToast('Embed added ✓','success');
+}
+
 function initQuill(){
   if(quill) return;
+  registerEmbedBlot();
   quill = new Quill('#quill-wrap', {
     theme:'snow', placeholder:'Write your article here…',
     modules:{
@@ -1097,7 +1149,10 @@ function initQuill(){
         handlers:{
           // Image button: pick a photo from your computer/phone. It is converted to a web-safe JPG
           // (iPhone photos included), resized, uploaded, and placed where the cursor is.
-          image: function(){ pickInlineImage(); }
+          image: function(){ pickInlineImage(); },
+          // Video button: paste a YouTube, Vimeo, TikTok, Instagram, Spotify, SoundCloud, Facebook link
+          // (or a full <iframe> embed code) and it is embedded where the cursor is.
+          video: function(){ insertMediaEmbed(); }
         }
       }
     }
