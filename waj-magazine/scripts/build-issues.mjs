@@ -67,7 +67,7 @@ function productSchema(i, url) {
           '@type': 'MerchantReturnPolicy', applicableCountry: 'US',
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
           merchantReturnDays: 4, returnMethod: 'https://schema.org/ReturnByMail',
-          merchantReturnLink: `${SITE}/terms#print-purchases`,
+          merchantReturnLink: `${SITE}/pages/shipping-refunds-and-return-policy#print-returns`,
         },
       },
       {
@@ -77,7 +77,7 @@ function productSchema(i, url) {
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy', applicableCountry: 'US',
           returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-          merchantReturnLink: `${SITE}/terms`,
+          merchantReturnLink: `${SITE}/pages/shipping-refunds-and-return-policy#digital-refunds`,
         },
       },
     ],
@@ -131,14 +131,14 @@ ${ld(crumbs)}
 <p>WAJ Magazine ${esc(i.edition)} features ${esc(i.name)} on the cover. Choose a digital PDF or a print copy below.</p>
 <a class="option" href="/shop?issue=${i.id}&amp;format=digital#${i.id}"><strong>Choose digital PDF — $${money(i.priceDigital)}</strong><small>Delivered by email within 24 hours</small></a>
 <a class="option" href="/shop?issue=${i.id}&amp;format=print#${i.id}"><strong>Choose print — $${money(i.pricePrint)}</strong><small>Plus $${money(i.shippingPrint)} shipping. Processed and shipped within 5–7 business days.</small></a>
-<p><a href="/terms#print-purchases">Shipping &amp; returns policy</a></p>
+<p><a href="/pages/shipping-refunds-and-return-policy">Shipping &amp; returns policy</a></p>
 <p>You'll select this issue in the shop before continuing to secure Stripe checkout.</p>
 <div class="merch"><span>Rep the culture — official WAJ apparel</span><a href="/apparel" target="_blank" rel="noopener">Shop apparel ↗</a></div>
 </section>
 </main>
 ${related.length ? `<section class="more"><h2>Read more about ${esc(i.name)}</h2><ul class="reads">${related.map((p) => `<li><a href="/blog/${p.slug}">${esc(p.title)}</a></li>`).join('')}</ul></section>` : ''}
 <section class="more"><h2>More WAJ Magazine issues</h2><div class="grid">${others.map((o) => `<a href="/issues/${o.slug}"><img src="${esc(o.image)}" alt="${esc(o.name)} WAJ Magazine ${esc(o.edition)} cover" loading="lazy" width="300" height="400"><span>${esc(o.edition)}</span>${esc(o.name)}</a>`).join('')}</div></section>
-<footer><a href="/shop">All magazine issues</a><a href="/apparel" target="_blank" rel="noopener">Apparel</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms#print-purchases">Shipping &amp; returns</a><a href="/terms">Terms</a></footer>
+<footer><a href="/shop">All magazine issues</a><a href="/apparel" target="_blank" rel="noopener">Apparel</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/pages/shipping-refunds-and-return-policy">Shipping &amp; returns</a><a href="/terms">Terms</a></footer>
 <script src="/assets/js/pinterest-measurement.js" defer></script>
 </body>
 </html>
