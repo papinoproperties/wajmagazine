@@ -67,6 +67,22 @@
   status = 200
 
 [[redirects]]
+  from = "/pages/shipping-refunds-and-return-policy"
+  to = "/pages/shipping-refunds-and-return-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/shipping-refunds-and-return-policy"
+  to = "/pages/shipping-refunds-and-return-policy"
+  status = 301
+
+[[redirects]]
+  from = "/returns"
+  to = "/pages/shipping-refunds-and-return-policy"
+  status = 301
+
+
+[[redirects]]
   from = "/privacy"
   to = "/pages/privacy.html"
   status = 200
