@@ -14,6 +14,7 @@ const abs = (u) => (/^https?:/.test(u) ? u : SITE + (u.startsWith('/') ? u : '/'
 const strip = (s) => String(s ?? '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 const csv = (v) => /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
 const money = (n) => Number(n).toFixed(2);
+const printPath = (issue) => `/issues/${issue.slug}-print`;
 
 // Names too generic to match inside articles reliably.
 const NO_ARTICLE_MATCH = new Set(['WAJ-036-KIA', 'WAJ-040-THE-ARTIST']);
@@ -40,10 +41,10 @@ function publishedPosts() {
     .filter((p) => p.status === 'published' && !p.trash && (!p.publishDate || new Date(p.publishDate) <= now) && /^[a-z0-9-]+$/.test(p.slug || ''));
 }
 
-function productSchema(i, url) {
+function productSchema(i, url, printOnly) {
   const inStock = i.inStock !== false ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
   const title = `${i.name} | WAJ Magazine ${i.edition}`;
-  return {
+  const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: title,
@@ -82,12 +83,25 @@ function productSchema(i, url) {
       },
     ],
   };
+  if (printOnly) {
+    product.name = `${title} - Print`;
+    product.description = `Print copy of WAJ Magazine ${i.edition} featuring ${i.name}.`;
+    product.sku = product.offers[0].sku;
+    delete product.mpn;
+    product.offers = product.offers[0];
+  }
+  return product;
 }
 
-function page(i, issues, related) {
-  const url = `${SITE}/issues/${i.slug}`;
-  const title = `${i.name} | WAJ Magazine ${i.edition}`;
-  const desc = `Shop WAJ Magazine ${i.edition} featuring ${i.name}. Digital PDF $${money(i.priceDigital)}, delivered by email within 24 hours; print $${money(i.pricePrint)} plus $${money(i.shippingPrint)} shipping.`;
+function page(i, issues, related, printOnly = false) {
+  const url = SITE + (printOnly ? printPath(i) : `/issues/${i.slug}`);
+  const title = `${i.name} | WAJ Magazine ${i.edition}${printOnly ? ' - Print' : ''}`;
+  const desc = printOnly
+    ? `Shop the print edition of WAJ Magazine ${i.edition} featuring ${i.name}. $${money(i.pricePrint)} plus $${money(i.shippingPrint)} shipping.`
+    : `Shop WAJ Magazine ${i.edition} featuring ${i.name}. Digital PDF $${money(i.priceDigital)}, delivered by email within 24 hours; print $${money(i.pricePrint)} plus $${money(i.shippingPrint)} shipping.`;
+  const printPrice = `$${money(i.pricePrint)}`;
+  const printShipping = `Plus $${money(i.shippingPrint)} shipping. Processed and shipped within 5–7 business days.`;
+  const printOption = `<a class="option" href="/shop?issue=${i.id}&amp;format=print#${i.id}"><strong>Choose print — ${printPrice}</strong><small>${printShipping}</small></a>`;
   const crumbs = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
     { '@type': 'ListItem', position: 2, name: 'Shop', item: `${SITE}/shop` },
@@ -110,10 +124,10 @@ function page(i, issues, related) {
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${abs(i.image)}">
 <meta property="og:image:alt" content="${esc(title)} cover">
-<meta property="product:price:amount" content="${money(i.priceDigital)}">
+<meta property="product:price:amount" content="${money(printOnly ? i.pricePrint : i.priceDigital)}">
 <meta property="product:price:currency" content="USD">
 <meta name="twitter:card" content="summary_large_image">
-${ld(productSchema(i, url))}
+${ld(productSchema(i, url, printOnly))}
 ${ld(crumbs)}
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1ZXVMHE"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MBG1ZXVMHE');</script>
@@ -125,14 +139,15 @@ ${ld(crumbs)}
 <img src="${esc(i.image)}" alt="${esc(title)} cover" width="900" height="1200" fetchpriority="high">
 <section>
 <p class="crumbs"><a href="/">Home</a> / <a href="/shop">Shop</a> / ${esc(i.name)}</p>
-<p class="edition">WAJ Magazine · ${esc(i.edition)}</p>
+<p class="edition">WAJ Magazine · ${esc(i.edition)}${printOnly ? ' · Print edition' : ''}</p>
 <h1>${esc(i.name)}</h1>
 <p><span class="stock">${i.inStock !== false ? 'In stock' : 'Sold out'}</span></p>
-<p>WAJ Magazine ${esc(i.edition)} features ${esc(i.name)} on the cover. Choose a digital PDF or a print copy below.</p>
+${printOnly ? `<p>The print edition of WAJ Magazine ${esc(i.edition)} features ${esc(i.name)} on the cover.</p>
+${i.inStock !== false ? printOption : `<p><strong>${printPrice}</strong> · Sold out</p>`}` : `<p>WAJ Magazine ${esc(i.edition)} features ${esc(i.name)} on the cover. Choose a digital PDF or a print copy below.</p>
 <a class="option" href="/shop?issue=${i.id}&amp;format=digital#${i.id}"><strong>Choose digital PDF — $${money(i.priceDigital)}</strong><small>Delivered by email within 24 hours</small></a>
-<a class="option" href="/shop?issue=${i.id}&amp;format=print#${i.id}"><strong>Choose print — $${money(i.pricePrint)}</strong><small>Plus $${money(i.shippingPrint)} shipping. Processed and shipped within 5–7 business days.</small></a>
+${printOption}`}
 <p><a href="/pages/shipping-refunds-and-return-policy">Shipping &amp; returns policy</a></p>
-<p>You'll select this issue in the shop before continuing to secure Stripe checkout.</p>
+${!printOnly || i.inStock !== false ? "<p>Review your selection in the shop before continuing to secure Stripe checkout.</p>" : ''}
 <div class="merch"><span>Rep the culture — official WAJ apparel</span><a href="/apparel" target="_blank" rel="noopener">Shop apparel ↗</a></div>
 </section>
 </main>
@@ -156,7 +171,8 @@ function main() {
     try {
       const related = NO_ARTICLE_MATCH.has(i.id) ? [] : posts.filter((p) => issueForText([i], `${p.title} ${strip(p.content)}`)).slice(0, 5);
       fs.writeFileSync(path.join(outDir, `${i.slug}.html`), page(i, issues, related));
-      made++;
+      fs.writeFileSync(path.join(ROOT, `${printPath(i).slice(1)}.html`), page(i, issues, related, true));
+      made += 2;
     } catch (e) { console.log(`[build-issues] skipped ${i.id}: ${e.message}`); }
   }
 
@@ -173,7 +189,8 @@ function main() {
   const sm = path.join(ROOT, 'sitemap.xml');
   if (fs.existsSync(sm)) {
     let x = fs.readFileSync(sm, 'utf8').replace(/\s*<url><loc>https:\/\/wajmagazine\.com\/issues\/[^<]+<\/loc>[\s\S]*?<\/url>/g, '');
-    x = x.replace('</urlset>', issues.map((i) => `  <url><loc>${SITE}/issues/${i.slug}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>`).join('\n') + '\n</urlset>');
+    const issuePaths = issues.flatMap((i) => [`/issues/${i.slug}`, printPath(i)]);
+    x = x.replace('</urlset>', issuePaths.map((urlPath) => `  <url><loc>${SITE}${urlPath}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>`).join('\n') + '\n</urlset>');
     fs.writeFileSync(sm, x);
   }
 
@@ -182,7 +199,7 @@ function main() {
   const rows = issues.map((i) => [
     `${i.id}-PRINT`, `${i.name} | WAJ Magazine ${i.edition} - Print`,
     `Print copy of WAJ Magazine ${i.edition} featuring ${i.name}. Print price $${money(i.pricePrint)} plus $${money(i.shippingPrint)} shipping. Processed and shipped within 5-7 business days.`,
-    `${SITE}/issues/${i.slug}`, abs(i.image), `${money(i.pricePrint)} USD`, i.inStock !== false ? 'in stock' : 'out of stock',
+    `${SITE}${printPath(i)}`, abs(i.image), `${money(i.pricePrint)} USD`, i.inStock !== false ? 'in stock' : 'out of stock',
     i.id, 'WAJ Magazine', 'new', 'Media > Magazines', `US:::${money(i.shippingPrint)} USD`, '543539'].map(csv).join(','));
   fs.writeFileSync(path.join(ROOT, 'pinterest-products.csv'), [head, ...rows].join('\n') + '\n');
   console.log(`[build-issues] generated ${made} issue pages`);
