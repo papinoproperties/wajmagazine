@@ -1,20 +1,3 @@
 {
-  "projects": [
-    {
-      "id": "pmvedh1x6iwz",
-      "name": "JCIFF - Hudson Arts Collective Interviews",
-      "description": "",
-      "type": "editorial",
-      "priority": "medium",
-      "status": "completed",
-      "owner": "",
-      "startDate": "2026-10-18",
-      "dueDate": "2026-10-28",
-      "team": [],
-      "tasks": [],
-      "notes": "",
-      "createdAt": "2026-10-18T22:03:39.643Z",
-      "updatedAt": "2026-10-18T22:03:39.643Z"
-    }
-  ]
+  "projects": []
 }
